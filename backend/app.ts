@@ -6,6 +6,10 @@ import swaggerJSDoc from "swagger-jsdoc";
 import swaggerUi from "swagger-ui-express";
 import userRouter from './controller/user.routes';
 import recipeRouter from "./controller/recipe.routes";
+import menuRouter from "./controller/menu.routes";
+import ingredientRouter from "./controller/ingredient.routes";
+
+require('dotenv').config();
 
 const app = express();
 dotenv.config();
@@ -29,6 +33,8 @@ app.use(bodyParser.json());
 
 app.use("/users", userRouter);
 app.use("/recipes", recipeRouter);
+app.use('/menus', menuRouter);
+app.use('/ingredients', ingredientRouter)
 
 app.get("/status", (req, res) => {
   res.json({ message: "Back-end is running..." });

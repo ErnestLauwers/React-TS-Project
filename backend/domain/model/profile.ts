@@ -3,5 +3,11 @@ export class Profile {
     readonly bio: string
     readonly birthdate: Date
     readonly gender: string
-    readonly profilePicture: File
+
+    constructor ( id: number, bio: string, birthdate: Date, gender: string) {
+        this.id = id;
+        this.bio = bio;
+        this.birthdate = birthdate;
+        this.gender = gender;
+    }
 }

@@ -11,6 +11,25 @@ const getAllRecipes = (): Recipe[] => {
     return recipes;
 };
 
+const getRecipeById = (id: number): Recipe => {
+    for (let i = 0; i < recipes.length; i++) {
+        if (recipes[i].id == id) {
+            return recipes[i];
+        }
+      }
+}
+
+const deleteRecipe = (id: number): void => {
+    for (let i = 0; i < recipes.length; i++) {
+        if (recipes[i].id == id) {
+            recipes.splice(i, 1);
+            break;
+        }
+      }
+    }          
+
 export default {
-    getAllRecipes
+    getAllRecipes,
+    deleteRecipe, 
+    getRecipeById
 };
