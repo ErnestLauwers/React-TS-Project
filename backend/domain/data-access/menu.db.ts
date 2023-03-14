@@ -3,8 +3,8 @@ import { Menu } from '../model/menu';
 let id = 1;
 
 const menus: Menu[] = [
-    new Menu( id++, 'menu1', 'xxx', null),
-    new Menu( id++, 'menu2', 'xxx', null),
+    /*new Menu( id++, 'menu1', 'xxx', null),
+    new Menu( id++, 'menu2', 'xxx', null),*/
 ];
 
 const getAllMenus = (): Menu[] => {

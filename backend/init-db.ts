@@ -5,7 +5,29 @@ import { PrismaClient } from "@prisma/client";
 const prisma = new PrismaClient();
 
 const main = async () => {
-  // Use the prisma API to fill the database with some initial data
+  try {
+    const recipe = await prisma.recipe.create({
+      data: {
+        name: "Pasta with tomato sauce",
+        preparation: "xxx",
+        preparationTime: 50,
+        difficultyLevel: 5,
+        genre: "pasta",
+        ingredients: {
+          create: [
+            { name: "Pasta", amountUsed: 200},
+            { name: "Tomato sauce", amountUsed: 1},
+          ],
+        },
+      },
+    });
+    console.log(`Created recipe with ID: ${recipe.id}`);
+    console.log(`Created recipe with ID: ${recipe.name}`);
+    console.log(`Created recipe with ID: ${recipe.preparationTime}`);
+    console.log(prisma.recipe.findMany);
+  } catch (error) {
+    console.error(error);
+  }
 };
 
 main()
@@ -17,3 +39,7 @@ main()
     await prisma.$disconnect();
     process.exit(1);
   });
+
+  export {
+    prisma
+  }

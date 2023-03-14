@@ -3,6 +3,22 @@ import userService from '../service/user.service';
 
 const userRouter = express.Router();
 
+/**
+ * @swagger
+ * /users:
+ *  get:
+ *      summary: Get all users
+ *      description: This API is used to get all users
+ *      responses:
+ *          200:
+ *              description: Returns users
+ *              content:
+ *                  application/json:
+ *                      schema:
+ *                          type: array
+ *                          items:
+ *                              $ref: '#components/schema/User'
+ */
 userRouter.get('/', async (request: Request, response: Response) => {
     try {
         const allUsers = await userService.getAllUsers();
@@ -12,6 +28,29 @@ userRouter.get('/', async (request: Request, response: Response) => {
     }
 })
 
+/**
+ * @swagger
+ * /users/{id}:
+ *  get:
+ *      summary: Get a user by ID
+ *      description: This API is used to get a user by ID
+ *      responses:
+ *          200:
+ *              description: Returns a user
+ *              content:
+ *                  application/json:
+ *                      schema:
+ *                          items:
+ *                              $ref: '#components/schema/User'
+ *      parameters:
+ *          - name: id
+ *            in: path
+ *            description: User ID
+ *            required: true
+ *            schema:
+ *              type: integer
+ *              format: int64
+ */
 userRouter.get('/:id', async (request: Request, response: Response) => {
     try {
         const id = Number(request.params.id);

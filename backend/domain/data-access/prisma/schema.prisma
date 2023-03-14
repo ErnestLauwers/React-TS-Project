@@ -14,35 +14,12 @@ model User {
   username String
   email String
   password String
-  recipes Recipe[]
-  profile Profile?
-  reviews Review[]
 }
 
 model Menu {
   id      Int      @id @default(autoincrement())
   name String
   comment String
-  recipes Recipe[]
-}
-
-model Review {
-  id      Int      @id @default(autoincrement())
-  score Int 
-  comment String
-  recipe Recipe@relation(fields: [recipeId], references: [id])
-  recipeId Int
-  user User@relation(fields: [userId], references: [id])
-  userId Int
-}
-
-model Profile {
-  id     Int  @id @default(autoincrement())
-  bio String
-  birthdate DateTime
-  gender String
-  user   User @relation(fields: [userId], references: [id])
-  userId Int  @unique 
 }
 
 model Recipe {
@@ -52,26 +29,13 @@ model Recipe {
   preparationTime Int
   difficultyLevel Int
   genre String
-  ingredients RecipeIngredient[] 
-  user User @relation(fields: [userId], references: [id])
-  userId Int
-  menu Menu? @relation(fields: [menuId], references: [id])
-  menuId Int?
-  reviews Review[]
-}
-
-model RecipeIngredient {
-  recipe Recipe @relation(fields: [recipeId], references: [id])
-  recipeId Int
-  ingredient Ingredient @relation(fields: [ingredientId], references: [id])
-  ingredientId Int
-  @@id([recipeId, ingredientId])
+  ingredients Ingredient[] 
+  
 }
 
 model Ingredient {
   id Int @id @default(autoincrement())
   name String
   amountUsed Int
-  recipes RecipeIngredient[]
+  recipes Recipe[]
 }
-

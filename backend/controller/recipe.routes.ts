@@ -3,6 +3,22 @@ import recipeService from '../service/recipe.service';
 
 const recipeRouter = express.Router();
 
+/**
+ * @swagger
+ * /recipes:
+ *  get:
+ *      summary: Get all recipes
+ *      description: This API is used to get all recipes
+ *      responses:
+ *          200:
+ *              description: Returns recipes
+ *              content:
+ *                  application/json:
+ *                      schema:
+ *                          type: array
+ *                          items:
+ *                              $ref: '#components/schema/Recipe'
+ */
 recipeRouter.get('/', async (request: Request, response: Response) => {
     try {
         const allRecipes = await recipeService.getAllRecipes();
@@ -12,6 +28,29 @@ recipeRouter.get('/', async (request: Request, response: Response) => {
     }
 })
 
+/**
+ * @swagger
+ * /recipes/{id}:
+ *  get:
+ *      summary: Get a recipe by ID
+ *      description: This API is used to get a recipe by ID
+ *      responses:
+ *          200:
+ *              description: Returns a recipe
+ *              content:
+ *                  application/json:
+ *                      schema:
+ *                          items:
+ *                              $ref: '#components/schema/Recipe'
+ *      parameters:
+ *          - name: id
+ *            in: path
+ *            description: Recipe ID
+ *            required: true
+ *            schema:
+ *              type: integer
+ *              format: int64
+ */
 recipeRouter.get('/:id', async (request: Request, response: Response) => {
     try {
         const id = Number(request.params.id);

@@ -1,22 +1,39 @@
 import { Recipe } from '../model/recipe';
+import { prisma as database } from '../../init-db';
+import { mapToRecipes, mapToRecipe } from './recipe.mapper';
 
 let id = 1;
 
 const recipes: Recipe[] = [
-    new Recipe( id++, 'Lasagne', 'xxx', 30, 6, null, 'avond eten', null),
-    new Recipe( id++, 'frietjes', 'xxx', 20, 2, null, 'snack' ,null),
+    
 ];
 
-const getAllRecipes = (): Recipe[] => {
-    return recipes;
+const getAllRecipes = async (): Promise<Recipe[]> => {
+    try {
+        const recipesPrisma = await database.recipe.findMany({
+            include: { ingredients: true}
+        })
+        return mapToRecipes(recipesPrisma);
+    } catch (error) {
+        console.log(error);
+        throw new Error('Database error. See server log for details.');
+    }
 };
 
-const getRecipeById = (id: number): Recipe => {
-    for (let i = 0; i < recipes.length; i++) {
-        if (recipes[i].id == id) {
-            return recipes[i];
-        }
-      }
+const getRecipeById = async (id: number): Promise<Recipe> => {
+    try {
+        const recipePrisma = await database.recipe.findUnique({
+            where: {
+                id: id,
+            },
+        });
+        console.log(recipePrisma);
+        console.log(mapToRecipe(recipePrisma));
+        return mapToRecipe(recipePrisma);
+    } catch (error) {
+        console.log(error);
+        throw new Error('Database error. See server log for details.');
+    }
 }
 
 const deleteRecipe = (id: number): void => {
