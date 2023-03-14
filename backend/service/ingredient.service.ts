@@ -7,9 +7,9 @@ const getAllIngredients = async (): Promise<Ingredient[]> => ingredientDb.getAll
 
 const getIngredientById = async (id: number): Promise<Ingredient> => ingredientDb.getIngredientById(id)
 
-const deleteIngredient = async (id: number): Promise<void> => ingredientDb.deleteIngredient(id);
+const deleteIngredient = async (id: number): Promise<Ingredient> => ingredientDb.deleteIngredient(id);
 
-const addIngredient = async ({ name, amountUsed, recipeId }: IngredientInput): Promise<Ingredient> => {
+const addIngredient = async ({ recipeId, name, amountUsed }: IngredientInput): Promise<Ingredient> => {
     if (!amountUsed || Number.isNaN(Number(amountUsed))) {
         throw new Error('Amount Used is an invalid number.');
     }

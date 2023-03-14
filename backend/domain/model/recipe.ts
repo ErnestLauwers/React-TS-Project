@@ -10,7 +10,13 @@ export class Recipe {
     readonly genre: string
 
     constructor( recipe: {id?: number, name: string, preparation: string, preparationTime: number, difficultyLevel: number, ingredients: Ingredient[], genre: string }) {
-        
+        this.id = recipe.id;
+        this.name = recipe.name;
+        this.preparation = recipe.preparation;
+        this.preparationTime = recipe.preparationTime;
+        this.difficultyLevel = recipe.difficultyLevel;
+        this.genre = recipe.genre;
+        this.ingredients = recipe.ingredients;
     }
 
     equals({ id, name, preparation, preparationTime, difficultyLevel, genre, ingredients}): boolean {

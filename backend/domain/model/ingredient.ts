@@ -4,7 +4,9 @@ export class Ingredient {
     readonly amountUsed: number;
 
     constructor (ingredient: { id?: number, name: string, amountUsed: number } ) {
-        
+        this.id = ingredient.id;
+        this.name = ingredient.name;
+        this.amountUsed = ingredient.amountUsed;
     }
 
     equals( { id, name, amountUsed } ): boolean {
@@ -12,6 +14,6 @@ export class Ingredient {
     }
 
     static create( { id, name, amountUsed } ) {
-
+        return new Ingredient({id, name, amountUsed});
     }
 }

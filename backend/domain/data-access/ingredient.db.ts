@@ -28,8 +28,6 @@ const getIngredientById = async (id: number): Promise<Ingredient> => {
                 id: id,
             },
         });
-        console.log(ingredientPrisma);
-        console.log(mapToIngredient(ingredientPrisma));
         return mapToIngredient(ingredientPrisma);
     } catch (error) {
         console.log(error);
@@ -37,13 +35,19 @@ const getIngredientById = async (id: number): Promise<Ingredient> => {
     }
 }
 
-const deleteIngredient = async (id: number): Promise<void> => {
+const deleteIngredient = async (id: number): Promise<Ingredient> => {
     try {
+        const deletedIngredient = await database.ingredient.findUnique({
+            where: {
+                id: id,
+            },
+        });
         await database.ingredient.delete({
             where: {
                 id: id,
             },
         });
+        return mapToIngredient(deletedIngredient);
     } catch (error) {
         console.log(error);
         throw new Error('Database error. See server log for details.');

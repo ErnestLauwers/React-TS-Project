@@ -21,10 +21,6 @@ const main = async () => {
         },
       },
     });
-    console.log(`Created recipe with ID: ${recipe.id}`);
-    console.log(`Created recipe with ID: ${recipe.name}`);
-    console.log(`Created recipe with ID: ${recipe.preparationTime}`);
-    console.log(prisma.recipe.findMany);
   } catch (error) {
     console.error(error);
   }
