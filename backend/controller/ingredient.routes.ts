@@ -1,6 +1,40 @@
+ /**
+ * @swagger 
+ * components:
+ *   schemas:
+ *     Ingredient:
+ *       type: object
+ *       properties:
+ *         id:
+ *           type: number
+ *           description: The ID of the ingredient
+ *         name:
+ *           type: string
+ *           description: The name of the ingredient
+ *         amountUsed:
+ *           type: number
+ *           description: The amount of the ingredient used
+ *     IngredientInput:
+ *       type: object
+ *       properties:
+ *         id:
+ *           type: number
+ *           format: int64
+ *           description: The ID of the ingredient
+ *         name:
+ *           type: string
+ *           description: The name of the ingredient
+ *         amountUsed:
+ *           type: number
+ *           description: The amount of the ingredient used
+ *         recipeId:
+ *           type: number
+ *           format: int64
+ */
 import express, { Request, response, Response } from 'express';
 import ingredientService from '../service/ingredient.service';
 import { IngredientInput } from '../types/types';
+
 
 const ingredientRouter = express.Router();
 
@@ -23,8 +57,6 @@ const ingredientRouter = express.Router();
 ingredientRouter.get('/', async (request: Request, response: Response) => {
     try {
         const allIngredients = await ingredientService.getAllIngredients();
-        console.log(allIngredients);
-        console.log(allIngredients[0].name);
         response.status(200).json(allIngredients);
     } catch (error) {
         response.status(500).json({ status: 'error', errorMessage: error.message })
@@ -104,27 +136,28 @@ ingredientRouter.put('/update/:id', async (request: Request, repsonse: Response)
 
 /**
  * @swagger
- * /ingredients/add/{recipeId}:
- *  post:
- *      summary: Add an ingredient
- *      requestBody:
- *          required: true
- *          content:
- *              application/json:
- *                  schema:
- *                      $ref: '#/components/schemas/IngredientInput'
- *      responses:
- *          200:
- *              description: The created ingredient object
- *              content:
- *                  application/json:
- *                      schema:
- *                          $ref: '#/components/schemas/Ingredient'
+ * /add/{recipeId}:
+ *   post:
+ *     summary: Add a new ingredient to a recipe
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             $ref: '#/components/schemas/IngredientInput'
+ * 
+ *     responses:
+ *       '200':
+ *         description: Returns the new Ingredient
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/Ingredient'
  */
-ingredientRouter.post('/add/:recipeId', async (request: Request, repsonse: Response) => {
+ingredientRouter.post('/add/:recipeId', async (request: Request, response: Response) => {
     const ingredientInput = <IngredientInput>request.body;
     try {
-        const ingredient = await ingredientService.addIngredient({recipeId: parseInt(request.body.id), ...ingredientInput });
+        const ingredient = await ingredientService.addIngredient({recipeId: parseInt(request.params.id), ...ingredientInput });
         response.status(200).json(ingredient);
     } catch (error) {
         response.status(500).json({ status: 'error', errorMessage: error.message});

@@ -10,21 +10,18 @@ const swaggerUi = require('swagger-ui-express')
 
 const port = process.env.PORT || 3000;
 
-const swaggerOptions = {
-  swaggerDefinition: {
+const swaggerOpts = {
+  definition: {
+    openapi: "3.0.0",
     info: {
-      title: "Cookbook Companion API",
-      description: "Cookbook Companion API Information",
-      contact: {
-        name: "Igor Stefanovic & Ernest Lauwers"
-      },
-      servers: ["http://localhost:3000"]
-    }
+      title: "Back-end",
+      version: "1.0.0",
+    },
   },
-  apis: ["./controller/*.routes.ts"]
+  apis: ["./controller/*.routes.ts"],
 };
 
-const swaggerDocs = swaggerJSDoc(swaggerOptions);
+const swaggerDocs = swaggerJSDoc(swaggerOpts);
 app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerDocs));
 
 app.use("/users", userRouter);

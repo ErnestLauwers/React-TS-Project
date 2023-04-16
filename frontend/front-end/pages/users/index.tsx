@@ -29,7 +29,6 @@ const Users: React.FC = () => {
             <Header></Header>
             <main>
                 <section className='row justify-content-center'>
-                    <p>MARTEN CLIX</p>
                     <UsersOverview users={users} />
                 </section>
             </main>
