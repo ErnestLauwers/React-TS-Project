@@ -22,7 +22,6 @@ const getUserById = async (id: number): Promise<User> => {
             },
             include: { recipes: true },
         });
-    
         return mapToUser(userPrisma);
     } catch (error) {
         console.log(error);
@@ -38,21 +37,60 @@ const deleteUser = async (id: number): Promise<User> => {
             },
             include: { recipes: true },
         });
+        await database.recipe.deleteMany({
+            where: {
+                userId: id,
+            },
+        });
         await database.user.delete({
             where: {
                 id: id,
             },
-            include: { recipes: true },
         });
         return mapToUser(deletedUser);
     } catch (error) {
         console.log(error);
         throw new Error('Database error. See server log for details3.');
     }
-}          
+}
+
+const addUser = async ({
+    firstName,
+    lastName,
+    username,
+    email,
+    password,
+}: {
+    firstName: string;
+    lastName: string,
+    username: string,
+    email: string,
+    password: string,
+}): Promise<User> => {
+    try {
+        const userPrisma = await database.user.create({
+            data: {
+                firstName,
+                lastName,
+                username,
+                email,
+                password,
+                recipes: { create: [] }
+            },
+            include: {
+                recipes: true,
+            }
+        });
+        return mapToUser(userPrisma);
+    } catch (error) {
+        console.error(error);
+        throw new Error('There was a Database error trying to create an ingredient.recipe')
+    }
+}
 
 export default {
     getAllUsers, 
     deleteUser, 
-    getUserById
+    getUserById, 
+    addUser
 };

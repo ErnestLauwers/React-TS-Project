@@ -12,7 +12,7 @@ const mapToIngredient = ({
     new Ingredient({ id, name, amountUsed });
 
 const mapToIngredients = (ingredientsPrisma: IngredientPrisma[]): Ingredient[] =>
-    ingredientsPrisma.map(mapToIngredient);
+    ingredientsPrisma?.map(mapToIngredient);
 
 export {
     mapToIngredient,

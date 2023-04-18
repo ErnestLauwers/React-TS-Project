@@ -16,7 +16,7 @@ const mapToRecipe = ({
     new Recipe({ id, name, preparation, preparationTime, difficultyLevel, genre, userId, ingredients: mapToIngredients(ingredients) });
 
 const mapToRecipes = (recipesPrisma: (RecipePrisma[])): Recipe[] =>
-    recipesPrisma.map(mapToRecipe);
+    recipesPrisma?.map(mapToRecipe);
 
 export {
     mapToRecipe,

@@ -23,7 +23,7 @@ const mapToUser = ({
 });
 
 const mapToUsers = (usersPrisma: (UserPrisma[])): User[] =>
-    usersPrisma.map(mapToUser);
+    usersPrisma?.map(mapToUser);
 
 export {
     mapToUser,
