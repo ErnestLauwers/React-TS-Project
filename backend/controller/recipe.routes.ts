@@ -2,7 +2,7 @@
  * @swagger 
  * components:
  *   schemas:
- *     Recipe   :
+ *     Recipe:
  *       type: object
  *       properties:
  *         name:
@@ -20,11 +20,61 @@
  *         genre:
  *           type: string
  *           description: The amount of the ingredient used
- *         
+ *         ingredients:
+ *           type: array
+ *           items:
+ *             $ref: '#/components/schemas/Ingredient'
+ *     RecipeInput:
+ *       type: object
+ *       properties:
+ *         id:
+ *           type: string
+ *           format: int64
+ *           required: false
+ *         name:
+ *           type: string
+ *           description: The name of the ingredient
+ *         preparation:
+ *           type: string
+ *           description: The amount of the ingredient used
+ *         preparationTime:
+ *           type: string
+ *           description: The amount of the ingredient used
+ *         difficultyLevel:
+ *           type: string
+ *           description: The amount of the ingredient used
+ *         genre:
+ *           type: string
+ *           description: The amount of the ingredient used
+ *         ingredientId:
+ *           type: string
+ *     EditRecipeInput:
+ *       type: object
+ *       properties:
+ *         id:
+ *           type: string
+ *           format: int64
+ *           required: false
+ *         name:
+ *           type: string
+ *           description: The name of the ingredient
+ *         preparation:
+ *           type: string
+ *           description: The amount of the ingredient used
+ *         preparationTime:
+ *           type: string
+ *           description: The amount of the ingredient used
+ *         difficultyLevel:
+ *           type: string
+ *           description: The amount of the ingredient used
+ *         genre:
+ *           type: string
+ *           description: The amount of the ingredient used 
  */
 
 import express, { Request, Response } from 'express';
 import recipeService from '../service/recipe.service';
+import { RecipeInput, EditRecipeInput } from '../types/types';
 
 const recipeRouter = express.Router();
 
@@ -86,17 +136,89 @@ recipeRouter.get('/:id', async (request: Request, response: Response) => {
     }
 })
 
+/**
+ * @swagger
+ * /recipes/delete/{id}:
+ *  delete:
+ *      summary: Delete a recipe by ID
+ *      parameters:
+ *          - in: path
+ *            name: id
+ *            description: The ID of the recipe to delete
+ *            required: true
+ *            schema:
+ *                type: integer
+ *      responses:
+ *          '200':
+ *              description: The recipe was successfully deleted
+ */
 recipeRouter.delete('/delete/:id', async (request: Request, response: Response) => {
-    console.log('0')
     try {
-        console.log('1')
         const id = Number(request.params.id);
-        await recipeService.deleteRecipe(id);
-        console.log('2')
-        response.redirect('/recipes');
-        console.log('3')
+        const deletedRecipe  = await recipeService.deleteRecipe(id);
+        response.status(200).json(deletedRecipe);
     } catch (error) {
         response.status(500).json({ status: 'error', errorMessage: error.message })
+    }
+})
+
+/**
+ * @swagger
+ * /recipes/add:
+ *   post:
+ *     summary: Add a new recipe
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             $ref: '#/components/schemas/RecipeInput'
+ * 
+ *     responses:
+ *       '200':
+ *         description: Returns the new Recipe
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/Recipe'
+ */
+recipeRouter.post('/add', async (request: Request, response: Response) => {
+    const recipeInput = <RecipeInput>request.body;
+    try {
+        const recipe = await recipeService.addRecipe(recipeInput);
+        response.status(200).json(recipe);
+    } catch (error) {
+        response.status(500).json({ status: 'error', errorMessage: error.message});
+    }
+});
+
+/**
+ * @swagger
+ * /recipes/update:
+ *   put:
+ *     summary: Update an existing recipe
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             $ref: '#/components/schemas/EditRecipeInput'
+ * 
+ *     responses:
+ *       '200':
+ *         description: Updates the Recipe
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/Recipe'
+ */
+recipeRouter.put('/update', async (request: Request, response: Response) => {
+    const editRecipeInput = <EditRecipeInput>request.body;
+    try {
+        const updatedRecipe = await recipeService.editRecipe(editRecipeInput);
+        response.status(200).json(updatedRecipe);
+    } catch (error) {
+        response.status(500).json({ status: 'error', errorMessage: error.message});
     }
 })
 

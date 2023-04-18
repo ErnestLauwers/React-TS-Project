@@ -1,6 +1,7 @@
-import { Recipe as RecipePrisma, Ingredient as IngredientPrisma, Menu as MenuPrisma } from "@prisma/client";
+import { Recipe as RecipePrisma, Ingredient as IngredientPrisma} from "@prisma/client";
 import { Recipe } from "../model/recipe";
 import { mapToIngredients } from "./ingredient.mapper";
+import { Ingredient } from "../model/ingredient";
 
 const mapToRecipe = ({
     id, 
@@ -9,8 +10,9 @@ const mapToRecipe = ({
     preparationTime,
     difficultyLevel,
     genre,
-}: RecipePrisma): Recipe =>
-    new Recipe({ id, name, preparation, preparationTime, difficultyLevel, genre });
+    ingredients,
+}: RecipePrisma & { ingredients: IngredientPrisma[] }): Recipe & { ingredients: Ingredient[] } =>
+    new Recipe({ id, name, preparation, preparationTime, difficultyLevel, genre, ingredients: mapToIngredients(ingredients) });
 
 const mapToRecipes = (recipesPrisma: (RecipePrisma)[]): Recipe[] =>
     recipesPrisma.map(mapToRecipe);

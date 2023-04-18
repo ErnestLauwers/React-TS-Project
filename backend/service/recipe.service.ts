@@ -1,34 +1,60 @@
 import { Recipe } from '../domain/model/recipe';
 import recipeDb from '../domain/data-access/recipe.db';
-import { RecipeInput } from '../types/types';
+import { RecipeInput, EditRecipeInput } from '../types/types';
 import ingredientService from './ingredient.service';
 
 const getAllRecipes = async (): Promise<Recipe[]> => recipeDb.getAllRecipes();
 
 const getRecipeById = async (id: number): Promise<Recipe> => recipeDb.getRecipeById(id)
 
-const deleteRecipe = (id: number): void => recipeDb.deleteRecipe(id);
-/*
-const addIngredient = async ({ name, preparation, preparationTime, difficultyLevel, genre, ingredientId }: RecipeInput): Promise<Recipe> => {
-    if (!preparationTime || Number.isNaN(Number(preparationTime))) {
-        throw new Error('PT is an invalid number.');
-    }
+const deleteRecipe = async (id: number): Promise<Recipe> => recipeDb.deleteRecipe(id);
 
-    const ingredient = await ingredientService.getIngredientById( ingredientId );
+const addRecipe = async ({ name, preparation, preparationTime, difficultyLevel, genre, ingredientId }: RecipeInput): Promise<Recipe> => {
+    /*if (!amountUsed || Number.isNaN(Number(amountUsed))) {
+        throw new Error('Amount Used is an invalid number.');
+    }*/
 
-    if (!ingredient) {
+    /*const recipe = await recipeService.getRecipeById( parseInt(recipeId) );
+
+    if (!recipe) {
         throw new Error('No recipe exists with ID ${recipeId}');
-    }
+    }*/
 
     return await recipeDb.addRecipe({
         name: name,
-        amountUsed: amountUsed,
-        recipeId: recipeId,
+        preparation: preparation,
+        preparationTime: Number(preparationTime),
+        difficultyLevel: Number(difficultyLevel),
+        genre: genre,
+        ingredientId: Number(ingredientId)
     })
-}*/
+}
+
+const editRecipe = async ({ id, name, preparation, preparationTime, difficultyLevel, genre }: EditRecipeInput): Promise<Recipe> => {
+    /*if (!amountUsed || Number.isNaN(Number(amountUsed))) {
+        throw new Error('Amount Used is an invalid number.');
+    }*/
+
+    /*const recipe = await recipeService.getRecipeById( parseInt(recipeId) );
+
+    if (!recipe) {
+        throw new Error('No recipe exists with ID ${recipeId}');
+    }*/
+
+    return await recipeDb.editRecipe({
+        id: Number(id),
+        name: name,
+        preparation: preparation,
+        preparationTime: Number(preparationTime),
+        difficultyLevel: Number(difficultyLevel),
+        genre: genre
+    })
+}
 
 export default {
     getAllRecipes, 
     deleteRecipe, 
-    getRecipeById
+    getRecipeById, 
+    addRecipe, 
+    editRecipe
 };

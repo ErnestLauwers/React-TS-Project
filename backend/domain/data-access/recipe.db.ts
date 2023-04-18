@@ -26,9 +26,9 @@ const getRecipeById = async (id: number): Promise<Recipe> => {
             where: {
                 id: id,
             },
+            include: { ingredients: true },
         });
-        console.log(recipePrisma);
-        console.log(mapToRecipe(recipePrisma));
+    
         return mapToRecipe(recipePrisma);
     } catch (error) {
         console.log(error);
@@ -36,14 +36,27 @@ const getRecipeById = async (id: number): Promise<Recipe> => {
     }
 }
 
-const deleteRecipe = (id: number): void => {
-    for (let i = 0; i < recipes.length; i++) {
-        if (recipes[i].id == id) {
-            recipes.splice(i, 1);
-            break;
-        }
+const deleteRecipe = async (id: number): Promise<Recipe> => {
+    try {
+        const deletedRecipe = await database.recipe.findUnique({
+            where: {
+                id: id,
+            },
+            include: { ingredients: true },
+        });
+        await database.recipe.delete({
+            where: {
+                id: id,
+            },
+            include: { ingredients: true },
+        });
+        return mapToRecipe(deletedRecipe);
+    } catch (error) {
+        console.log(error);
+        throw new Error('Database error. See server log for details3.');
     }
 }          
+
 
 const addRecipe = async ({
     name,
@@ -81,9 +94,46 @@ const addRecipe = async ({
     }
 }
 
+const editRecipe = async ({
+    id,
+    name,
+    preparation,
+    preparationTime,
+    difficultyLevel,
+    genre,
+}: {
+    id: number,
+    name: string;
+    preparation: string,
+    preparationTime: number,
+    difficultyLevel: number,
+    genre: string,
+}): Promise<Recipe> => {
+    try {
+        const recipePrisma = await database.recipe.update({
+            where: { id },
+            data: {
+                name,
+                preparation,
+                preparationTime,
+                difficultyLevel,
+                genre,
+            },
+            include: {
+                ingredients: true,
+            }
+        });
+        return mapToRecipe(recipePrisma);
+    } catch (error) {
+        console.error(error);
+        throw new Error('There was a Database error trying to update the recipe')
+    }
+}
+
 export default {
     getAllRecipes,
     deleteRecipe, 
     getRecipeById,
-    addRecipe
+    addRecipe, 
+    editRecipe
 };

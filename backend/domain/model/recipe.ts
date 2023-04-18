@@ -7,8 +7,9 @@ export class Recipe {
     readonly preparationTime: number
     readonly difficultyLevel: number
     readonly genre: string
+    readonly ingredients: Ingredient[]
 
-    constructor( recipe: {id?: number, name: string, preparation: string, preparationTime: number, difficultyLevel: number, genre: string }) {
+    constructor( recipe: {id?: number, name: string, preparation: string, preparationTime: number, difficultyLevel: number, genre: string, ingredients: Ingredient[] }) {
         this.id = recipe.id;
         this.name = recipe.name;
         this.preparation = recipe.preparation;
@@ -21,7 +22,7 @@ export class Recipe {
         return true;
     }
 
-    static create({ id, name, preparation, preparationTime, difficultyLevel, genre}) {
+    static create({ id, name, preparation, preparationTime, difficultyLevel, genre, ingredients}) {
         
     }
 }

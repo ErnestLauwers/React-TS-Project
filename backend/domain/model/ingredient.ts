@@ -4,9 +4,8 @@ export class Ingredient {
     readonly id?: number
     readonly name: string
     readonly amountUsed: number;
-    readonly recipes: Recipe[];
 
-    constructor (ingredient: { id?: number, name: string, amountUsed: number, recipes: Recipe[] } ) {
+    constructor (ingredient: { id?: number, name: string, amountUsed: number } ) {
         this.id = ingredient.id;
         this.name = ingredient.name;
         this.amountUsed = ingredient.amountUsed;
@@ -16,7 +15,7 @@ export class Ingredient {
         return true;
     }
 
-    static create( { id, name, amountUsed, recipes } ) {
-        return new Ingredient({id, name, amountUsed, recipes});
+    static create( { id, name, amountUsed } ) {
+        return new Ingredient({id, name, amountUsed });
     }
 }

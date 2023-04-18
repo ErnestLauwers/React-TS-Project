@@ -8,9 +8,8 @@ const mapToIngredient = ({
     id, 
     name, 
     amountUsed, 
-    recipes, 
-}: IngredientPrisma & { recipes: RecipePrisma[] }): Ingredient & { recipes: Recipe[] }  => 
-    new Ingredient({ id, name, amountUsed, recipes: mapToRecipes(recipes) });
+}: IngredientPrisma): Ingredient => 
+    new Ingredient({ id, name, amountUsed });
 
 const mapToIngredients = (ingredientsPrisma: IngredientPrisma[]): Ingredient[] =>
     ingredientsPrisma.map(mapToIngredient);

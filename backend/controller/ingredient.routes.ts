@@ -11,10 +11,6 @@
  *         amountUsed:
  *           type: string
  *           description: The amount of the ingredient used
- *         recipes:
- *           type: array
- *           items:
- *             $ref: '#/components/schemas/Recipe'
  *     IngredientInput:
  *       type: object
  *       properties:
@@ -31,7 +27,7 @@
  *         recipeId:
  *           type: string
  */
-import express, { Request, response, Response } from 'express';
+import express, { Request, Response } from 'express';
 import ingredientService from '../service/ingredient.service';
 import { IngredientInput } from '../types/types';
 

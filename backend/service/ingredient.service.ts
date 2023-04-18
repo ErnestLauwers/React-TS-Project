@@ -23,7 +23,7 @@ const addIngredient = async ({ name, amountUsed, recipeId }: IngredientInput): P
     return await ingredientDb.addIngredient({
         name: name,
         amountUsed: Number(amountUsed),
-        recipeId: Number(recipeId),
+        recipeId: Number(recipeId)
     })
 }
 /*
