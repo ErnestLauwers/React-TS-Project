@@ -1,7 +1,12 @@
 export interface IngredientInput {
     name: string,
     amountUsed: string
-    recipeId: number
+}
+
+export interface EditIngredientInput {
+    id: number,
+    name: string,
+    amountUsed: string
 }
 
 export interface RecipeInput {

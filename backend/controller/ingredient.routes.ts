@@ -24,12 +24,10 @@
  *         amountUsed:
  *           type: string
  *           description: The amount of the ingredient used
- *         recipeId:
- *           type: string
  */
 import express, { Request, Response } from 'express';
 import ingredientService from '../service/ingredient.service';
-import { IngredientInput } from '../types/types';
+import { IngredientInput, EditIngredientInput } from '../types/types';
 
 
 const ingredientRouter = express.Router();
@@ -118,24 +116,41 @@ ingredientRouter.delete('/delete/:id', async (request: Request, response: Respon
     }
 })
 
-/*
-ingredientRouter.put('/update/:id', async (request: Request, repsonse: Response) => {
-    const ingredientInput = <IngredientInput>request.body;
-    const id = Number(request.params.id);
+/**
+ * @swagger
+ * /ingredients/update:
+ *   put:
+ *     summary: Update an existing Ingredient
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             $ref: '#/components/schemas/IngredientInput'
+ * 
+ *     responses:
+ *       '200':
+ *         description: Updates the Ingredient
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/Ingredient'
+ */
+ingredientRouter.put('/update', async (request: Request, response: Response) => {
+    const editIngredientInput = <EditIngredientInput>request.body;
     try {
-        const ingredient = await ingredientService.editIngredient(id, ingredientInput.name, ingredientInput.amountUsed);
+        const ingredient = await ingredientService.editIngredient(editIngredientInput);
         response.status(200).json(ingredient);
     } catch (error) {
         response.status(500).json({ status: 'error', errorMessage: error.message});
     }
 })
-*/
 
 /**
  * @swagger
  * /ingredients/add:
  *   post:
- *     summary: Add a new ingredient to a recipe
+ *     summary: Add a new ingredient
  *     requestBody:
  *       required: true
  *       content:

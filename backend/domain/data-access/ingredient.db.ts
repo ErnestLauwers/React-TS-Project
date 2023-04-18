@@ -17,12 +17,14 @@ const getAllIngredients = async (): Promise<Ingredient[]> => {
 };
 
 const getIngredientById = async (id: number): Promise<Ingredient> => {
+    if (database.ingredient.findUnique({where: { id: id,},})) {
+        return null;
+    }
     try {
         const ingredientPrisma = await database.ingredient.findUnique({
             where: {
                 id: id,
             },
-            include: { recipes: true },
         });
         return mapToIngredient(ingredientPrisma);
     } catch (error) {
@@ -55,18 +57,15 @@ const deleteIngredient = async (id: number): Promise<Ingredient> => {
 const addIngredient = async ({
     name,
     amountUsed,
-    recipeId,
 }: {
     name: string;
     amountUsed: number;
-    recipeId: number;
 }): Promise<Ingredient> => {
     try {
         const ingredientPrisma = await database.ingredient.create({
             data: {
                 name,
                 amountUsed,
-                recipes: { connect: [{ id: recipeId }] },
             },
             include: {
                 recipes: true,
@@ -79,26 +78,30 @@ const addIngredient = async ({
     }
 }
 
-const editIngredient = async (
+const editIngredient = async ({
+    id,
+    name,
+    amountUsed,
+}: {
     id: number,
-    name: string,
-    amountUsed: number
-): Promise<void> => {
+    name: string;
+    amountUsed: number,
+}): Promise<Ingredient> => {
     try {
         const ingredientPrisma = await database.ingredient.update({
-            where: {
-                id: id,
-            },
+            where: { id },
             data: {
                 name,
                 amountUsed,
             },
         });
+        return mapToIngredient(ingredientPrisma);
     } catch (error) {
-        console.log(error);
-        throw new Error('Database error. See server log for details.2')
+        console.error(error);
+        throw new Error('There was a Database error trying to update the ingredient')
     }
 }
+
 
 export default {
     getAllIngredients, 

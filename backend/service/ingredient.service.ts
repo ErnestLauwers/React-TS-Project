@@ -1,7 +1,6 @@
 import { Ingredient } from '../domain/model/ingredient';
 import ingredientDb from '../domain/data-access/ingredient.db';
-import recipeService from './recipe.service';
-import { IngredientInput, RecipeInput } from '../types/types';
+import { IngredientInput, EditIngredientInput } from '../types/types';
 
 const getAllIngredients = async (): Promise<Ingredient[]> => ingredientDb.getAllIngredients();
 
@@ -9,7 +8,7 @@ const getIngredientById = async (id: number): Promise<Ingredient> => ingredientD
 
 const deleteIngredient = async (id: number): Promise<Ingredient> => ingredientDb.deleteIngredient(id);
 
-const addIngredient = async ({ name, amountUsed, recipeId }: IngredientInput): Promise<Ingredient> => {
+const addIngredient = async ({ name, amountUsed }: IngredientInput): Promise<Ingredient> => {
     /*if (!amountUsed || Number.isNaN(Number(amountUsed))) {
         throw new Error('Amount Used is an invalid number.');
     }*/
@@ -23,24 +22,31 @@ const addIngredient = async ({ name, amountUsed, recipeId }: IngredientInput): P
     return await ingredientDb.addIngredient({
         name: name,
         amountUsed: Number(amountUsed),
-        recipeId: Number(recipeId)
     })
 }
-/*
-const editIngredient = async (id: number, name: string, amountUsed: number): Promise<void> => {
-    if (!name) {
-        name = (await ingredientDb.getIngredientById(id)).name;
-    }
-    if (!amountUsed) {
-        amountUsed = (await ingredientDb.getIngredientById(id)).amountUsed;
-    }
-    ingredientDb.editIngredient(id, name, amountUsed);
+
+const editIngredient = async ({ id, name, amountUsed }: EditIngredientInput): Promise<Ingredient> => {
+    /*if (!amountUsed || Number.isNaN(Number(amountUsed))) {
+        throw new Error('Amount Used is an invalid number.');
+    }*/
+
+    /*const recipe = await recipeService.getRecipeById( parseInt(recipeId) );
+
+    if (!recipe) {
+        throw new Error('No recipe exists with ID ${recipeId}');
+    }*/
+
+    return await ingredientDb.editIngredient({
+        id: Number(id),
+        name: name,
+        amountUsed: Number(amountUsed)
+    })
 }
-*/
+
 export default {
     getAllIngredients,
     addIngredient,
     deleteIngredient, 
     getIngredientById,
-    /*editIngredient*/
+    editIngredient
 };

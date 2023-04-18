@@ -10,15 +10,15 @@ const getRecipeById = async (id: number): Promise<Recipe> => recipeDb.getRecipeB
 const deleteRecipe = async (id: number): Promise<Recipe> => recipeDb.deleteRecipe(id);
 
 const addRecipe = async ({ name, preparation, preparationTime, difficultyLevel, genre, ingredientId }: RecipeInput): Promise<Recipe> => {
-    /*if (!amountUsed || Number.isNaN(Number(amountUsed))) {
+    if (!preparationTime || Number.isNaN(preparationTime)) {
         throw new Error('Amount Used is an invalid number.');
-    }*/
+    }
 
-    /*const recipe = await recipeService.getRecipeById( parseInt(recipeId) );
+    const ingredient = await ingredientService.getIngredientById( parseInt(ingredientId.toString()) );
 
-    if (!recipe) {
-        throw new Error('No recipe exists with ID ${recipeId}');
-    }*/
+    if (!ingredient) {
+        throw new Error('No ingredient exists with this ID');
+    }
 
     return await recipeDb.addRecipe({
         name: name,
