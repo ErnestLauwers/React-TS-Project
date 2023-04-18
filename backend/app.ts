@@ -8,6 +8,8 @@ const app = express();
 const swaggerJSDoc = require('swagger-jsdoc');
 const swaggerUi = require('swagger-ui-express')
 
+app.use(express.json())
+
 const port = process.env.PORT || 3000;
 
 const swaggerOpts = {
@@ -22,12 +24,13 @@ const swaggerOpts = {
 };
 
 const swaggerDocs = swaggerJSDoc(swaggerOpts);
-app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerDocs));
 
 app.use("/users", userRouter);
 app.use("/recipes", recipeRouter);
 app.use('/menus', menuRouter);
 app.use('/ingredients', ingredientRouter)
+
+app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerDocs));
 
 app.listen(port, () => {
   console.log(`Server listening on port ${port}`);

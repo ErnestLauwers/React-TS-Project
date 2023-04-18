@@ -4,11 +4,6 @@ import { prisma as database } from '../../init-db';
 
 let id = 1;
 
-/*const ingredients: Ingredient[] = [
-    new Ingredient( id++, 'suiker', 56 ),
-    new Ingredient( id++, 'tomaat', 23 ),
-];*/
-
 const getAllIngredients = async (): Promise<Ingredient[]> => {
     try {
         const ingredientsPrisma = await database.ingredient.findMany({
@@ -17,7 +12,7 @@ const getAllIngredients = async (): Promise<Ingredient[]> => {
         return mapToIngredients(ingredientsPrisma);
     } catch (error) {
         console.error(error);
-        throw new Error('Database error. See server log for details.');
+        throw new Error('Database error. See server log for details.5');
     }
 };
 
@@ -27,11 +22,12 @@ const getIngredientById = async (id: number): Promise<Ingredient> => {
             where: {
                 id: id,
             },
+            include: { recipes: true },
         });
         return mapToIngredient(ingredientPrisma);
     } catch (error) {
         console.log(error);
-        throw new Error('Database error. See server log for details.');
+        throw new Error('Database error. See server log for details4.');
     }
 }
 
@@ -41,16 +37,18 @@ const deleteIngredient = async (id: number): Promise<Ingredient> => {
             where: {
                 id: id,
             },
+            include: { recipes: true },
         });
         await database.ingredient.delete({
             where: {
                 id: id,
             },
+            include: { recipes: true },
         });
         return mapToIngredient(deletedIngredient);
     } catch (error) {
         console.log(error);
-        throw new Error('Database error. See server log for details.');
+        throw new Error('Database error. See server log for details3.');
     }
 }          
 
@@ -76,8 +74,8 @@ const addIngredient = async ({
         });
         return mapToIngredient(ingredientPrisma);
     } catch (error) {
-        console.log(error);
-        throw new Error('Database error. See server log for details.')
+        console.error(error);
+        throw new Error('There was a Database error trying to create an ingredient.')
     }
 }
 
@@ -98,7 +96,7 @@ const editIngredient = async (
         });
     } catch (error) {
         console.log(error);
-        throw new Error('Database error. See server log for details.')
+        throw new Error('Database error. See server log for details.2')
     }
 }
 

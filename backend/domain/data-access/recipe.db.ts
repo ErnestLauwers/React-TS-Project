@@ -16,7 +16,7 @@ const getAllRecipes = async (): Promise<Recipe[]> => {
         return mapToRecipes(recipesPrisma);
     } catch (error) {
         console.log(error);
-        throw new Error('Database error. See server log for details.');
+        throw new Error('Database error. See server log for details.6');
     }
 };
 
@@ -32,7 +32,7 @@ const getRecipeById = async (id: number): Promise<Recipe> => {
         return mapToRecipe(recipePrisma);
     } catch (error) {
         console.log(error);
-        throw new Error('Database error. See server log for details.');
+        throw new Error('Database error. See server log for details.767');
     }
 }
 
@@ -42,11 +42,48 @@ const deleteRecipe = (id: number): void => {
             recipes.splice(i, 1);
             break;
         }
-      }
-    }          
+    }
+}          
+
+const addRecipe = async ({
+    name,
+    preparation,
+    preparationTime,
+    difficultyLevel,
+    genre,
+    ingredientId,
+}: {
+    name: string;
+    preparation: string,
+    preparationTime: number,
+    difficultyLevel: number,
+    genre: string,
+    ingredientId: number
+}): Promise<Recipe> => {
+    try {
+        const recipePrisma = await database.recipe.create({
+            data: {
+                name,
+                preparation,
+                preparationTime,
+                difficultyLevel,
+                genre,
+                ingredients: { connect: [{ id: ingredientId }] },
+            },
+            include: {
+                ingredients: true,
+            }
+        });
+        return mapToRecipe(recipePrisma);
+    } catch (error) {
+        console.error(error);
+        throw new Error('There was a Database error trying to create an ingredient.recipe')
+    }
+}
 
 export default {
     getAllRecipes,
     deleteRecipe, 
-    getRecipeById
+    getRecipeById,
+    addRecipe
 };

@@ -5,31 +5,31 @@
  *     Ingredient:
  *       type: object
  *       properties:
- *         id:
- *           type: number
- *           description: The ID of the ingredient
  *         name:
  *           type: string
  *           description: The name of the ingredient
  *         amountUsed:
- *           type: number
+ *           type: string
  *           description: The amount of the ingredient used
+ *         recipes:
+ *           type: array
+ *           items:
+ *             $ref: '#/components/schemas/Recipe'
  *     IngredientInput:
  *       type: object
  *       properties:
  *         id:
- *           type: number
+ *           type: string
  *           format: int64
- *           description: The ID of the ingredient
+ *           required: false
  *         name:
  *           type: string
  *           description: The name of the ingredient
  *         amountUsed:
- *           type: number
+ *           type: string
  *           description: The amount of the ingredient used
  *         recipeId:
- *           type: number
- *           format: int64
+ *           type: string
  */
 import express, { Request, response, Response } from 'express';
 import ingredientService from '../service/ingredient.service';
@@ -122,7 +122,7 @@ ingredientRouter.delete('/delete/:id', async (request: Request, response: Respon
     }
 })
 
-
+/*
 ingredientRouter.put('/update/:id', async (request: Request, repsonse: Response) => {
     const ingredientInput = <IngredientInput>request.body;
     const id = Number(request.params.id);
@@ -133,10 +133,11 @@ ingredientRouter.put('/update/:id', async (request: Request, repsonse: Response)
         response.status(500).json({ status: 'error', errorMessage: error.message});
     }
 })
+*/
 
 /**
  * @swagger
- * /add/{recipeId}:
+ * /ingredients/add:
  *   post:
  *     summary: Add a new ingredient to a recipe
  *     requestBody:
@@ -154,10 +155,10 @@ ingredientRouter.put('/update/:id', async (request: Request, repsonse: Response)
  *             schema:
  *               $ref: '#/components/schemas/Ingredient'
  */
-ingredientRouter.post('/add/:recipeId', async (request: Request, response: Response) => {
+ingredientRouter.post('/add', async (request: Request, response: Response) => {
     const ingredientInput = <IngredientInput>request.body;
     try {
-        const ingredient = await ingredientService.addIngredient({recipeId: parseInt(request.params.id), ...ingredientInput });
+        const ingredient = await ingredientService.addIngredient(ingredientInput);
         response.status(200).json(ingredient);
     } catch (error) {
         response.status(500).json({ status: 'error', errorMessage: error.message});

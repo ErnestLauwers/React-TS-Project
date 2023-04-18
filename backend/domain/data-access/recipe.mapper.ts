@@ -9,11 +9,10 @@ const mapToRecipe = ({
     preparationTime,
     difficultyLevel,
     genre,
-    ingredients,
-}: RecipePrisma & { ingredients?: IngredientPrisma[]}): Recipe =>
-    new Recipe({ id, name, preparation, preparationTime, difficultyLevel, genre, ingredients: mapToIngredients(ingredients) });
+}: RecipePrisma): Recipe =>
+    new Recipe({ id, name, preparation, preparationTime, difficultyLevel, genre });
 
-const mapToRecipes = (recipesPrisma: (RecipePrisma & { ingredients: IngredientPrisma[]})[]): Recipe[] =>
+const mapToRecipes = (recipesPrisma: (RecipePrisma)[]): Recipe[] =>
     recipesPrisma.map(mapToRecipe);
 
 export {

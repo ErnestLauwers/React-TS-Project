@@ -32,8 +32,7 @@ model Recipe {
   preparationTime Int
   difficultyLevel Int
   genre String
-  ingredients Ingredient[] 
-  
+  ingredients Ingredient[]
 }
 
 model Ingredient {

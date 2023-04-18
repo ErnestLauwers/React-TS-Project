@@ -1,3 +1,28 @@
+/**
+ * @swagger 
+ * components:
+ *   schemas:
+ *     Recipe   :
+ *       type: object
+ *       properties:
+ *         name:
+ *           type: string
+ *           description: The name of the ingredient
+ *         preparation:
+ *           type: string
+ *           description: The amount of the ingredient used
+ *         preparationTime:
+ *           type: string
+ *           description: The amount of the ingredient used
+ *         difficultyLevel:
+ *           type: string
+ *           description: The amount of the ingredient used
+ *         genre:
+ *           type: string
+ *           description: The amount of the ingredient used
+ *         
+ */
+
 import express, { Request, Response } from 'express';
 import recipeService from '../service/recipe.service';
 
