@@ -2,12 +2,6 @@ import { Recipe } from '../model/recipe';
 import { prisma as database } from '../../init-db';
 import { mapToRecipes, mapToRecipe } from './recipe.mapper';
 
-let id = 1;
-
-const recipes: Recipe[] = [
-    
-];
-
 const getAllRecipes = async (): Promise<Recipe[]> => {
     try {
         const recipesPrisma = await database.recipe.findMany({
@@ -64,6 +58,7 @@ const addRecipe = async ({
     preparationTime,
     difficultyLevel,
     genre,
+    userId,
     ingredientId,
 }: {
     name: string;
@@ -71,6 +66,7 @@ const addRecipe = async ({
     preparationTime: number,
     difficultyLevel: number,
     genre: string,
+    userId: number,
     ingredientId: number
 }): Promise<Recipe> => {
     try {
@@ -81,6 +77,7 @@ const addRecipe = async ({
                 preparationTime,
                 difficultyLevel,
                 genre,
+                userId,
                 ingredients: { connect: [{ id: ingredientId }] },
             },
             include: {

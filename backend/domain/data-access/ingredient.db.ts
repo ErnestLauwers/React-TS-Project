@@ -2,8 +2,6 @@ import { Ingredient } from '../model/ingredient';
 import { mapToIngredients, mapToIngredient } from './ingredient.mapper';
 import { prisma as database } from '../../init-db';
 
-let id = 1;
-
 const getAllIngredients = async (): Promise<Ingredient[]> => {
     try {
         const ingredientsPrisma = await database.ingredient.findMany({
@@ -17,7 +15,7 @@ const getAllIngredients = async (): Promise<Ingredient[]> => {
 };
 
 const getIngredientById = async (id: number): Promise<Ingredient> => {
-    if (database.ingredient.findUnique({where: { id: id,},})) {
+    if (!database.ingredient.findUnique({where: { id: id,},})) {
         return null;
     }
     try {

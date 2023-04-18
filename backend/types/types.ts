@@ -14,7 +14,8 @@ export interface RecipeInput {
     preparation: string,
     preparationTime: number, 
     difficultyLevel: number, 
-    genre: string
+    genre: string,
+    userId: Number, 
     ingredientId: number
 }
 

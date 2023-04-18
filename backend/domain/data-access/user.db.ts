@@ -1,32 +1,55 @@
 import { User } from '../model/user';
+import { prisma as database } from '../../init-db';
+import { mapToUsers, mapToUser } from './user.mapper';
 
-let id = 1;
-
-const users: User[] = [
-    new User( id++, 'Ernest', 'Lauwers', 'Ernie', 'ernest.lauwers@student.ucll.be', 'test123', null, null),
-    new User( id++, 'Igor', 'Stefanovic', 'Igor69', 'igor.stefanovic@student.ucll.be', '123test', null, null),
-];
-
-const getAllUsers = (): User[] => {
-    return users;
+const getAllUsers = async (): Promise<User[]> => {
+    try {
+        const usersPrisma = await database.user.findMany({
+            include: { recipes: true}
+        })
+        return mapToUsers(usersPrisma);
+    } catch (error) {
+        console.log(error);
+        throw new Error('Database error. See server log for details.6');
+    }
 };
 
-const getUserById = (id: number): User => {
-    for (let i = 0; i < users.length; i++) {
-        if (users[i].id == id) {
-            return users[i];
-        }
-      }
+const getUserById = async (id: number): Promise<User> => {
+    try {
+        const userPrisma = await database.user.findUnique({
+            where: {
+                id: id,
+            },
+            include: { recipes: true },
+        });
+    
+        return mapToUser(userPrisma);
+    } catch (error) {
+        console.log(error);
+        throw new Error('Database error. See server log for details.767');
+    }
 }
 
-const deleteUser = (id: number): void => {
-    for (let i = 0; i < users.length; i++) {
-        if (users[i].id == id) {
-            users.splice(i, 1);
-            break;
-        }
-      }
-    }          
+const deleteUser = async (id: number): Promise<User> => {
+    try {
+        const deletedUser = await database.user.findUnique({
+            where: {
+                id: id,
+            },
+            include: { recipes: true },
+        });
+        await database.user.delete({
+            where: {
+                id: id,
+            },
+            include: { recipes: true },
+        });
+        return mapToUser(deletedUser);
+    } catch (error) {
+        console.log(error);
+        throw new Error('Database error. See server log for details3.');
+    }
+}          
 
 export default {
     getAllUsers, 

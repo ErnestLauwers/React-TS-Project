@@ -5,25 +5,49 @@ import { PrismaClient } from "@prisma/client";
 const prisma = new PrismaClient();
 
 const main = async () => {
-  try {
-    const recipe = await prisma.recipe.create({
+  /*try {
+    const user = await prisma.user.create({
       data: {
-        name: "Pasta with tomato sauce",
-        preparation: "xxx",
-        preparationTime: 50,
-        difficultyLevel: 5,
-        genre: "pasta",
-        ingredients: {
+        firstName: "John",
+        lastName: "Doe",
+        username: "johndoe",
+        email: "johndoe@example.com",
+        password: "password",
+        recipes: {
           create: [
-            { name: "Pasta", amountUsed: 200},
-            { name: "Tomato sauce", amountUsed: 1},
+            {
+              name: "Pasta with tomato sauce",
+              preparation: "xxx",
+              preparationTime: 50,
+              difficultyLevel: 5,
+              genre: "pasta",
+              ingredients: {
+                create: [
+                  { name: "Pasta", amountUsed: 200},
+                  { name: "Tomato sauce", amountUsed: 1},
+                ],
+              },
+            },
+            {
+              name: "Chicken curry",
+              preparation: "yyy",
+              preparationTime: 60,
+              difficultyLevel: 7,
+              genre: "curry",
+              ingredients: {
+                create: [
+                  { name: "Chicken", amountUsed: 500},
+                  { name: "Curry powder", amountUsed: 2},
+                ],
+              },
+            },
           ],
         },
       },
     });
   } catch (error) {
     console.error(error);
-  }
+  }*/
 };
 
 main()

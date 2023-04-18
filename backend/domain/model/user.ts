@@ -9,17 +9,22 @@ export class User {
     readonly email: string
     readonly password: string
     readonly recipes: Recipe[]
-    readonly menus: Menu[]
 
-    constructor( id: number, firstName: string, lastName: string, username: string, email: string, password: string, recipes: Recipe[], menus: Menu[]) {
-        this.id = id;
-        this.firstName = firstName;
-        this.lastName = lastName; 
-        this.username = username;
-        this.email = email;
-        this.password = password; 
-        this.recipes = recipes;
-        this.menus = menus;
+    constructor( user: {id?: number, firstName: string, lastName: string, username: string, email: string, password: string, recipes: Recipe[]}) {
+        this.id = user.id;
+        this.firstName = user.firstName;
+        this.lastName = user.lastName; 
+        this.username = user.username;
+        this.email = user.email;
+        this.password = user.password; 
+        this.recipes = user.recipes;
     }
 
+    equals({ id, firstName, lastName, username, email, password, ingredients, recipes}): boolean {
+        return true;
+    }
+
+    static create({ id, firstName, lastName, username, email, password, recipes}) {
+        
+    }
 }

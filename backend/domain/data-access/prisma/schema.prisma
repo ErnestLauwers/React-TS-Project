@@ -14,15 +14,7 @@ model User {
   username String
   email String
   password String
-  menus Menu[]
-}
-
-model Menu {
-  id      Int      @id @default(autoincrement())
-  name String
-  comment String
-  user User @relation(fields: [userId], references: [id])
-  userId Int
+  recipes Recipe[]
 }
 
 model Recipe {
@@ -33,6 +25,8 @@ model Recipe {
   difficultyLevel Int
   genre String
   ingredients Ingredient[]
+  user User @relation(fields: [userId], references: [id])
+  userId Int
 }
 
 model Ingredient {

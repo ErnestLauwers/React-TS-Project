@@ -20,6 +20,8 @@
  *         genre:
  *           type: string
  *           description: The amount of the ingredient used
+ *         userId:
+ *           type: string
  *         ingredients:
  *           type: array
  *           items:
@@ -46,6 +48,8 @@
  *         genre:
  *           type: string
  *           description: The amount of the ingredient used
+ *         userId:
+ *           type: string
  *         ingredientId:
  *           type: string
  *     EditRecipeInput:

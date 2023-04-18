@@ -9,7 +9,7 @@ const getRecipeById = async (id: number): Promise<Recipe> => recipeDb.getRecipeB
 
 const deleteRecipe = async (id: number): Promise<Recipe> => recipeDb.deleteRecipe(id);
 
-const addRecipe = async ({ name, preparation, preparationTime, difficultyLevel, genre, ingredientId }: RecipeInput): Promise<Recipe> => {
+const addRecipe = async ({ name, preparation, preparationTime, difficultyLevel, genre, userId, ingredientId }: RecipeInput): Promise<Recipe> => {
     if (!preparationTime || Number.isNaN(preparationTime)) {
         throw new Error('Amount Used is an invalid number.');
     }
@@ -26,6 +26,7 @@ const addRecipe = async ({ name, preparation, preparationTime, difficultyLevel, 
         preparationTime: Number(preparationTime),
         difficultyLevel: Number(difficultyLevel),
         genre: genre,
+        userId: Number(userId),
         ingredientId: Number(ingredientId)
     })
 }
