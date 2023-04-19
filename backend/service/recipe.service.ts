@@ -10,14 +10,32 @@ const getRecipeById = async (id: number): Promise<Recipe> => recipeDb.getRecipeB
 const deleteRecipe = async (id: number): Promise<Recipe> => recipeDb.deleteRecipe(id);
 
 const addRecipe = async ({ name, preparation, preparationTime, difficultyLevel, genre, userId, ingredientId }: RecipeInput): Promise<Recipe> => {
-    if (!preparationTime || Number.isNaN(preparationTime)) {
-        throw new Error('Amount Used is an invalid number.');
+    if (!name || name == null) {
+        throw new Error('The name of a Recipe cannot be empty');
+    }
+    
+    if (!preparation || preparation == null) {
+        throw new Error('The preparation of a User cannot be empty');
     }
 
-    const ingredient = await ingredientService.getIngredientById( parseInt(ingredientId.toString()) );
+    if (!preparationTime || Number.isNaN(preparationTime) || Number(preparationTime) < 0) {
+        throw new Error('The preparation time is an invalid number.');
+    }
 
-    if (!ingredient) {
-        throw new Error('No ingredient exists with this ID');
+    if (!difficultyLevel || Number.isNaN(difficultyLevel) || Number(difficultyLevel) < 0) {
+        throw new Error('The difficulty level is an invalid number.');
+    }
+
+    if (!genre || genre == null) {
+        throw new Error('The genre of a Recipe cannot be empty');
+    }
+
+    if (!userId || Number.isNaN(userId) || Number(userId) < 0) {
+        throw new Error('The user id is an invalid number.');
+    }
+
+    if (!ingredientId || Number.isNaN(ingredientId) || Number(ingredientId) < 0) {
+        throw new Error('The ingredient id is an invalid number.');
     }
 
     return await recipeDb.addRecipe({
@@ -32,15 +50,29 @@ const addRecipe = async ({ name, preparation, preparationTime, difficultyLevel, 
 }
 
 const editRecipe = async ({ id, name, preparation, preparationTime, difficultyLevel, genre }: EditRecipeInput): Promise<Recipe> => {
-    /*if (!amountUsed || Number.isNaN(Number(amountUsed))) {
-        throw new Error('Amount Used is an invalid number.');
-    }*/
+    if (!id || Number.isNaN(id) || Number(id) < 0) {
+        throw new Error('The id is an invalid number.');
+    }
+    
+    if (!name || name == null) {
+        throw new Error('The name of a Recipe cannot be empty');
+    }
+    
+    if (!preparation || preparation == null) {
+        throw new Error('The preparation of a User cannot be empty');
+    }
 
-    /*const recipe = await recipeService.getRecipeById( parseInt(recipeId) );
+    if (!preparationTime || Number.isNaN(preparationTime) || Number(preparationTime) < 0) {
+        throw new Error('The preparation time is an invalid number.');
+    }
 
-    if (!recipe) {
-        throw new Error('No recipe exists with ID ${recipeId}');
-    }*/
+    if (!difficultyLevel || Number.isNaN(difficultyLevel) || Number(difficultyLevel) < 0) {
+        throw new Error('The difficulty level is an invalid number.');
+    }
+
+    if (!genre || genre == null) {
+        throw new Error('The genre of a Recipe cannot be empty');
+    }
 
     return await recipeDb.editRecipe({
         id: Number(id),

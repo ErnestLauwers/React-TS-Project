@@ -9,7 +9,7 @@ const getAllPosts = async (): Promise<Post[]> => {
         return mapToPosts(postsPrisma);
     } catch (error) {
         console.log(error);
-        throw new Error('Database error. See server log for details.6');
+        throw new Error('Database error. See server log for details');
     }
 };
 
@@ -23,7 +23,7 @@ const getPostById = async (id: number): Promise<Post> => {
         return mapToPost(postPrisma);
     } catch (error) {
         console.log(error);
-        throw new Error('Database error. See server log for details.767');
+        throw new Error('There was no post found with this id');
     }
 }
 
@@ -42,7 +42,7 @@ const deletePost = async (id: number): Promise<Post> => {
         return mapToPost(deletedPost);
     } catch (error) {
         console.log(error);
-        throw new Error('Database error. See server log for details3.');
+        throw new Error('Database error. See server log for details');
     }
 }          
 
@@ -67,7 +67,7 @@ const addPost = async ({
         return mapToPost(postPrisma);
     } catch (error) {
         console.error(error);
-        throw new Error('There was a Database error trying to create an ingredient.recipe')
+        throw new Error('There was a Database error trying to create a Post')
     }
 }
 
@@ -91,7 +91,7 @@ const editPost = async ({
         return mapToPost(postPrisma);
     } catch (error) {
         console.error(error);
-        throw new Error('There was a Database error trying to update the recipe')
+        throw new Error('There was a Database error trying to update the post')
     }
 }
 

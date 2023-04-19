@@ -11,7 +11,7 @@ const getAllUsers = async (): Promise<User[]> => {
         return mapToUsers(usersPrisma);
     } catch (error) {
         console.log(error);
-        throw new Error('Database error. See server log for details.6');
+        throw new Error('Database error. See server log for details');
     }
 };
 
@@ -26,7 +26,7 @@ const getUserById = async (id: number): Promise<User> => {
         return mapToUser(userPrisma);
     } catch (error) {
         console.log(error);
-        throw new Error('Database error. See server log for details.767');
+        throw new Error('There was no user found with this id');
     }
 }
 
@@ -56,7 +56,7 @@ const deleteUser = async (id: number): Promise<User> => {
         return mapToUser(deletedUser);
     } catch (error) {
         console.log(error);
-        throw new Error('Database error. See server log for details3.');
+        throw new Error('Database error. See server log for details');
     }
 }
 
@@ -92,7 +92,7 @@ const addUser = async ({
         return mapToUser(userPrisma);
     } catch (error) {
         console.error(error);
-        throw new Error('There was a Database error trying to create an ingredient.recipe')
+        throw new Error('There was a Database error trying to create a User')
     }
 }
 

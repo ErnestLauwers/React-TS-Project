@@ -10,7 +10,7 @@ const getAllIngredients = async (): Promise<Ingredient[]> => {
         return mapToIngredients(ingredientsPrisma);
     } catch (error) {
         console.error(error);
-        throw new Error('Database error. See server log for details.5');
+        throw new Error('Database error. See server log for details');
     }
 };
 
@@ -27,7 +27,7 @@ const getIngredientById = async (id: number): Promise<Ingredient> => {
         return mapToIngredient(ingredientPrisma);
     } catch (error) {
         console.log(error);
-        throw new Error('Database error. See server log for details4.');
+        throw new Error('There was no ingredient found with this id');
     }
 }
 
@@ -48,7 +48,7 @@ const deleteIngredient = async (id: number): Promise<Ingredient> => {
         return mapToIngredient(deletedIngredient);
     } catch (error) {
         console.log(error);
-        throw new Error('Database error. See server log for details3.');
+        throw new Error('Database error. See server log for details');
     }
 }          
 
@@ -72,7 +72,7 @@ const addIngredient = async ({
         return mapToIngredient(ingredientPrisma);
     } catch (error) {
         console.error(error);
-        throw new Error('There was a Database error trying to create an ingredient.')
+        throw new Error('There was a Database error trying to create an ingredient')
     }
 }
 

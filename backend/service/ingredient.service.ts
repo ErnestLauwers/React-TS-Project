@@ -9,15 +9,13 @@ const getIngredientById = async (id: number): Promise<Ingredient> => ingredientD
 const deleteIngredient = async (id: number): Promise<Ingredient> => ingredientDb.deleteIngredient(id);
 
 const addIngredient = async ({ name, amountUsed }: IngredientInput): Promise<Ingredient> => {
-    /*if (!amountUsed || Number.isNaN(Number(amountUsed))) {
-        throw new Error('Amount Used is an invalid number.');
-    }*/
-
-    /*const recipe = await recipeService.getRecipeById( parseInt(recipeId) );
-
-    if (!recipe) {
-        throw new Error('No recipe exists with ID ${recipeId}');
-    }*/
+    if (!name || name == null) {
+        throw new Error('The name of an Ingredient cannot be empty');
+    }
+    
+    if (!amountUsed || Number.isNaN(Number(amountUsed)) || Number(amountUsed) < 0) {
+        throw new Error('The amount used is an invalid number');
+    }
 
     return await ingredientDb.addIngredient({
         name: name,
@@ -26,15 +24,17 @@ const addIngredient = async ({ name, amountUsed }: IngredientInput): Promise<Ing
 }
 
 const editIngredient = async ({ id, name, amountUsed }: EditIngredientInput): Promise<Ingredient> => {
-    /*if (!amountUsed || Number.isNaN(Number(amountUsed))) {
-        throw new Error('Amount Used is an invalid number.');
-    }*/
-
-    /*const recipe = await recipeService.getRecipeById( parseInt(recipeId) );
-
-    if (!recipe) {
-        throw new Error('No recipe exists with ID ${recipeId}');
-    }*/
+    if (!id || Number.isNaN(Number(id)) || Number(id) < 0) {
+        throw new Error('The id is an invalid number');
+    }
+    
+    if (!name || name == null) {
+        throw new Error('The name of an Ingredient cannot be empty');
+    }
+    
+    if (!amountUsed || Number.isNaN(Number(amountUsed)) || Number(amountUsed) < 0) {
+        throw new Error('The amount used is an invalid number');
+    }
 
     return await ingredientDb.editIngredient({
         id: Number(id),

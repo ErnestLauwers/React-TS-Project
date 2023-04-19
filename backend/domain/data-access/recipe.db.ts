@@ -10,7 +10,7 @@ const getAllRecipes = async (): Promise<Recipe[]> => {
         return mapToRecipes(recipesPrisma);
     } catch (error) {
         console.log(error);
-        throw new Error('Database error. See server log for details.6');
+        throw new Error('Database error. See server log for details');
     }
 };
 
@@ -26,7 +26,7 @@ const getRecipeById = async (id: number): Promise<Recipe> => {
         return mapToRecipe(recipePrisma);
     } catch (error) {
         console.log(error);
-        throw new Error('Database error. See server log for details.767');
+        throw new Error('There was no recipe found with this id');
     }
 }
 
@@ -47,7 +47,7 @@ const deleteRecipe = async (id: number): Promise<Recipe> => {
         return mapToRecipe(deletedRecipe);
     } catch (error) {
         console.log(error);
-        throw new Error('Database error. See server log for details3.');
+        throw new Error('Database error. See server log for details');
     }
 }          
 
@@ -87,7 +87,7 @@ const addRecipe = async ({
         return mapToRecipe(recipePrisma);
     } catch (error) {
         console.error(error);
-        throw new Error('There was a Database error trying to create an ingredient.recipe')
+        throw new Error('There was a Database error trying to create a recipe')
     }
 }
 
