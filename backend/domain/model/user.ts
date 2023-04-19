@@ -1,5 +1,5 @@
 import { Recipe } from './recipe'
-import { Menu } from './menu';
+import { Post } from './post';
 
 export class User {
     readonly id?: number
@@ -9,8 +9,9 @@ export class User {
     readonly email: string
     readonly password: string
     readonly recipes: Recipe[]
+    readonly posts: Post[]
 
-    constructor( user: {id?: number, firstName: string, lastName: string, username: string, email: string, password: string, recipes: Recipe[]}) {
+    constructor( user: {id?: number, firstName: string, lastName: string, username: string, email: string, password: string, recipes: Recipe[], posts: Post[]}) {
         this.id = user.id;
         this.firstName = user.firstName;
         this.lastName = user.lastName; 
@@ -18,13 +19,14 @@ export class User {
         this.email = user.email;
         this.password = user.password; 
         this.recipes = user.recipes;
+        this.posts = this.posts;
     }
 
-    equals({ id, firstName, lastName, username, email, password, ingredients, recipes}): boolean {
+    equals({ id, firstName, lastName, username, email, password, ingredients, recipes, posts}): boolean {
         return true;
     }
 
-    static create({ id, firstName, lastName, username, email, password, recipes}) {
+    static create({ id, firstName, lastName, username, email, password, recipes, posts}) {
         
     }
 }

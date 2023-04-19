@@ -24,6 +24,10 @@
  *           type: array
  *           items:
  *             $ref: '#/components/schemas/Recipe'
+ *         posts:
+ *           type: array
+ *           items:
+ *             $ref: '#/components/schemas/Post'
  *     UserInput:
  *       type: object
  *       properties:

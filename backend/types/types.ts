@@ -44,3 +44,17 @@ export interface EditUserInput {
     email: string,
     password: string
 }
+
+export interface PostInput {
+    title: string,
+    text: string,
+    createdAt: Date,
+    updatedAt: Date,
+    userId: number
+}
+
+export interface EditPostInput {
+    id: number,
+    title: string,
+    text: string
+}

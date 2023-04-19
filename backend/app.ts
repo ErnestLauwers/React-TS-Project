@@ -1,6 +1,6 @@
 import userRouter from "./controller/user.routes";
 import recipeRouter from "./controller/recipe.routes";
-import menuRouter from "./controller/menu.routes";
+import postRouter from "./controller/post.routes";
 import ingredientRouter from "./controller/ingredient.routes";
 
 const express = require("express");
@@ -27,7 +27,7 @@ const swaggerDocs = swaggerJSDoc(swaggerOpts);
 
 app.use("/users", userRouter);
 app.use("/recipes", recipeRouter);
-app.use('/menus', menuRouter);
+app.use('/posts', postRouter);
 app.use('/ingredients', ingredientRouter)
 
 app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerDocs));

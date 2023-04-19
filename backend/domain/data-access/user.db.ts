@@ -5,7 +5,8 @@ import { mapToUsers, mapToUser } from './user.mapper';
 const getAllUsers = async (): Promise<User[]> => {
     try {
         const usersPrisma = await database.user.findMany({
-            include: { recipes: true}
+            include: { recipes: true, 
+                posts: true }
         })
         return mapToUsers(usersPrisma);
     } catch (error) {
@@ -20,7 +21,7 @@ const getUserById = async (id: number): Promise<User> => {
             where: {
                 id: id,
             },
-            include: { recipes: true },
+            include: { recipes: true, posts: true },
         });
         return mapToUser(userPrisma);
     } catch (error) {
@@ -35,9 +36,14 @@ const deleteUser = async (id: number): Promise<User> => {
             where: {
                 id: id,
             },
-            include: { recipes: true },
+            include: { recipes: true, posts: true },
         });
         await database.recipe.deleteMany({
+            where: {
+                userId: id,
+            },
+        });
+        await database.post.deleteMany({
             where: {
                 userId: id,
             },
@@ -75,10 +81,12 @@ const addUser = async ({
                 username,
                 email,
                 password,
-                recipes: { create: [] }
+                recipes: { create: [] },
+                posts: { create: [] },
             },
             include: {
                 recipes: true,
+                posts: true,
             }
         });
         return mapToUser(userPrisma);
@@ -115,6 +123,7 @@ const editUser = async ({
             },
             include: {
                 recipes: true,
+                posts: true,
             }
         });
         return mapToUser(userPrisma);

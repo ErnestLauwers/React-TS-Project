@@ -1,7 +1,9 @@
-import { User as UserPrisma, Recipe as RecipePrisma } from '@prisma/client'
+import { User as UserPrisma, Recipe as RecipePrisma, Post as PostPrisma } from '@prisma/client'
 import { User } from '../model/user'
 import { Recipe } from '../model/recipe'
+import { Post } from '../model/post'
 import { mapToRecipes } from './recipe.mapper'
+import { mapToPosts } from './post.mapper'
 
 const mapToUser = ({
     id,
@@ -11,7 +13,8 @@ const mapToUser = ({
     email,
     password,
     recipes,
-}: UserPrisma & { recipes: RecipePrisma[] }): User & { recipes: Recipe[] }=>
+    posts,
+}: UserPrisma & { recipes: RecipePrisma[], posts: PostPrisma[]}): User & { recipes: Recipe[], posts: Post[] }=>
     new User({
         id,
         firstName,
@@ -19,7 +22,8 @@ const mapToUser = ({
         username,
         email,
         password,
-        recipes: mapToRecipes(recipes)
+        recipes: mapToRecipes(recipes),
+        posts: mapToPosts(posts)
 });
 
 const mapToUsers = (usersPrisma: (UserPrisma[])): User[] =>

@@ -1,5 +1,3 @@
-// Execute: npx ts-node init-db.ts
-
 import { PrismaClient } from "@prisma/client";
 
 const prisma = new PrismaClient();
@@ -43,6 +41,18 @@ const main = async () => {
             },
           ],
         },
+        posts: {
+          create: [
+            {
+              title: "Titel 1",
+              text: "ABCDEFGHIJKLMNOPQRSTUVWXYZ",
+            },
+            {
+              title: "Titel 2",
+              text: "ABCDEFGHIJKLMNOPQRSTUVWXYZ",
+            }
+          ]
+        }
       },
     });
   } catch (error) {
