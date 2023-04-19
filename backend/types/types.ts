@@ -35,3 +35,12 @@ export interface UserInput {
     email: string,
     password: string
 }
+
+export interface EditUserInput {
+    id: number,
+    firstName: string,
+    lastName: string,
+    username: string,
+    email: string,
+    password: string
+}

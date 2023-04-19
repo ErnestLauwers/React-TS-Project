@@ -50,7 +50,7 @@
 
 import express, { Request, Response } from 'express';
 import userService from '../service/user.service';
-import { UserInput } from '../types/types';
+import { EditUserInput, UserInput } from '../types/types';
 
 const userRouter = express.Router();
 
@@ -168,5 +168,34 @@ userRouter.post('/add', async (request: Request, response: Response) => {
     }
 });
 
+/**
+ * @swagger
+ * /users/update:
+ *   put:
+ *     summary: Update an existing user
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             $ref: '#/components/schemas/UserInput'
+ * 
+ *     responses:
+ *       '200':
+ *         description: Updates the User
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/User'
+ */
+userRouter.put('/update', async (request: Request, response: Response) => {
+    const editUserInput = <EditUserInput>request.body;
+    try {
+        const updatedUser = await userService.editUser(editUserInput);
+        response.status(200).json(updatedUser);
+    } catch (error) {
+        response.status(500).json({ status: 'error', errorMessage: error.message});
+    }
+})
 
 export default userRouter;

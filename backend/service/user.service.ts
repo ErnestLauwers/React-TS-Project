@@ -1,6 +1,6 @@
 import { User } from '../domain/model/user';
 import userDb from '../domain/data-access/user.db';
-import { UserInput } from '../types/types';
+import { UserInput, EditUserInput } from '../types/types';
 
 const getAllUsers = async (): Promise<User[]> => userDb.getAllUsers();
 
@@ -18,9 +18,22 @@ const addUser = async ({ firstName, lastName, username, email, password }: UserI
     })
 }
 
+const editUser = async ({ id, firstName, lastName, username, email, password }: EditUserInput): Promise<User> => {
+    return await userDb.editUser({
+        id: Number(id),
+        firstName: firstName,
+        lastName: lastName,
+        username: username,
+        email: email,
+        password: password
+    })
+}
+
+
 export default {
     getAllUsers,
     deleteUser, 
     getUserById,
-    addUser
+    addUser,
+    editUser
 };

@@ -88,9 +88,47 @@ const addUser = async ({
     }
 }
 
+const editUser = async ({
+    id,
+    firstName,
+    lastName,
+    username,
+    email,
+    password,
+}: {
+    id: number,
+    firstName: string;
+    lastName: string,
+    username: string,
+    email: string,
+    password: string,
+}): Promise<User> => {
+    try {
+        const userPrisma = await database.user.update({
+            where: { id },
+            data: {
+                firstName,
+                lastName,
+                username,
+                email,
+                password,
+            },
+            include: {
+                recipes: true,
+            }
+        });
+        return mapToUser(userPrisma);
+    } catch (error) {
+        console.error(error);
+        throw new Error('There was a Database error trying to update the user')
+    }
+}
+
+
 export default {
     getAllUsers, 
     deleteUser, 
     getUserById, 
-    addUser
+    addUser,
+    editUser
 };
