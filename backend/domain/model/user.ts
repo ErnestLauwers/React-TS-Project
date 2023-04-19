@@ -19,7 +19,7 @@ export class User {
         this.email = user.email;
         this.password = user.password; 
         this.recipes = user.recipes;
-        this.posts = this.posts;
+        this.posts = user.posts;
     }
 
     equals({ id, firstName, lastName, username, email, password, ingredients, recipes, posts}): boolean {

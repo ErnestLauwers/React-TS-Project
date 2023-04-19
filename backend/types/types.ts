@@ -48,8 +48,6 @@ export interface EditUserInput {
 export interface PostInput {
     title: string,
     text: string,
-    createdAt: Date,
-    updatedAt: Date,
     userId: number
 }
 

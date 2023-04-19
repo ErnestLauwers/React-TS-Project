@@ -34,6 +34,19 @@
  *           description: The amount of the ingredient used
  *         userId:
  *           type: string
+ *     EditPostInput:
+ *       type: object
+ *       properties:
+ *         id:
+ *           type: string
+ *           format: int64
+ *           required: false
+ *         title:
+ *           type: string
+ *           description: The name of the ingredient
+ *         text:
+ *           type: string
+ *           description: The amount of the ingredient used
  */
 import express, { Request, Response } from 'express';
 import postService from '../service/post.service';
