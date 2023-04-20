@@ -7,19 +7,19 @@
  *       properties:
  *         name:
  *           type: string
- *           description: The name of the ingredient
+ *           description: The name of the recipe
  *         preparation:
  *           type: string
- *           description: The amount of the ingredient used
+ *           description: The preparation of the recipe
  *         preparationTime:
  *           type: string
- *           description: The amount of the ingredient used
+ *           description: The preparation time of the recipe
  *         difficultyLevel:
  *           type: string
- *           description: The amount of the ingredient used
+ *           description: The difficulty level of the recipe
  *         genre:
  *           type: string
- *           description: The amount of the ingredient used
+ *           description: The genre of the recipe
  *         userId:
  *           type: string
  *         ingredients:
@@ -35,19 +35,19 @@
  *           required: false
  *         name:
  *           type: string
- *           description: The name of the ingredient
+ *           description: The name of the recipe
  *         preparation:
  *           type: string
- *           description: The amount of the ingredient used
+ *           description: The preparation of the recipe
  *         preparationTime:
  *           type: string
- *           description: The amount of the ingredient used
+ *           description: The preparation time of the recipe
  *         difficultyLevel:
  *           type: string
- *           description: The amount of the ingredient used
+ *           description: The difficulty level of the recipe
  *         genre:
  *           type: string
- *           description: The amount of the ingredient used
+ *           description: The genre of the recipe
  *         userId:
  *           type: string
  *         ingredientId:
@@ -61,19 +61,19 @@
  *           required: false
  *         name:
  *           type: string
- *           description: The name of the ingredient
+ *           description: The name recipe
  *         preparation:
  *           type: string
- *           description: The amount of the ingredient used
+ *           description: The preparation of the recipe
  *         preparationTime:
  *           type: string
- *           description: The amount of the ingredient used
+ *           description: The preparation time of the recipe
  *         difficultyLevel:
  *           type: string
- *           description: The amount of the ingredient used
+ *           description: The difficulty level of the recipe
  *         genre:
  *           type: string
- *           description: The amount of the ingredient used 
+ *           description: The genre of the recipe
  */
 
 import express, { Request, Response } from 'express';

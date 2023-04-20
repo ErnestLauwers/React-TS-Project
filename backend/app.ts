@@ -25,10 +25,10 @@ const swaggerOpts = {
 
 const swaggerDocs = swaggerJSDoc(swaggerOpts);
 
-app.use("/users", userRouter);
-app.use("/recipes", recipeRouter);
+app.use('/ingredients', ingredientRouter);
+app.use('/recipes', recipeRouter);
 app.use('/posts', postRouter);
-app.use('/ingredients', ingredientRouter)
+app.use('/users', userRouter);
 
 app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerDocs));
 

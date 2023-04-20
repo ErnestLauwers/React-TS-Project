@@ -7,16 +7,16 @@
  *       properties:
  *         title:
  *           type: string
- *           description: The name of the ingredient
+ *           description: The title of the post
  *         text:
  *           type: string
- *           description: The amount of the ingredient used
+ *           description: The text of the post
  *         createdAt:
  *           type: string
- *           description: The amount of the ingredient used
+ *           description: The time that the post was created
  *         updatedAt:
  *           type: string
- *           description: The amount of the ingredient used
+ *           description: The time that the post was last updated
  *         userId:
  *           type: string
  *     PostInput:
@@ -28,10 +28,10 @@
  *           required: false
  *         title:
  *           type: string
- *           description: The name of the ingredient
+ *           description: The title of the post
  *         text:
  *           type: string
- *           description: The amount of the ingredient used
+ *           description: The text of the post
  *         userId:
  *           type: string
  *     EditPostInput:
@@ -43,10 +43,10 @@
  *           required: false
  *         title:
  *           type: string
- *           description: The name of the ingredient
+ *           description: The title of the post
  *         text:
  *           type: string
- *           description: The amount of the ingredient used
+ *           description: The text of the post
  */
 import express, { Request, Response } from 'express';
 import postService from '../service/post.service';

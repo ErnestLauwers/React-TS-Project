@@ -7,19 +7,19 @@
  *       properties:
  *         firstName:
  *           type: string
- *           description: The name of the ingredient
+ *           description: The first name of the user
  *         lastName:
  *           type: string
- *           description: The amount of the ingredient used
+ *           description: The last name of the user
  *         username:
  *           type: string
- *           description: The amount of the ingredient used
+ *           description: The username of the user
  *         email:
  *           type: string
- *           description: The amount of the ingredient used
+ *           description: The email of the user
  *         password:
  *           type: string
- *           description: The amount of the ingredient used
+ *           description: The password of the user
  *         recipes:
  *           type: array
  *           items:
@@ -37,19 +37,18 @@
  *           required: false
  *         firstName:
  *           type: string
- *           description: The name of the ingredient
- *         lastName:
+ *           description: The first name of the user 
  *           type: string
- *           description: The amount of the ingredient used
+ *           description: The last name of the user
  *         username:
  *           type: string
- *           description: The amount of the ingredient used
+ *           description: The username of the user 
  *         email:
  *           type: string
- *           description: The amount of the ingredient used
+ *           description: The email of the user
  *         password:
  *           type: string
- *           description: The amount of the ingredient used
+ *           description: The password of the user
  */
 
 import express, { Request, Response } from 'express';
