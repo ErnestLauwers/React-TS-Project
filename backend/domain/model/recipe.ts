@@ -18,6 +18,7 @@ export class Recipe {
         this.difficultyLevel = recipe.difficultyLevel;
         this.genre = recipe.genre;
         this.userId = recipe.userId;
+        this.ingredients = recipe.ingredients;
     }
 
     equals({ id, name, preparation, preparationTime, difficultyLevel, genre, userId, ingredients}): boolean {
