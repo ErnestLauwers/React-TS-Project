@@ -38,8 +38,6 @@
  *         firstName:
  *           type: string
  *           description: The first name of the user 
- *           type: string
- *           description: The last name of the user
  *         username:
  *           type: string
  *           description: The username of the user 
@@ -71,7 +69,7 @@ const userRouter = express.Router();
  *                      schema:
  *                          type: array
  *                          items:
- *                              $ref: '#components/schema/User'
+ *                              $ref: '#/components/schemas/User'
  */
 userRouter.get('/', async (request: Request, response: Response) => {
     try {
@@ -95,7 +93,7 @@ userRouter.get('/', async (request: Request, response: Response) => {
  *                  application/json:
  *                      schema:
  *                          items:
- *                              $ref: '#components/schema/User'
+ *                              $ref: '#/components/schemas/User'
  *      parameters:
  *          - name: id
  *            in: path
