@@ -133,11 +133,36 @@ const editUser = async ({
     }
 }
 
+const getUserByUsername = async (username: string): Promise<User> => {
+    try {
+        const usersPrisma = await database.user.findMany({
+            include: { recipes: true, 
+                posts: true }
+        })
+        const allUsers = mapToUsers(usersPrisma);
+        let foundUser = null;
+        for (let i = 0; i < allUsers.length; i++) {
+            const user = allUsers[i];
+            if (user.username == username) {
+                foundUser = user;
+            }
+        } 
+        if (foundUser != null) {
+            return foundUser;
+        } else {
+            throw new Error('There was no user found with this username');
+        }
+    } catch (error) {
+        console.log(error);
+        throw new Error('There was no user found with this username');
+    }
+}
 
 export default {
     getAllUsers, 
     deleteUser, 
     getUserById, 
     addUser,
-    editUser
+    editUser,
+    getUserByUsername
 };

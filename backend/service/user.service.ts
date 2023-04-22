@@ -8,6 +8,8 @@ const getUserById = async (id: number): Promise<User> => userDb.getUserById(id)
 
 const deleteUser = async (id: number): Promise<User> => userDb.deleteUser(id);
 
+const getUserByUsername = async (username: string): Promise<User> => userDb.getUserByUsername(username);
+
 const addUser = async ({ firstName, lastName, username, email, password }: UserInput): Promise<User> => {
     if (!firstName || firstName == null) {
         throw new Error('The first name of a User cannot be empty');
@@ -27,6 +29,14 @@ const addUser = async ({ firstName, lastName, username, email, password }: UserI
 
     if (!password || password == null) {
         throw new Error('The password of a User cannot be empty');
+    }
+
+    const users = await userDb.getAllUsers();
+    for (let i = 0; i < users.length; i++) {
+        const user = users[i];
+        if (user.username == username) {
+            throw new Error('There is already a user with this username');
+        }
     }
 
     return await userDb.addUser({
@@ -63,6 +73,16 @@ const editUser = async ({ id, firstName, lastName, username, email, password }: 
         throw new Error('The password of a User cannot be empty');
     }
 
+    const users = await userDb.getAllUsers();
+    for (let i = 0; i < users.length; i++) {
+        const user = users[i];
+        if (user.id != id) {
+            if (user.username == username) {
+                throw new Error('There is already a user with this username');
+            }
+        }
+    }
+
     return await userDb.editUser({
         id: Number(id),
         firstName: firstName,
@@ -79,5 +99,6 @@ export default {
     deleteUser, 
     getUserById,
     addUser,
-    editUser
+    editUser,
+    getUserByUsername
 };
