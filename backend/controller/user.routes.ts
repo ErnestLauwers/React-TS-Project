@@ -37,7 +37,10 @@
  *           required: false
  *         firstName:
  *           type: string
- *           description: The first name of the user 
+ *           description: The first name of the user
+ *         lastName:
+ *           type: string
+ *           description: The last name of the user 
  *         username:
  *           type: string
  *           description: The username of the user 
@@ -196,6 +199,38 @@ userRouter.put('/update', async (request: Request, response: Response) => {
         response.status(200).json(updatedUser);
     } catch (error) {
         response.status(500).json({ status: 'error', errorMessage: error.message});
+    }
+})
+
+/**
+ * @swagger
+ * /users/search/{username}:
+ *  get:
+ *      summary: Get a user by username
+ *      description: This API is used to get a user by username
+ *      responses:
+ *          200:
+ *              description: Returns a user
+ *              content:
+ *                  application/json:
+ *                      schema:
+ *                          items:
+ *                              $ref: '#/components/schemas/User'
+ *      parameters:
+ *          - name: username
+ *            in: path
+ *            description: User username
+ *            required: true
+ *            schema:
+ *              type: string
+ */
+userRouter.get('/search/:username', async (request: Request, response: Response) => {
+    try {
+        const username = request.params.username;
+        const user = await userService.getUserByUsername(username);
+        response.status(200).json(user);
+    } catch (error) {
+        response.status(500).json({ status: 'error', errorMessage: error.message })
     }
 })
 

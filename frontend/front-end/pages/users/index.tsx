@@ -9,16 +9,14 @@ const Users: React.FC = () => {
     
     const [users, setUsers] = useState<Array<User>>([])
 
-    const getUsers = async () => {
-        console.log("index-getUsers")
+    const getAllUsers = async () => {
         UserService.getAllUsers()
             .then((res) => res.json())
             .then((users) => setUsers(users))
     }
 
     useEffect(() => {
-        console.log("index-useEffect")
-        getUsers()
+        getAllUsers()
     }, [])
 
     return (
@@ -26,11 +24,9 @@ const Users: React.FC = () => {
             <Head>
                 <title>Users</title>
             </Head>
-            <Header></Header>
+            <Header/>
             <main>
-                <section className='row justify-content-center'>
-                    <UsersOverview users={users} />
-                </section>
+                <UsersOverview users={users} />
             </main>
         </>
     )

@@ -4,9 +4,16 @@ import postRouter from "./controller/post.routes";
 import ingredientRouter from "./controller/ingredient.routes";
 
 const express = require("express");
+const cors = require("cors");
 const app = express();
 const swaggerJSDoc = require('swagger-jsdoc');
 const swaggerUi = require('swagger-ui-express')
+
+const corsOptions = {
+  origin: "*"
+};
+
+app.use(cors(corsOptions));
 
 app.use(express.json())
 

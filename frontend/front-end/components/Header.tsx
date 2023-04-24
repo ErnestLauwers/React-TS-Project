@@ -1,16 +1,20 @@
-import Link from "next/link"
+import styles from '../styles/header.module.css'
+import Link from 'next/link'
 
 const Header: React.FC = () => {
     return (
-            <header className="p-3 mb-3 border-bottom bg-dark bg-gradient">
-                <a className="fs-2 d-flex justify-content-center ùb-2 mb-lg-0 text-white-50 text-decoration-none">Cookbook Companion</a>
-                <nav className="nav justify-content-center">
-                    <Link href="/" className="nav-link px-4 fs-5 text-white">Home</Link>
-                    <Link href="/users" className="nav-link px-4 fs-5 text-white">Users</Link>
-                    <Link href="/ingredients" className="nav-link px-4 fs-5 text-white">Ingredients</Link>
-                </nav>
-            </header>
-        )
+        <header className={styles.header}>
+            <nav className={styles.nav}>
+                <h1 className={styles.h1}>Cookbook Companion</h1>
+                <ul className={styles.ul}>
+                    <li><Link className={styles.link} href="/">Home</Link></li>
+                    <li><Link className={styles.link} href="/users">Users</Link></li>
+                    <li><Link className={styles.link} href="/users/search">Search User</Link></li>
+                    <li><Link className={styles.link} href="/users/add">Register</Link></li>
+                </ul>
+            </nav>
+        </header>
+    )
 }
 
 export default Header
