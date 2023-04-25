@@ -27,6 +27,10 @@ const addUser = async ({ firstName, lastName, username, email, password }: UserI
         throw new Error('The email of a User cannot be empty');
     }
 
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+        throw new Error('The email format is invalid.');
+    }
+
     if (!password || password == null) {
         throw new Error('The password of a User cannot be empty');
     }
@@ -67,6 +71,10 @@ const editUser = async ({ id, firstName, lastName, username, email, password }: 
     
     if (!email || email == null) {
         throw new Error('The email of a User cannot be empty');
+    }
+
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+        throw new Error('The email format is invalid.');
     }
 
     if (!password || password == null) {
