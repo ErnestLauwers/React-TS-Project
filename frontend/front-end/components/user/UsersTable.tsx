@@ -12,20 +12,20 @@ const UsersTable: React.FC<Props> = ({ users = [] }: Props) => {
 
     const router = useRouter();
 
-    const handleUpdate = async (id: number) => {
+    const handleUpdate = async (id:number) => {
         const response = await UserService.getUserwithId(id)
         const user = await response.json()
         router.push({
-            pathname: '/users/confirmation',
+            pathname: '/users/edit',
             query: { user: JSON.stringify(user)}
         })
     }
 
-    const handleDelete = async (id:number) => {
+    const handleDelete = async (id: number) => {
         const response = await UserService.getUserwithId(id)
         const user = await response.json()
         router.push({
-            pathname: '/users/update',
+            pathname: '/users/confirmation',
             query: { user: JSON.stringify(user)}
         })
     }
