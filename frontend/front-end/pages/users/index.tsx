@@ -1,9 +1,10 @@
 import Head from 'next/head'
 import Header from '../../components/Header'
-import UsersOverview from '../../components/users/UserOverviewTable'
 import UserService from '../../services/UserService'
-import { useState, useEffect } from 'react'
+import UsersTable from '../../components/user/UsersTable'
+import Intro from '../../components/Intro'
 import { User } from '../../types'
+import { useState, useEffect } from 'react'
 
 const Users: React.FC = () => {
     
@@ -11,7 +12,7 @@ const Users: React.FC = () => {
 
     const getAllUsers = async () => {
         UserService.getAllUsers()
-            .then((res) => res.json())
+            .then((response) => response.json())
             .then((users) => setUsers(users))
     }
 
@@ -26,7 +27,8 @@ const Users: React.FC = () => {
             </Head>
             <Header/>
             <main>
-                <UsersOverview users={users} />
+                <Intro text={"Users"}/>
+                <UsersTable users={users} />
             </main>
         </>
     )

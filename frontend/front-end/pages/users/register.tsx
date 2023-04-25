@@ -1,32 +1,35 @@
 import Head from 'next/head'
 import Header from '../../components/Header'
-import { useState } from 'react'
 import UserService from '@/services/UserService'
-import { useRouter } from 'next/router';
-import styles from '../../styles/addUser.module.css'
+import styles from '../../styles/user/register.module.css'
+import Intro from '../../components/Intro'
 import { Error } from '../../types'
+import { useState } from 'react'
+import { useRouter } from 'next/router'
 
 
-const AddUser: React.FC = () => {
+const Register: React.FC = () => {
 
-    const [firstName, setFirstName] = useState('')
-    const [lastName, setLastName] = useState('')
-    const [username, setUsername] = useState('')
-    const [email, setEmail] = useState('')
-    const [password, setPassword] = useState('')
+    const [firstName, setFirstName] = useState<string>('')
+    const [lastName, setLastName] = useState<string>('')
+    const [username, setUsername] = useState<string>('')
+    const [email, setEmail] = useState<string>('')
+    const [password, setPassword] = useState<string>('')
     const [error, setError] = useState<Error>()
-    const router = useRouter();
+
+    const router = useRouter()
 
 
     const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault()
         const user = {firstName, lastName, username, email, password}
-        const res = await UserService.addUser(user)
-        const json = await res.json()
-        if (res.status === 200) {
+        const response = await UserService.addUser(user)
+        const json = await response.json()
+        if (response.status === 200) {
             setError(undefined)
             router.push("/users")
-        } else {
+        } 
+        else {
             setError(json)
         }
     }
@@ -38,12 +41,10 @@ const AddUser: React.FC = () => {
             </Head>
             <Header/>
             <main>
-                <h1 className={styles.h1}>Register</h1>
-                <hr className={styles.hr}/>
+                <Intro text={"Register"}/>
                 {error ? (
                     <p className={styles.error}>{error.errorMessage}</p>
-                ) : 
-                <p></p>
+                ) : null
                 }
                 <form className={styles.form} onSubmit={handleSubmit}>
                     <div className={styles.row}>
@@ -76,7 +77,7 @@ const AddUser: React.FC = () => {
                     <div className={styles.row}>
                         <label className={styles.label}>Email</label>
                         <input className={styles.input}
-                            type="email"
+                            type="text"
                             placeholder='Email...'
                             value={email}
                             onChange={(e) => setEmail(e.target.value)}
@@ -100,4 +101,4 @@ const AddUser: React.FC = () => {
     )
 }
 
-export default AddUser
+export default Register

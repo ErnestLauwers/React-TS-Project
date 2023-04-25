@@ -1,32 +1,32 @@
-import Head from "next/head"
-import { useRouter } from "next/router"
+import Head from 'next/head'
 import Header from '../../components/Header'
-import { useState, FormEvent } from 'react'
 import UserService from '@/services/UserService'
-import { User } from '../../types'
-import styles from '../../styles/updateUser.module.css';
+import styles from '../../styles/user/edit.module.css'
+import Intro from '../../components/Intro'
 import { Error } from '../../types'
+import { useState } from 'react'
+import { useRouter } from "next/router"
 
-const Update: React.FC = () => {
+const Edit: React.FC = () => {
 
     const router = useRouter()
     const { user } = router.query
     const userParsed = JSON.parse(user as string)
-
     const id = userParsed.id
-    const [firstName, setFirstName] = useState(userParsed.firstName)
-    const [lastName, setLastName] = useState(userParsed.lastName)
-    const [username, setUsername] = useState(userParsed.username)
-    const [email, setEmail] = useState(userParsed.email)
-    const [password, setPassword] = useState(userParsed.password)
+
+    const [firstName, setFirstName] = useState<string>(userParsed.firstName)
+    const [lastName, setLastName] = useState<string>(userParsed.lastName)
+    const [username, setUsername] = useState<string>(userParsed.username)
+    const [email, setEmail] = useState<string>(userParsed.email)
+    const [password, setPassword] = useState<string>(userParsed.password)
     const [error, setError] = useState<Error>()
 
     const handleUpdate: React.MouseEventHandler<HTMLButtonElement> = async (e) => {
         e.preventDefault()
         const user = {id, firstName, lastName, username, email, password}
-        const res = await UserService.updateUser(user)
-        const json = await res.json()
-        if (res.status === 200) {
+        const response = await UserService.updateUser(user)
+        const json = await response.json()
+        if (response.status === 200) {
             setError(undefined)
             router.push("/users")
         } else {
@@ -34,7 +34,8 @@ const Update: React.FC = () => {
         }
     }
 
-    const cancel: React.MouseEventHandler<HTMLButtonElement> = (e) => {
+    const handleCancel: React.MouseEventHandler<HTMLButtonElement> = (e) => {
+        e.preventDefault()
         router.push("/users")
     }
 
@@ -45,19 +46,16 @@ const Update: React.FC = () => {
             </Head>
             <Header/>
             <main>
-                <h1 className={styles.h1}>Edit User</h1>
-                <hr className={styles.hr}/>
+                <Intro text={"Edit User"}/>
                 {error ? (
                     <p className={styles.error}>{error.errorMessage}</p>
-                ) : 
-                <p></p>
+                ) : null
                 }
                 <form className={styles.form}>
                     <div className={styles.row}>
                         <label className={styles.label}>First Name</label>
                         <input className={styles.input} 
                             type="text"
-                            required
                             placeholder='First Name...'
                             value={firstName}
                             onChange={(e) => setFirstName(e.target.value)}
@@ -67,7 +65,6 @@ const Update: React.FC = () => {
                         <label className={styles.label}>Last Name</label>
                         <input className={styles.input}
                             type="text"
-                            required 
                             placeholder='Last Name...'
                             value={lastName}
                             onChange={(e) => setLastName(e.target.value)}
@@ -77,7 +74,6 @@ const Update: React.FC = () => {
                         <label className={styles.label}>Username</label>
                         <input className={styles.input}
                             type="text"
-                            required 
                             placeholder='Username...'
                             value={username}
                             onChange={(e) => setUsername(e.target.value)}
@@ -86,8 +82,7 @@ const Update: React.FC = () => {
                     <div className={styles.row}>
                         <label className={styles.label}>Email</label>
                         <input className={styles.input}
-                            type="email"
-                            required 
+                            type="text"
                             placeholder='Email...'
                             value={email}
                             onChange={(e) => setEmail(e.target.value)}
@@ -97,15 +92,14 @@ const Update: React.FC = () => {
                         <label className={styles.label}>Password</label>
                         <input className={styles.input}
                             type="password"
-                            required 
                             placeholder='Password...'
                             value={password}
                             onChange={(e) => setPassword(e.target.value)}
                         />
                     </div>
-                    <div className={styles.rowButtons}>
+                    <div className={styles.buttons}>
                         <button onClick={handleUpdate} className={styles.button}>Edit</button>
-                        <button onClick={cancel} className={styles.button}>Cancel</button>
+                        <button onClick={handleCancel} className={styles.button}>Cancel</button>
                     </div>
                 </form>
             </main>
@@ -113,4 +107,4 @@ const Update: React.FC = () => {
     )
 }
 
-export default Update
+export default Edit

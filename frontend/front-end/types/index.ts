@@ -1,12 +1,12 @@
 export interface User {
-    id: number 
+    id: number
     firstName: string
     lastName: string
     username: string
     email: string
     password: string
-    recipes?: Recipe[]
-    posts?: Post[]
+    recipes: Recipe[]
+    posts: Post[]
 }
 
 export interface Post {

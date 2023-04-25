@@ -1,4 +1,4 @@
-import styles from '../styles/header.module.css'
+import styles from '../styles/components/header.module.css'
 import Link from 'next/link'
 
 const Header: React.FC = () => {
