@@ -5,6 +5,7 @@ import { useState, FormEvent } from 'react'
 import UserService from '@/services/UserService'
 import { User } from '../../types'
 import styles from '../../styles/updateUser.module.css';
+import { Error } from '../../types'
 
 const Update: React.FC = () => {
 
@@ -18,12 +19,19 @@ const Update: React.FC = () => {
     const [username, setUsername] = useState(userParsed.username)
     const [email, setEmail] = useState(userParsed.email)
     const [password, setPassword] = useState(userParsed.password)
+    const [error, setError] = useState<Error>()
 
-    const handleUpdate: React.MouseEventHandler<HTMLButtonElement> = (e) => {
+    const handleUpdate: React.MouseEventHandler<HTMLButtonElement> = async (e) => {
         e.preventDefault()
         const user = {id, firstName, lastName, username, email, password}
-        UserService.updateUser(user)
-        router.push("/users")
+        const res = await UserService.updateUser(user)
+        const json = await res.json()
+        if (res.status === 200) {
+            setError(undefined)
+            router.push("/users")
+        } else {
+            setError(json)
+        }
     }
 
     const cancel: React.MouseEventHandler<HTMLButtonElement> = (e) => {
@@ -39,6 +47,11 @@ const Update: React.FC = () => {
             <main>
                 <h1 className={styles.h1}>Edit User</h1>
                 <hr className={styles.hr}/>
+                {error ? (
+                    <p className={styles.error}>{error.errorMessage}</p>
+                ) : 
+                <p></p>
+                }
                 <form className={styles.form}>
                     <div className={styles.row}>
                         <label className={styles.label}>First Name</label>

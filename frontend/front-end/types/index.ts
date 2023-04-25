@@ -34,3 +34,8 @@ export interface Recipe {
     userId: number
     ingredients: Ingredient[]
 }
+
+export interface Error {
+    status: string
+    errorMessage: string
+}

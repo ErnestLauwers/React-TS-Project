@@ -1,13 +1,13 @@
 const getAllUsers = async () => {
-    return fetch("http://localhost:3000/users")
+    return fetch(process.env.NEXT_PUBLIC_API_URL+'/users')
 }
 
 const getUserwithId = async (id: Number) => {
-    return fetch(`http://localhost:3000/users/${id}`)
+    return fetch(process.env.NEXT_PUBLIC_API_URL+`/users/${id}`)
 }
 
 const getUserwithUsername = async (username: string) => {
-    return fetch(`http://localhost:3000/users/search/${username}`)
+    return fetch(process.env.NEXT_PUBLIC_API_URL+`/users/search/${username}`)
 }
 
 const addUser = async (data: {firstName: string, lastName: string, username: string, email: string, password: string}) => {
@@ -16,7 +16,7 @@ const addUser = async (data: {firstName: string, lastName: string, username: str
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(data)
     }
-    return fetch(`http://localhost:3000/users/add`, requestOptions)
+    return fetch(process.env.NEXT_PUBLIC_API_URL+'/users/add', requestOptions)
 }
 
 const updateUser = async (data: {id: number, firstName: string, lastName: string, username: string, email: string, password: string}) => {
@@ -25,7 +25,7 @@ const updateUser = async (data: {id: number, firstName: string, lastName: string
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(data)
     }
-    return fetch(`http://localhost:3000/users/update`, requestOptions)
+    return fetch(process.env.NEXT_PUBLIC_API_URL+'/users/update', requestOptions)
 }
 
 const deleteUser = async (id: number) => {
@@ -33,7 +33,7 @@ const deleteUser = async (id: number) => {
         method: 'DELETE',
         headers: { 'Content-Type': 'application/json' },
     }
-    return fetch(`http://localhost:3000/users/delete/${id}`, requestOptions)
+    return fetch(process.env.NEXT_PUBLIC_API_URL+`/users/delete/${id}`, requestOptions)
 }
 
 const UserService = {
