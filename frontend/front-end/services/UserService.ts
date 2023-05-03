@@ -48,6 +48,15 @@ const deleteUser = async (id: number) => {
     return fetch(process.env.NEXT_PUBLIC_API_URL + `/users/delete/${id}`, requestOptions)
 }
 
+const validateUser = async (username: string, password: string) => {
+    const requestOptions = {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ username, password })
+    }
+    return fetch(process.env.NEXT_PUBLIC_API_URL + '/users/login', requestOptions)
+}
+
 const UserService = {
     getAllUsers,
     getUserwithId,
@@ -55,6 +64,7 @@ const UserService = {
     addUser,
     updateUser,
     deleteUser,
+    validateUser
 }
 
 export default UserService

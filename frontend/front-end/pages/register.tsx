@@ -1,12 +1,11 @@
 import Head from 'next/head'
-import Header from '../../components/Header'
+import LoginHeader from '@/components/LoginHeader'
 import UserService from '@/services/UserService'
-import styles from '../../styles/user/register.module.css'
-import Intro from '../../components/Intro'
-import { Error } from '../../types'
+import styles from '../styles/register.module.css'
+import Intro from '../components/Intro'
+import { Error } from '../types'
 import { useState } from 'react'
 import { useRouter } from 'next/router'
-
 
 const Register: React.FC = () => {
 
@@ -27,7 +26,7 @@ const Register: React.FC = () => {
         const json = await response.json()
         if (response.status === 200) {
             setError(undefined)
-            router.push("/users")
+            router.push("/")
         } 
         else {
             setError(json)
@@ -39,7 +38,7 @@ const Register: React.FC = () => {
             <Head>
                 <title>Register</title>
             </Head>
-            <Header/>
+            <LoginHeader/>
             <main>
                 <Intro text={"Register"}/>
                 {error ? (
