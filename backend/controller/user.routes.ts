@@ -50,11 +50,20 @@
  *         password:
  *           type: string
  *           description: The password of the user
+ *     LoginInput:
+ *       type: object
+ *       properties:
+ *         username:
+ *           type: string
+ *           description: The username of the user 
+ *         password:
+ *           type: string
+ *           description: The password of the user
  */
 
 import express, { Request, Response } from 'express';
 import userService from '../service/user.service';
-import { EditUserInput, UserInput } from '../types/types';
+import { EditUserInput, UserInput, LoginInput } from '../types/types';
 
 const userRouter = express.Router();
 
@@ -228,6 +237,37 @@ userRouter.get('/search/:username', async (request: Request, response: Response)
     try {
         const username = request.params.username;
         const user = await userService.getUserByUsername(username);
+        response.status(200).json(user);
+    } catch (error) {
+        response.status(500).json({ status: 'error', errorMessage: error.message })
+    }
+})
+
+/**
+ * @swagger
+ * /users/login:
+ *  post:
+ *      summary: Get user if username & password combination is correct
+ *      description: This API is used to validate a user
+ *      requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             $ref: '#/components/schemas/LoginInput'
+ *      responses:
+ *          200:
+ *              description: Returns user
+ *              content:
+ *                  application/json:
+ *                      schema:
+ *                          items:
+ *                              $ref: '#/components/schemas/User'
+ */
+userRouter.post('/login', async (request: Request, response: Response) => {
+    const loginInput = <LoginInput>request.body;
+    try {
+        const user = await userService.getUserLogin(loginInput);
         response.status(200).json(user);
     } catch (error) {
         response.status(500).json({ status: 'error', errorMessage: error.message })

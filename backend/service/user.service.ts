@@ -1,6 +1,6 @@
 import { User } from '../domain/model/user';
 import userDb from '../domain/data-access/user.db';
-import { UserInput, EditUserInput } from '../types/types';
+import { UserInput, EditUserInput, LoginInput } from '../types/types';
 
 const getAllUsers = async (): Promise<User[]> => userDb.getAllUsers();
 
@@ -9,6 +9,18 @@ const getUserById = async (id: number): Promise<User> => userDb.getUserById(id)
 const deleteUser = async (id: number): Promise<User> => userDb.deleteUser(id);
 
 const getUserByUsername = async (username: string): Promise<User> => userDb.getUserByUsername(username);
+
+const getUserLogin = async ({ username, password }: LoginInput): Promise<User> => {
+    if (!username || username == null) {
+        throw new Error('The username cannot be empty');
+    }
+
+    if (!password || password == null) {
+        throw new Error('The password cannot be empty');
+    }
+
+    return await userDb.getUserByUsernameAndPassword(username, password);
+}
 
 const addUser = async ({ firstName, lastName, username, email, password }: UserInput): Promise<User> => {
     if (!firstName || firstName == null) {
@@ -108,5 +120,6 @@ export default {
     getUserById,
     addUser,
     editUser,
-    getUserByUsername
+    getUserByUsername, 
+    getUserLogin
 };

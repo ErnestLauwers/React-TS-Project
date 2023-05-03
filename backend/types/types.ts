@@ -45,6 +45,11 @@ export interface EditUserInput {
     password: string
 }
 
+export interface LoginInput {
+    username: string, 
+    password: string
+}
+
 export interface PostInput {
     title: string,
     text: string,

@@ -158,11 +158,37 @@ const getUserByUsername = async (username: string): Promise<User> => {
     }
 }
 
+const getUserByUsernameAndPassword = async (username: string, password: string): Promise<User> => {
+    try {
+        const usersPrisma = await database.user.findMany({
+            include: { recipes: true, 
+                posts: true }
+        })
+        const allUsers = mapToUsers(usersPrisma);
+        let foundUser = null;
+        for (let i = 0; i < allUsers.length; i++) {
+            const user = allUsers[i];
+            if (user.username == username && user.password == password) {
+                foundUser = user;
+            }
+        } 
+        if (foundUser != null) {
+            return foundUser;
+        } else {
+            throw new Error('Please use the correct credentials to login');
+        }
+    } catch (error) {
+        console.log(error);
+        throw new Error('Please use the correct credentials to login');
+    }
+}
+
 export default {
     getAllUsers, 
     deleteUser, 
     getUserById, 
     addUser,
     editUser,
-    getUserByUsername
+    getUserByUsername, 
+    getUserByUsernameAndPassword
 };
