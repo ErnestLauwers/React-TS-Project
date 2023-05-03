@@ -1,14 +1,3 @@
-.h1 {
-    font-size: 30px;
-    text-align: center;
-    margin-top: 20px;
-    margin-bottom: 20px;
-}
-
-.hr {
-    border: 3px solid #edede9;
-}
-
 .table {
     width: 60%;
     height: auto;
@@ -22,7 +11,7 @@
     border: 3px solid black;
     padding: 10px 15px 10px 15px;
     text-align: center;
-    background-color: #d5bdaf;
+    background-color: #ddb892;
 }
 
 
@@ -35,11 +24,11 @@
 }
 
 .td:nth-child(6):hover {
-    background-color: #d5bdaf;
+    background-color: #ddb892;
 }
 
 .td:nth-child(7):hover {
-    background-color: #d5bdaf;
+    background-color: #ddb892;
 }
 
 .a {

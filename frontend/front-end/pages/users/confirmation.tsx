@@ -2,7 +2,6 @@ import Head from 'next/head'
 import Header from '../../components/Header'
 import UserService from '@/services/UserService'
 import styles from '../../styles/user/confirmation.module.css'
-import Intro from '../../components/Intro'
 import { useRouter } from 'next/router'
 
 const Confirmation: React.FC = () => {
@@ -30,7 +29,6 @@ const Confirmation: React.FC = () => {
             </Head>
             <Header/>
             <main>
-                <Intro text={"Confirmation"}/>
                 <table className={styles.table}>
                     <thead className={styles.thead}>
                         <tr className={styles.tr}>

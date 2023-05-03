@@ -1,4 +1,3 @@
-import Intro from "@/components/Intro"
 import LoginHeader from "@/components/LoginHeader"
 import styles from '../styles/login.module.css'
 import Head from "next/head"
@@ -36,7 +35,6 @@ const Login: React.FC = () => {
             </Head>
             <LoginHeader/>
             <main>
-                <Intro text="Login"/>
                 {error ? (
                     <p className={styles.error}>{error.errorMessage}</p>
                 ) : null

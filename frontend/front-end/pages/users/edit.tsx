@@ -2,7 +2,6 @@ import Head from 'next/head'
 import Header from '../../components/Header'
 import UserService from '@/services/UserService'
 import styles from '../../styles/user/edit.module.css'
-import Intro from '../../components/Intro'
 import { Error } from '../../types'
 import { useState } from 'react'
 import { useRouter } from "next/router"
@@ -46,7 +45,6 @@ const Edit: React.FC = () => {
             </Head>
             <Header/>
             <main>
-                <Intro text={"Edit User"}/>
                 {error ? (
                     <p className={styles.error}>{error.errorMessage}</p>
                 ) : null

@@ -2,7 +2,6 @@ import Head from 'next/head'
 import Header from '../../components/Header'
 import UserService from '@/services/UserService'
 import styles from '../../styles/user/search.module.css'
-import Intro from '../../components/Intro'
 import { useState, FormEvent } from 'react'
 import { User } from '../../types'
 import { Error } from '../../types'
@@ -34,7 +33,6 @@ const Search: React.FC = () => {
             </Head>
             <Header/>
             <main>
-                <Intro text={"Search User"}/>
                 <form className={styles.form} onSubmit={handleSubmit}>
                     <div>
                         <label className={styles.label}>Which user do you want to look up?</label>

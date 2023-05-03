@@ -1,7 +1,5 @@
 import Header from "@/components/Header"
-import Intro from "@/components/Intro"
 import UserService from "@/services/UserService"
-import { User } from "@/types"
 import Head from "next/head"
 import { useState } from "react"
 import { useRouter } from 'next/router'
@@ -44,7 +42,6 @@ const Profile: React.FC = () => {
             </Head>
             <Header/>
             <main>
-                <Intro text="Profile"/>
                 <p>First name: {firstName}</p>
                 <p>Last name: {lastName}</p>
                 <p>Username: {username}</p>

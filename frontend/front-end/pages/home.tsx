@@ -1,6 +1,5 @@
 import Head from 'next/head'
 import Header from '../components/Header'
-import Intro from '../components/Intro'
 
 export default function Home() {
     return (
@@ -10,7 +9,6 @@ export default function Home() {
             </Head>
             <Header/>
             <main>
-                <Intro text={"Welcome"}/>
             </main>
         </>
     )

@@ -19,12 +19,12 @@
 }
 
 .ul {
-    width: 60%;
+    width: 15%;
     height: 100%;
     display: flex;
-    justify-content: space-evenly;
+    justify-content: space-between;
     align-items: center;
-
+    margin-right: 50px;
 }
 
 .link {

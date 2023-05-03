@@ -2,7 +2,6 @@ import Head from 'next/head'
 import LoginHeader from '@/components/LoginHeader'
 import UserService from '@/services/UserService'
 import styles from '../styles/register.module.css'
-import Intro from '../components/Intro'
 import { Error } from '../types'
 import { useState } from 'react'
 import { useRouter } from 'next/router'
@@ -40,7 +39,6 @@ const Register: React.FC = () => {
             </Head>
             <LoginHeader/>
             <main>
-                <Intro text={"Register"}/>
                 {error ? (
                     <p className={styles.error}>{error.errorMessage}</p>
                 ) : null

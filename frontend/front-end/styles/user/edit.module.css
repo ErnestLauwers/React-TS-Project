@@ -19,7 +19,7 @@
     align-items: center;
     border: 1px solid black;
     border-radius: 10px;
-    background-color: #d5bdaf;
+    background-color: #ddb892;
 }
 
 .row {
@@ -62,7 +62,7 @@
 
 .button:hover {
     cursor: pointer;
-    background-color: #e3d5ca;
+    background-color: #ddb892
 }
 
 .buttons {

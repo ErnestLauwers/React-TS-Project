@@ -2,7 +2,6 @@ import Head from 'next/head'
 import Header from '../../components/Header'
 import UserService from '../../services/UserService'
 import UsersTable from '../../components/user/UsersTable'
-import Intro from '../../components/Intro'
 import { User } from '../../types'
 import { useState, useEffect } from 'react'
 
@@ -27,7 +26,6 @@ const Users: React.FC = () => {
             </Head>
             <Header/>
             <main>
-                <Intro text={"Users"}/>
                 <UsersTable users={users} />
             </main>
         </>

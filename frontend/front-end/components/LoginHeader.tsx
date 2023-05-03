@@ -1,5 +1,5 @@
-import styles from '../styles/components/header.module.css'
 import Link from 'next/link'
+import styles from '../styles/loginHeader.module.css'
 
 const LoginHeader: React.FC = () => {
     return (
