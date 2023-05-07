@@ -12,15 +12,6 @@ const UsersTable: React.FC<Props> = ({ users = [] }: Props) => {
 
     const router = useRouter();
 
-    const handleUpdate = async (id:number) => {
-        const response = await UserService.getUserwithId(id)
-        const user = await response.json()
-        router.push({
-            pathname: '/users/edit',
-            query: { user: JSON.stringify(user)}
-        })
-    }
-
     const handleDelete = async (id: number) => {
         const response = await UserService.getUserwithId(id)
         const user = await response.json()
@@ -41,7 +32,8 @@ const UsersTable: React.FC<Props> = ({ users = [] }: Props) => {
                             <th className={styles.th}>Last Name</th>
                             <th className={styles.th}>Username</th>
                             <th className={styles.th}>Email</th>
-                            <th className={styles.th}>Edit</th>
+                            <th className={styles.th}>Recipes</th>
+                            <th className={styles.th}>Posts</th>
                             <th className={styles.th}>Delete</th>
                         </tr>
                     </thead>
@@ -53,8 +45,9 @@ const UsersTable: React.FC<Props> = ({ users = [] }: Props) => {
                             <td className={styles.td}>{user.lastName}</td>
                             <td className={styles.td}>{user.username}</td>
                             <td className={styles.td}>{user.email}</td>
-                            <td className={styles.td}><a className={styles.a} href="#" onClick={() => handleUpdate(user.id)}>Edit</a></td>
-                            <td className={styles.td}><a className={styles.a} href="#" onClick={() => handleDelete(user.id)}>Delete</a></td>
+                            <td className={styles.td}>{user.recipes.length}</td>
+                            <td className={styles.td}>{user.posts.length}</td>
+                            <td onClick={() => handleDelete(user.id)} className={styles.td}>Delete</td>
                         </tr>
                     ))}
                     </tbody>

@@ -7,8 +7,8 @@
 }
 
 .th {
-    font-size: 20px;
-    border: 3px solid black;
+    font-size: 19px;
+    border: 1px solid black;
     padding: 10px 15px 10px 15px;
     text-align: center;
     background-color: #ddb892;
@@ -16,19 +16,26 @@
 
 
 .td {
-    font-size: 18px;
-    border: 3px solid black;
+    font-size: 17px;
+    border: 1px solid black;
     padding: 10px 15px 10px 15px;
     text-align: center;
     background-color: white;
 }
 
 .td:nth-child(6):hover {
-    background-color: #ddb892;
+    background-color: #f3d5b5;
+    cursor: pointer;
 }
 
 .td:nth-child(7):hover {
-    background-color: #ddb892;
+    background-color: #f3d5b5;
+    cursor: pointer;
+}
+
+.td:nth-child(8):hover {
+    background-color: #f3d5b5;
+    cursor: pointer;
 }
 
 .a {

@@ -1,16 +1,24 @@
 import Head from 'next/head'
-import Header from '../../components/Header'
+import Header from '../../../components/Header'
 import UserService from '@/services/UserService'
-import styles from '../../styles/user/search.module.css'
+import styles from '../../../styles/user/search.module.css'
 import { useState, FormEvent } from 'react'
-import { User } from '../../types'
-import { Error } from '../../types'
+import { User } from '../../../types'
+import { Error } from '../../../types'
+import { useRouter } from 'next/router'
+
 
 const Search: React.FC = () => {
 
-    const [username, setUsername] = useState<string>('')
+    const router = useRouter()
+    const { currentUsername } = router.query
+    const currentUsernameParsed = currentUsername as string
+    const loggedInUser = sessionStorage.getItem("username")
+
+    const [username, setUsername] = useState<string>(currentUsernameParsed)
     const [user, setUser] = useState<User>()
     const [error, setError] = useState<Error>()
+
 
     const handleSubmit = async (event: FormEvent) => {
         event.preventDefault()
@@ -26,6 +34,25 @@ const Search: React.FC = () => {
         }
     }
 
+    const viewPosts = () => {
+        router.push({
+            pathname: '/users/search/posts',
+            query: { 
+                user: JSON.stringify(user),
+                username: username
+            }
+        })
+    }
+
+    const handleDelete = async (id: number) => {
+        const response = await UserService.getUserwithId(id)
+        const user = await response.json()
+        router.push({
+            pathname: '/users/confirmation',
+            query: { user: JSON.stringify(user)}
+        })
+    }
+
     return (
         <>
             <Head>
@@ -34,7 +61,7 @@ const Search: React.FC = () => {
             <Header/>
             <main>
                 <form className={styles.form} onSubmit={handleSubmit}>
-                    <div>
+                    <div className={styles.inputDiv}>
                         <label className={styles.label}>Which user do you want to look up?</label>
                         <input className={styles.input}
                             type="text"
@@ -43,7 +70,7 @@ const Search: React.FC = () => {
                             onChange={(e) => setUsername(e.target.value)}
                         />
                     </div>
-                    <div>
+                    <div className={styles.buttonDiv}>
                         <button className={styles.button}>Search</button>
                     </div>
                 </form>
@@ -53,20 +80,28 @@ const Search: React.FC = () => {
                     <table className={styles.table}>
                         <thead className={styles.thead}>
                             <tr className={styles.tr}>
-                                <th className={styles.th}>Id</th>
                                 <th className={styles.th}>First Name</th>
                                 <th className={styles.th}>Last Name</th>
                                 <th className={styles.th}>Username</th>
                                 <th className={styles.th}>Email</th>
+                                <th className={styles.th}>Recipes</th>
+                                <th className={styles.th}>Posts</th>
+                                {loggedInUser == "admin" ? (
+                                    <th className={styles.th}>Delete</th>
+                                ) : null}
                             </tr>
                         </thead>
                         <tbody className={styles.tbody}>
                             <tr className={styles.tr}>
-                                <td className={styles.td}>{user.id}</td>
                                 <td className={styles.td}>{user.firstName}</td>
                                 <td className={styles.td}>{user.lastName}</td>
                                 <td className={styles.td}>{user.username}</td>
                                 <td className={styles.td}>{user.email}</td>
+                                <td className={styles.td}>{user.recipes.length}</td>
+                                <td onClick={viewPosts} className={styles.td}>{user.posts.length}</td>
+                                {loggedInUser == "admin" ? (
+                                    <td onClick={() => handleDelete(user.id)} className={styles.td}>Delete</td>
+                                ): null}
                             </tr>
                         </tbody>
                     </table>

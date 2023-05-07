@@ -39,6 +39,7 @@ const Login: React.FC = () => {
                     <p className={styles.error}>{error.errorMessage}</p>
                 ) : null
                 }
+                <p className={styles.header}>Login</p>
                 <form className={styles.form} onSubmit={handleSubmit}>
                     <div className={styles.row}>
                         <label className={styles.label}>Username</label>

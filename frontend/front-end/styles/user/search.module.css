@@ -1,61 +1,67 @@
-.h1 {
-    font-size: 30px;
-    text-align: center;
-    margin-top: 20px;
-    margin-bottom: 20px;
-}
-
-.hr {
-    border: 3px solid #edede9;
-}
-
 .form {
-    width: 80%;
+    width: 42%;
     margin: auto;
     display: flex;
-    margin-top: 30px;
-    height: 50px;
-    align-items: center;
+    margin-top: 70px;
+    background-color: #ddb892;
+    padding: 12px 5px 12px 5px;
+    border: 1px solid black;
+    border-radius: 5px;
     justify-content: center;
+    align-items: center;
+}
+
+.inputDiv {
+    width: 85%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.buttonDiv {
+    width: 15%;
 }
 
 .label {
-    font-size: 20px;
+    font-size: 21px;
 }
 
 .input {
-    border: 2px solid black;
+    width: 30%;
+    margin-left: 18px;
+    border: 1px solid black;
     border-radius: 5px;
-    padding: 4px 6px 4px 6px;
-    margin-left: 20px;
-    margin-right: 10px;
-    font-family: Neucha, sans-serif;
+    padding: 5px 7px 5px 7px;
+    font-family: 'Neucha';
     letter-spacing: 1px;
 }
 
 .button {
-    border: 2px solid black;
+    font-size: 15px;
+    padding: 5px 15px 5px 15px;
+    border: 1px solid black;
     border-radius: 5px;
-    padding: 5px 7px 5px 7px;
-    transition: 0.1s;
+    margin-right: 5px;
+    font-family: 'Neucha';
+    letter-spacing: 1px;
 }
 
 .button:hover {
+    background-color: #f3d5b5;
     cursor: pointer;
-    background-color: #ddb892
 }
 
 .table {
     width: 60%;
     height: auto;
     margin: auto;
-    margin-top: 50px;
+    margin-top: 70px;
     border-collapse: collapse;
 }
 
 .th {
-    font-size: 20px;
-    border: 3px solid black;
+    font-size: 19px;
+    border: 1px solid black;
     padding: 10px 15px 10px 15px;
     text-align: center;
     background-color: #ddb892;
@@ -63,11 +69,26 @@
 
 
 .td {
-    font-size: 18px;
-    border: 3px solid black;
+    font-size: 17px;
+    border: 1px solid black;
     padding: 10px 15px 10px 15px;
     text-align: center;
     background-color: white;
+}
+
+.td:nth-of-type(5):hover {
+    background-color: #f3d5b5;;
+    cursor: pointer;
+}
+
+.td:nth-of-type(6):hover {
+    background-color: #f3d5b5;;
+    cursor: pointer;
+}
+
+.td:nth-child(7):hover {
+    background-color: #f3d5b5;
+    cursor: pointer;
 }
 
 .a {
@@ -83,5 +104,7 @@
     color: red;
     font-size: 20px;
     text-align: center;
-    margin-top: 20px;
+    margin-top: 50px;
+    font-weight: bold;
+    letter-spacing: 2px;
 }

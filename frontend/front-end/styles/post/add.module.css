@@ -10,7 +10,15 @@
     background-color: #ddb892;
 }
 
-.row {
+.row1 {
+    width: 80%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    margin-top: 30px;
+}
+
+.row2 {
     width: 80%;
     display: flex;
     flex-direction: column;
@@ -35,10 +43,34 @@
     letter-spacing: 1px;
 }
 
+.textarea {
+    border-radius: 5px;
+    border: 1px solid black;
+    padding: 8px;
+    font-family: 'Neucha';
+    letter-spacing: 1px;
+}
+
+.error {
+    color: red;
+    font-size: 20px;
+    text-align: center;
+    margin-top: 40px;
+    font-weight: bold;
+    letter-spacing: 2px;
+}
+
+.buttons {
+    width: 80%;
+    display: flex;
+    justify-content: space-between;
+}
+
 .button {
+    width: 48%;
     padding: 5px 7px 5px 7px;
-    margin-top: 5px;
-    margin-bottom: 35px;
+    margin-top: 30px;
+    margin-bottom: 30px;
     border: 1px solid black;
     border-radius: 5px;
     font-size: 15px;
@@ -49,16 +81,7 @@
 
 .button:hover {
     cursor: pointer;
-    background-color: #e3d5ca;
-}
-
-.error {
-    color: red;
-    font-size: 21px;
-    text-align: center;
-    margin-top: 40px;
-    font-weight: bold;
-    letter-spacing: 2px;
+    background-color: #f3d5b5;
 }
 
 .header {
@@ -70,6 +93,6 @@
     border: 1px solid black;
     border-radius: 5px;
     margin: auto;
-    margin-top: 80px;
+    margin-top: 50px;
     margin-bottom: 30px;
 }

@@ -29,6 +29,7 @@ const Confirmation: React.FC = () => {
             </Head>
             <Header/>
             <main>
+                <p className={styles.p}>Are you sure you want to delete this account?</p>
                 <table className={styles.table}>
                     <thead className={styles.thead}>
                         <tr className={styles.tr}>
@@ -37,6 +38,8 @@ const Confirmation: React.FC = () => {
                             <th className={styles.th}>Last Name</th>
                             <th className={styles.th}>Username</th>
                             <th className={styles.th}>Email</th>
+                            <th className={styles.th}>Recipes</th>
+                            <th className={styles.th}>Posts</th>
                         </tr>
                     </thead>
                     <tbody className={styles.tbody}>
@@ -46,10 +49,11 @@ const Confirmation: React.FC = () => {
                             <td className={styles.td}>{userParsed.lastName}</td>
                             <td className={styles.td}>{userParsed.username}</td>
                             <td className={styles.td}>{userParsed.email}</td>
+                            <td className={styles.td}>{userParsed.recipes.length}</td>
+                            <td className={styles.td}>{userParsed.posts.length}</td>
                         </tr>
                     </tbody>
                 </table>
-                <p className={styles.p}>Are you sure you want to delete your account?</p>
                 <div className={styles.buttons}>
                     <button onClick={handleDelete} className={styles.button}>Delete</button>
                     <button onClick={handleCancel} className={styles.button}>Cancel</button>

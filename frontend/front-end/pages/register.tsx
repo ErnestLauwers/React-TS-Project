@@ -43,6 +43,7 @@ const Register: React.FC = () => {
                     <p className={styles.error}>{error.errorMessage}</p>
                 ) : null
                 }
+                <p className={styles.header}>Register</p>
                 <form className={styles.form} onSubmit={handleSubmit}>
                     <div className={styles.row}>
                         <label className={styles.label}>First Name</label>
