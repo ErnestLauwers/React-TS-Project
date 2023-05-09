@@ -267,10 +267,10 @@ userRouter.get('/search/:username', async (request: Request, response: Response)
 userRouter.post('/login', async (request: Request, response: Response) => {
     const loginInput = <LoginInput>request.body;
     try {
-        const user = await userService.getUserLogin(loginInput);
-        response.status(200).json(user);
+        const token = await userService.authenticate(loginInput);
+        response.status(200).json({ message: 'Authentication successful', token});
     } catch (error) {
-        response.status(500).json({ status: 'error', errorMessage: error.message })
+        response.status(401).json({ status: 'unauthorized', errorMessage: error.message })
     }
 })
 

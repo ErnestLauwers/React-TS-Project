@@ -1,6 +1,8 @@
 import { User } from '../domain/model/user';
 import userDb from '../domain/data-access/user.db';
 import { UserInput, EditUserInput, LoginInput } from '../types/types';
+import bcrypt from 'bcrypt';
+import jwt from 'jsonwebtoken';
 
 const getAllUsers = async (): Promise<User[]> => userDb.getAllUsers();
 
@@ -10,7 +12,7 @@ const deleteUser = async (id: number): Promise<User> => userDb.deleteUser(id);
 
 const getUserByUsername = async (username: string): Promise<User> => userDb.getUserByUsername(username);
 
-const getUserLogin = async ({ username, password }: LoginInput): Promise<User> => {
+const authenticate = async ({ username, password }: LoginInput): Promise<String> => {
     if (!username || username == null) {
         throw new Error('The username cannot be empty');
     }
@@ -19,7 +21,14 @@ const getUserLogin = async ({ username, password }: LoginInput): Promise<User> =
         throw new Error('The password cannot be empty');
     }
 
-    return await userDb.getUserByUsernameAndPassword(username, password);
+    const user = await getUserByUsername(username);
+
+    const isValidPassword = await bcrypt.compare(password, user.password);
+
+    if(!isValidPassword) {
+        throw new Error ('Incorrect password');
+    }
+    return generateJwtToken(username);
 }
 
 const addUser = async ({ firstName, lastName, username, email, password }: UserInput): Promise<User> => {
@@ -55,12 +64,14 @@ const addUser = async ({ firstName, lastName, username, email, password }: UserI
         }
     }
 
+    const hashedPassword = await bcrypt.hash(password, 12)
+
     return await userDb.addUser({
         firstName: firstName,
         lastName: lastName,
         username: username,
         email: email,
-        password: password,
+        password: hashedPassword,
     })
 }
 
@@ -113,6 +124,18 @@ const editUser = async ({ id, firstName, lastName, username, email, password }: 
     })
 }
 
+const jwtSecret = process.env.JWT_SECRET;
+
+const generateJwtToken = (username: string): string => {
+    const options = { expiresIn: `${process.env.JWT_EXPIRES_HOURS}h`, issuer: 'whatt' }
+
+    try {
+        return jwt.sign({ username }, jwtSecret, options);
+    } catch (error) {
+        console.log(error);
+        throw new Error('Error generating JWT token, see server log for details.')
+    }
+}
 
 export default {
     getAllUsers,
@@ -121,5 +144,5 @@ export default {
     addUser,
     editUser,
     getUserByUsername, 
-    getUserLogin
+    authenticate
 };
