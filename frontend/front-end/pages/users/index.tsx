@@ -8,16 +8,17 @@ import { useState, useEffect } from 'react'
 const Users: React.FC = () => {
     
     const [users, setUsers] = useState<Array<User>>([])
-    const [error, setError] = useState<Error>()
+    const [error, setError] = useState<string>()
 
     const getAllUsers = async () => {
         const response = await UserService.getAllUsers();
-        console.log(response)
         if (!response.ok) {
             if (response.status === 401) {
                 setError(
-                    await response.json()
+                    "You are not authorized to view this page. Please login first."
                 );
+            } else {
+                setError(response.statusText);
             }
         } else {
             setUsers(await response.json());

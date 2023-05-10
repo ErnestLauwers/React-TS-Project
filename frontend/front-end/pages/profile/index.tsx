@@ -11,6 +11,7 @@ const Profile: React.FC = () => {
     const [username, setUsername] = useState<string>('')
     const [email, setEmail] = useState<string>('')
     const [password, setPassword] = useState<string>('')
+    const [id, setId] = useState<number>(0)
 
     const router = useRouter()
 
@@ -25,14 +26,27 @@ const Profile: React.FC = () => {
                     setUsername(user.username)
                     setEmail(user.email)
                     setPassword(user.password)
+                    setId(user.id)
                 })
             }
         })
     }
 
-    const handleClick = () => {
+    const handleLogout = () => {
         sessionStorage.removeItem("username")
+        sessionStorage.removeItem("userRole")
         router.push("/")
+    }
+
+    const handleEdit = async () => {
+        const response = await UserService.getUserwithId(id);
+        const user = await response.json();
+        router.push({
+            pathname: '/users/edit',
+            query: {
+                user: JSON.stringify(user),
+            }
+        })
     }
 
     return (
@@ -47,7 +61,8 @@ const Profile: React.FC = () => {
                 <p>Username: {username}</p>
                 <p>Email: {email}</p>
                 <p>Password: {password}</p>
-                <button onClick={handleClick}>Logout </button>
+                <button onClick={handleLogout}>Logout </button>
+                <button onClick={handleEdit}>Edit account information</button>
             </main>
         </>
     )

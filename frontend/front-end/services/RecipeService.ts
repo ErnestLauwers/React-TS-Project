@@ -1,4 +1,4 @@
-const getAllPosts = async () => {
+const getAllRecipes = async () => {
     const token = sessionStorage.getItem("token");
     const requestOptions = {
         method: 'GET',
@@ -7,10 +7,10 @@ const getAllPosts = async () => {
             Authorization: `Bearer ${token}`,
         }
     }
-    return fetch(process.env.NEXT_PUBLIC_API_URL + '/posts', requestOptions)
+    return fetch(process.env.NEXT_PUBLIC_API_URL + '/recipes', requestOptions)
 }
 
-const getPost = async (id: number) => {
+const getRecipe = async (id: number) => {
     const token = sessionStorage.getItem("token");
     const requestOptions = {
         method: 'GET',
@@ -19,10 +19,10 @@ const getPost = async (id: number) => {
             Authorization: `Bearer ${token}`,
         }
     }
-    return fetch(process.env.NEXT_PUBLIC_API_URL + `/posts/${id}`, requestOptions)
+    return fetch(process.env.NEXT_PUBLIC_API_URL + `/recipes/${id}`, requestOptions)
 }
 
-const deletePost = async (id: number) => {
+const deleteRecipe = async (id: number) => {
     const token = sessionStorage.getItem("token");
     const requestOptions = {
         method: 'DELETE',
@@ -31,10 +31,10 @@ const deletePost = async (id: number) => {
             Authorization: `Bearer ${token}`,
         }
     }
-    return fetch(process.env.NEXT_PUBLIC_API_URL + `/posts/delete/${id}`, requestOptions)
+    return fetch(process.env.NEXT_PUBLIC_API_URL + `/recipes/delete/${id}`, requestOptions)
 }
 
-const addPost = async (post: {title: string, text: string, userId: number}) => {
+const addRecipe = async (recipe: {name: string, preparation: string, preparationTime: number, difficultyLevel: number, genre: string, userId: number}) => {
     const token = sessionStorage.getItem("token");
     const requestOptions = {
         method: 'POST',
@@ -42,12 +42,12 @@ const addPost = async (post: {title: string, text: string, userId: number}) => {
             'Content-Type': 'application/json',
             Authorization: `Bearer ${token}`,
         },
-        body: JSON.stringify(post)
+        body: JSON.stringify(recipe)
     }
-    return fetch(process.env.NEXT_PUBLIC_API_URL + '/posts/add', requestOptions)
+    return fetch(process.env.NEXT_PUBLIC_API_URL + '/recipes/add', requestOptions)
 }
 
-const updatePost = async (post: {id: number, title: string, text: string, userId: number}) => {
+const updateRecipe = async (recipe: {name: string, preparation: string, preparationTime: number, difficultyLevel: number, genre: string, userId: number}) => {
     const token = sessionStorage.getItem("token");
     const requestOptions = {
         method: 'PUT',
@@ -55,17 +55,17 @@ const updatePost = async (post: {id: number, title: string, text: string, userId
             'Content-Type': 'application/json',
             Authorization: `Bearer ${token}`,
         },
-        body: JSON.stringify(post)
+        body: JSON.stringify(recipe)
     }
-    return fetch(process.env.NEXT_PUBLIC_API_URL + '/posts/update', requestOptions)
+    return fetch(process.env.NEXT_PUBLIC_API_URL + '/recipes/update', requestOptions)
 }
 
-const PostService = {
-    getAllPosts,
-    getPost,
-    deletePost,
-    addPost,
-    updatePost
+const RecipeService = {
+    getAllRecipes,
+    getRecipe,
+    deleteRecipe,
+    addRecipe,
+    updateRecipe
 }
 
-export default PostService
+export default RecipeService

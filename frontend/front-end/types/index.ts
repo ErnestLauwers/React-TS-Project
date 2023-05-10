@@ -29,7 +29,7 @@ export interface Recipe {
     id: number
     name: string
     preparation: string
-    preparaionTime: Number
+    preparationTime: Number
     difficultyLevel: number
     genre: string
     userId: number

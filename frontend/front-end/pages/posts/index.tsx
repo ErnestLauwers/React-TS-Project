@@ -1,5 +1,5 @@
 import Header from "@/components/Header"
-import PostTable from "@/components/PostTable"
+import PostTable from "@/components/post/PostTable"
 import PostService from "@/services/PostService"
 import { Post } from "@/types"
 import Head from "next/head"

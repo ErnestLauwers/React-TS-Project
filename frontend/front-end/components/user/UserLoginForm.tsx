@@ -5,7 +5,6 @@ import { useState } from "react"
 import { useRouter } from 'next/router'
 import UserService from "@/services/UserService"
 import { Error } from '../../types'
-import { redirect } from "next/dist/server/api-utils"
 
 const Login: React.FC = () => {
 
@@ -20,13 +19,14 @@ const Login: React.FC = () => {
 
         const response = await UserService.loginUser(username, password);
         const json = await response.json()
-        /*const user = await UserService.getUserwithUsername(username);
-        const userJson = await user.json();*/
+        const user = await UserService.getUserwithUsername(username);
+        const userJson = await user.json();
         if (response.status === 200) {
             const { token } = json;
+            const { role } = userJson;
             sessionStorage.setItem("token", token);
             sessionStorage.setItem("username", username);
-            /*sessionStorage.setItem("user", userJson);*/
+            sessionStorage.setItem("userRole", role);
             router.push('/');   
         }
         else {
