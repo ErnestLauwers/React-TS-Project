@@ -13,6 +13,7 @@ model User {
   lastName String
   username String 
   email String 
+  role String
   password String
   recipes Recipe[]
   posts Post[]

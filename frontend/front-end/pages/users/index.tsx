@@ -8,11 +8,20 @@ import { useState, useEffect } from 'react'
 const Users: React.FC = () => {
     
     const [users, setUsers] = useState<Array<User>>([])
+    const [error, setError] = useState<Error>()
 
     const getAllUsers = async () => {
-        UserService.getAllUsers()
-            .then((response) => response.json())
-            .then((users) => setUsers(users))
+        const response = await UserService.getAllUsers();
+        console.log(response)
+        if (!response.ok) {
+            if (response.status === 401) {
+                setError(
+                    await response.json()
+                );
+            }
+        } else {
+            setUsers(await response.json());
+        }
     }
 
     useEffect(() => {

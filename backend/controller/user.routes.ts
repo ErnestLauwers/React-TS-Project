@@ -273,5 +273,13 @@ userRouter.post('/login', async (request: Request, response: Response) => {
         response.status(401).json({ status: 'unauthorized', errorMessage: error.message })
     }
 })
-
+/*
+userRouter.post('/logout', async (request: Request, response: Response) => {
+    try {
+        const  = await userService.authenticate(loginInput);
+        response.status(200).json({ message: 'Authentication successful', token});
+    } catch (error) {
+        response.status(401).json({ status: 'unauthorized', errorMessage: error.message })
+    }
+})*/
 export default userRouter;

@@ -4,6 +4,7 @@ export interface User {
     lastName: string
     username: string
     email: string
+    role: string
     password: string
     recipes: Recipe[]
     posts: Post[]

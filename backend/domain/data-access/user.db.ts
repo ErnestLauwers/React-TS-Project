@@ -65,12 +65,14 @@ const addUser = async ({
     lastName,
     username,
     email,
+    role,
     password,
 }: {
     firstName: string;
     lastName: string,
     username: string,
     email: string,
+    role: string,
     password: string,
 }): Promise<User> => {
     try {
@@ -80,6 +82,7 @@ const addUser = async ({
                 lastName,
                 username,
                 email,
+                role,
                 password,
                 recipes: { create: [] },
                 posts: { create: [] },

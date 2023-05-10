@@ -71,6 +71,7 @@ const addUser = async ({ firstName, lastName, username, email, password }: UserI
         lastName: lastName,
         username: username,
         email: email,
+        role: "user",
         password: hashedPassword,
     })
 }

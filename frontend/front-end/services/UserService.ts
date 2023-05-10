@@ -1,9 +1,12 @@
 const getAllUsers = async () => {
-    const requestOptions = {
-        method: 'GET',
-        headers: { 'Content-Type': 'application/json' }
-    }
-    return fetch(process.env.NEXT_PUBLIC_API_URL + '/users', requestOptions)
+    const token = sessionStorage.getItem("token");
+    return fetch(process.env.NEXT_PUBLIC_API_URL + "/users", {
+        method: "GET",
+        headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
+        }
+    });
 }
 
 const getUserwithId = async (id: Number) => {
@@ -15,9 +18,13 @@ const getUserwithId = async (id: Number) => {
 }
 
 const getUserwithUsername = async (username: string) => {
+    const token = sessionStorage.getItem("token");
     const requestOptions = {
         method: 'GET',
-        headers: { 'Content-Type': 'application/json' }
+        headers: { 
+            'Content-Type': 'application/json',
+            Authorization: `Bearer ${token}`,
+        }
     }
     return fetch(process.env.NEXT_PUBLIC_API_URL + `/users/search/${username}`, requestOptions)
 }
@@ -48,7 +55,7 @@ const deleteUser = async (id: number) => {
     return fetch(process.env.NEXT_PUBLIC_API_URL + `/users/delete/${id}`, requestOptions)
 }
 
-const validateUser = async (username: string, password: string) => {
+const loginUser = async (username: string, password: string) => {
     const requestOptions = {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
@@ -64,7 +71,7 @@ const UserService = {
     addUser,
     updateUser,
     deleteUser,
-    validateUser
+    loginUser
 }
 
 export default UserService

@@ -11,6 +11,7 @@ const mapToUser = ({
     lastName,
     username, 
     email,
+    role,
     password,
     recipes,
     posts,
@@ -21,6 +22,7 @@ const mapToUser = ({
         lastName,
         username,
         email,
+        role,
         password,
         recipes: mapToRecipes(recipes),
         posts: mapToPosts(posts)

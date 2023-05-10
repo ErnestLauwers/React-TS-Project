@@ -1,5 +1,5 @@
 import Head from 'next/head'
-import LoginHeader from '@/components/LoginHeader'
+import Header from '@/components/Header'
 import UserService from '@/services/UserService'
 import styles from '../styles/register.module.css'
 import { Error } from '../types'
@@ -37,7 +37,7 @@ const Register: React.FC = () => {
             <Head>
                 <title>Register</title>
             </Head>
-            <LoginHeader/>
+            <Header/>
             <main>
                 {error ? (
                     <p className={styles.error}>{error.errorMessage}</p>
