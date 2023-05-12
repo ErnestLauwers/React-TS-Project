@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { useRouter } from 'next/router';
 import { Post } from '@/types';
-import styles from "../styles/post/postTable.module.css"
+import styles from "../../styles/post/postTable.module.css"
 import UserService from '@/services/UserService';
 import PostService from '@/services/PostService';
 

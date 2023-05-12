@@ -64,36 +64,7 @@ const RecipeTable: React.FC<Props> = ({ recipes = [] }: Props) => {
     return (
         <>
             {recipes && recipes.map((recipe) => (
-                <table className={styles.table}>
-                    <tr>
-                        <td className={styles.td}>
-                            {users[recipe.userId]}
-                        </td>
-                        <td className={styles.td}>
-                            {recipe.genre}
-                        </td>
-                    </tr>
-                    <tr>
-                        <td colSpan={2} className={styles.title}>{recipe.name}</td>
-                    </tr>
-                    <tr>
-                        <td colSpan={2} className={styles.text}>{recipe.preparation}</td>
-                    </tr>
-                    
-                    <tr>
-                        <td colSpan={2} className={styles.text}>{recipe.difficultyLevel}</td>
-                    </tr>
-                    {loggedInUser == "admin" ? (
-                    <tr>
-                        <td colSpan={2} className={styles.button1} onClick={() => handleDelete(recipe.id)}>Delete</td>
-                    </tr>
-                    ): users[recipe.userId] === loggedInUser ? (
-                    <tr>
-                        <td className={styles.button} onClick={() => handleEdit(recipe.id)}>Edit</td>
-                        <td className={styles.button} onClick={() => handleDelete(recipe.id)}>Delete</td>
-                    </tr>
-                    ) : null}
-                </table>
+                console.log(recipe)
             ))}
             <button className={styles.add} onClick={handleCreateRecipe}>Create Recipe</button>
         </>
@@ -101,3 +72,4 @@ const RecipeTable: React.FC<Props> = ({ recipes = [] }: Props) => {
 }
 
 export default RecipeTable
+

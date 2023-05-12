@@ -9,7 +9,6 @@ export default function Home() {
             </Head>
             <Header/>
             <main>
-                <p>HALLOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOo</p>
             </main>
         </>
     )

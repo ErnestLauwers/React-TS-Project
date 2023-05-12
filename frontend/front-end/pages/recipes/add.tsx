@@ -1,20 +1,24 @@
 import Header from "@/components/Header"
 import Head from "next/head"
-import styles from "../../styles/post/add.module.css"
 import { use, useState } from "react"
 import UserService from "@/services/UserService"
 import RecipeService from "@/services/RecipeService"
 import { useRouter } from 'next/router'
 import { Error } from '../../types'
+import styles from "../../styles/createRecipe.module.css"
+import { Ingredient } from "../../types"
 
 
 const AddRecipe: React.FC = () => {
 
-    const [name, setName] = useState('')
-    const [preparation, setPreparation] = useState('')
+    const [name, setName] = useState("")
+    const [genre, setGenre] = useState("")
+    const [preparation, setPreparation] = useState("")
     const [preparationTime, setPreparationTime] = useState(0)
     const [difficultyLevel, setDifficultyLevel] = useState(0)
-    const [genre, setGenre] = useState('')
+    const [ingredients, setIngredients] = useState<Ingredient[]>([])
+    const [ingredientName, setIngredientName] = useState("")
+    const [amount, setAmount] = useState(0)
     const [userId, setUserId] = useState(-1)
     const [error, setError] = useState<Error>()
 
@@ -33,7 +37,9 @@ const AddRecipe: React.FC = () => {
 
     const handleSubmit: React.MouseEventHandler<HTMLButtonElement> = async (e) => {
         e.preventDefault()
-        const recipe = {name, preparation, preparationTime, difficultyLevel, genre, userId}
+        const recipe = {
+            id: 0,
+            name, preparation, preparationTime, difficultyLevel, genre, userId, ingredients}
         const response = await RecipeService.addRecipe(recipe)
         const json = await response.json()
         if (response.status === 200) {
@@ -49,6 +55,17 @@ const AddRecipe: React.FC = () => {
         router.push('/recipes')
     }
 
+    const addIngredient = () => {
+        const ingredient = {
+            id: 0,
+            name: ingredientName,
+            amountUsed: amount
+          }
+        setIngredients([...ingredients, ingredient])
+        setIngredientName("")
+        setAmount(0)
+    }
+
     return (
         <>
             <Head>
@@ -60,56 +77,101 @@ const AddRecipe: React.FC = () => {
                     <p className={styles.error}>{error.errorMessage}</p>
                 ) : null
                 }
-            <p className={styles.header}>Create Recipe</p>
-            <form className={styles.form}>
-                    <div className={styles.row1}>
-                        <label className={styles.label}>Name</label>
-                        <input className={styles.input} 
-                            type="text"
-                            placeholder='Name...'
-                            value={name}
-                            onChange={(e) => setName(e.target.value)}
-                        />
+                <p className={styles.header}>Create Recipe</p>
+                <form className={styles.form}>
+                    <div className={styles.row}>
+                        <div className={styles.field}>
+                            <label className={styles.label}>Name</label>
+                            <input
+                                className={styles.input} 
+                                type="text"
+                                placeholder='Name...'
+                                value={name}
+                                onChange={(e) => setName(e.target.value)}
+                            />
+                        </div>
+                        <div className={styles.field}>
+                            <label className={styles.label}>Genre</label>
+                            <input 
+                                className={styles.input}
+                                type="text"
+                                placeholder='Genre...'
+                                value={genre}
+                                onChange={(e) => setGenre(e.target.value)}
+                            />
+                        </div>
                     </div>
-                    <div className={styles.row2}>
-                        <label className={styles.label}>Preparation</label>
-                        <textarea placeholder="Preparation Instructions" className={styles.textarea} cols={100} rows={10} value={preparation} onChange={(e) => setPreparation(e.target.value)}></textarea>
+                    <div className={styles.row}>
+                        <label className={styles.label2}>Preparation</label>
+                        <textarea
+                            className={styles.input2}
+                            placeholder="Instructions..." 
+                            cols={100} 
+                            rows={10} 
+                            value={preparation} 
+                            onChange={(e) => setPreparation(e.target.value)}>
+                        </textarea>
                     </div>
-                    <div className={styles.row1}>
-                        <label className={styles.label}>Preparation Time (in Hours)</label>
-                        <input className={styles.input} 
-                            type="number"
-                            placeholder='Preparation Time in hours...'
-                            value={preparationTime}
-                            onChange={(e) => setPreparationTime(Number(e.target.value))}
-                            min="1"
-                            max="5"
-                        />
-                    </div>
-                    <div className={styles.row1}>
-                        <label className={styles.label}>Difficulty Level</label>
-                        <input className={styles.input} 
-                            type="number"
-                            placeholder='Difficulty Level...'
-                            value={difficultyLevel}
-                            onChange={(e) => setDifficultyLevel(Number(e.target.value))}
-                            min="1"
-                            max="10"
-                        />
-                    </div>
-                    <div className={styles.row1}>
-                        <label className={styles.label}>Genre</label>
-                        <input className={styles.input} 
-                            type="text"
-                            placeholder='Genre...'
-                            value={genre}
-                            onChange={(e) => setGenre(e.target.value)}
-                        />
+                    <div className={styles.row}>
+                        <div className={styles.field2}>
+                            <label className={styles.label3}>Preparation Time</label>
+                            <input 
+                                className={styles.input3}
+                                type="number"
+                                value={preparationTime}
+                                onChange={(e) => setPreparationTime(Number(e.target.value))}
+                            />
+                        </div>
+                        <div className={styles.field2}>
+                            <label className={styles.label3}>Difficulty Level</label>
+                            <input 
+                                className={styles.input3}
+                                type="number"
+                                value={difficultyLevel}
+                                min="1"
+                                max="10"
+                                onChange={(e) => setDifficultyLevel(Number(e.target.value))}
+                            />
+                        </div>
                     </div>
                     <div className={styles.buttons}>
-                        <button className={styles.button} onClick={handleSubmit}>Add</button>
+                        <button className={styles.button} onClick={handleSubmit}>Create</button>
                         <button className={styles.button} onClick={cancel}>Cancel</button>
                     </div>
+                    <p className={styles.title}>Ingredients</p>
+                    <div className={styles.ingredients}>
+                        <div className={styles.ingredient}>
+                            <label className={styles.ingredientLabel}>Name</label>
+                            <input
+                                className={styles.ingredientInput}
+                                type="text"
+                                placeholder="Name..."
+                                value={ingredientName}
+                                onChange={(e) => setIngredientName(e.target.value)}
+                            />
+                        </div>
+                        <div className={styles.ingredient}>
+                            <label className={styles.ingredientLabel}>Amount</label>
+                            <input
+                                className={styles.ingredientInput}
+                                type="number"
+                                value={amount}
+                                onChange={(e) => setAmount(Number(e.target.value))}
+                            />
+                        </div>
+                        <a href="#" onClick={addIngredient} className={styles.addIngredient}>Add Ingredient</a>
+                    </div>
+                    {ingredients.length != 0 ? (
+                        <div className={styles.list}>
+                            <ul>
+                                {ingredients.map((ingredient) => (
+                                <li key={ingredient.id}>
+                                    Name: {ingredient.name}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Amount: {ingredient.amountUsed}
+                                </li>
+                                ))}
+                            </ul>
+                        </div>
+                    ): null}
                 </form>
             </main>
         </>

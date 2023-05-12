@@ -19,12 +19,12 @@ const Login: React.FC = () => {
 
         const response = await UserService.loginUser(username, password);
         const json = await response.json()
-        const user = await UserService.getUserwithUsername(username);
-        const userJson = await user.json();
         if (response.status === 200) {
             const { token } = json;
-            const { role } = userJson;
             sessionStorage.setItem("token", token);
+            const user = await UserService.getUserwithUsername(username);
+            const userJson = await user.json();
+            const { role } = userJson;
             sessionStorage.setItem("username", username);
             sessionStorage.setItem("userRole", role);
             router.push('/');   
