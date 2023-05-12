@@ -37,9 +37,8 @@ const AddRecipe: React.FC = () => {
 
     const handleSubmit: React.MouseEventHandler<HTMLButtonElement> = async (e) => {
         e.preventDefault()
-        const recipe = {
-            id: 0,
-            name, preparation, preparationTime, difficultyLevel, genre, userId, ingredients}
+        const recipe = {name, preparation, preparationTime, difficultyLevel, genre, userId, ingredients}
+        console.log(recipe)
         const response = await RecipeService.addRecipe(recipe)
         const json = await response.json()
         if (response.status === 200) {
@@ -56,15 +55,15 @@ const AddRecipe: React.FC = () => {
     }
 
     const addIngredient = () => {
-        const ingredient = {
-            id: 0,
-            name: ingredientName,
-            amountUsed: amount
-          }
-        setIngredients([...ingredients, ingredient])
-        setIngredientName("")
-        setAmount(0)
-    }
+        const ingredient: Ingredient = {
+          id: ingredients.length + 1,
+          name: ingredientName,
+          amountUsed: amount
+        };
+        setIngredients([...ingredients, ingredient]);
+        setIngredientName("");
+        setAmount(0);
+      }
 
     return (
         <>

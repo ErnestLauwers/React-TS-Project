@@ -1,3 +1,5 @@
+import { Ingredient } from "@/types";
+
 const getAllRecipes = async () => {
     const token = sessionStorage.getItem("token");
     const requestOptions = {
@@ -34,7 +36,7 @@ const deleteRecipe = async (id: number) => {
     return fetch(process.env.NEXT_PUBLIC_API_URL + `/recipes/delete/${id}`, requestOptions)
 }
 
-const addRecipe = async (recipe: {name: string, preparation: string, preparationTime: number, difficultyLevel: number, genre: string, userId: number}) => {
+const addRecipe = async (recipe: {name: string, preparation: string, preparationTime: number, difficultyLevel: number, genre: string, userId: number, ingredients: Ingredient[]}) => {
     const token = sessionStorage.getItem("token");
     const requestOptions = {
         method: 'POST',
