@@ -1,6 +1,7 @@
 import { Ingredient } from '../domain/model/ingredient';
 import ingredientDb from '../domain/data-access/ingredient.db';
 import { IngredientInput, EditIngredientInput } from '../types/types';
+import { Recipe } from '@prisma/client';
 
 const getAllIngredients = async (): Promise<Ingredient[]> => ingredientDb.getAllIngredients();
 
@@ -43,10 +44,23 @@ const editIngredient = async ({ id, name, amountUsed }: EditIngredientInput): Pr
     })
 }
 
+const addIngredientToRecipe = async (ingredientId, recipeId): Promise<Recipe> => {
+    if (!ingredientId || Number.isNaN(Number(ingredientId)) || Number(ingredientId) < 0) {
+        throw new Error('The ingredient id is an invalid number.');
+    }
+    
+    if (!recipeId || Number.isNaN(Number(recipeId)) || Number(recipeId) < 0) {
+        throw new Error('The recipe id is an invalid number');
+    }
+
+    return await ingredientDb.addIngredientToRecipe(Number(ingredientId), Number(recipeId));
+}
+
 export default {
     getAllIngredients,
     addIngredient,
     deleteIngredient, 
     getIngredientById,
-    editIngredient
+    editIngredient, 
+    addIngredientToRecipe
 };

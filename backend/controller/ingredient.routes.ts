@@ -24,6 +24,17 @@
  *         amountUsed:
  *           type: string
  *           description: The amount of the ingredient used
+ *     IngredientToRecipeInput:
+ *       type: object
+ *       properties:
+ *         ingredientId:
+ *           type: string
+ *           format: int64
+ *           required: true
+ *         recipeId:
+ *           type: string
+ *           format: int64
+ *           required: true
  */
 import express, { Request, Response } from 'express';
 import ingredientService from '../service/ingredient.service';
@@ -170,6 +181,38 @@ ingredientRouter.post('/add', async (request: Request, response: Response) => {
     const ingredientInput = <IngredientInput>request.body;
     try {
         const ingredient = await ingredientService.addIngredient(ingredientInput);
+        response.status(200).json(ingredient);
+    } catch (error) {
+        response.status(500).json({ status: 'error', errorMessage: error.message});
+    }
+});
+
+/**
+ * @swagger
+ * /ingredients/add/recipe:
+ *   post:
+ *     summary: Add an ingredient to a recipe
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             $ref: '#/components/schemas/IngredientToRecipeInput'
+ * 
+ *     responses:
+ *       '200':
+ *         description: Returns the recipe with the added ingredient
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/Recipe'
+ */
+ingredientRouter.post('/add/recipe', async (request: Request, response: Response) => {
+    const input = request.body;
+    const ingredientId = input.ingredientId;
+    const recipeId = input.recipeId;
+    try {
+        const ingredient = await ingredientService.addIngredientToRecipe(ingredientId, recipeId);
         response.status(200).json(ingredient);
     } catch (error) {
         response.status(500).json({ status: 'error', errorMessage: error.message});

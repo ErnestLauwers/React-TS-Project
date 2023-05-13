@@ -3,6 +3,7 @@ import Head from "next/head"
 import { use, useState } from "react"
 import UserService from "@/services/UserService"
 import RecipeService from "@/services/RecipeService"
+import IngredientService from "@/services/IngredientService"
 import { useRouter } from 'next/router'
 import { Error } from '../../types'
 import styles from "../../styles/createRecipe.module.css"
@@ -37,11 +38,33 @@ const AddRecipe: React.FC = () => {
 
     const handleSubmit: React.MouseEventHandler<HTMLButtonElement> = async (e) => {
         e.preventDefault()
-        const recipe = {name, preparation, preparationTime, difficultyLevel, genre, userId, ingredients}
-        console.log(recipe)
-        const response = await RecipeService.addRecipe(recipe)
-        const json = await response.json()
+        
+        const addedIngredients = [];
+        for (const ingredient of ingredients) {
+            try {
+              const result = await IngredientService.addIngredient(ingredient);
+              const resultJson = await result.json();
+              const { id } = resultJson;
+              addedIngredients.push(id);
+            } catch (error) {
+              console.error(`Failed to add ingredient: ${error}`);
+            }
+        }
+        const ingredientId = addedIngredients.pop(); 
+        const remainingIngredients = addedIngredients;
+
+        const recipe = {name, preparation, preparationTime, difficultyLevel, genre, userId, ingredientId}
+        const response = await RecipeService.addRecipe(recipe);
+        const json = await response.json();
         if (response.status === 200) {
+            const { id } = json;
+            const recipeId = id; 
+            for (const ingredientId of remainingIngredients) {
+                console.log(recipeId)
+                console.log(ingredientId)
+                const data = {ingredientId, recipeId};
+                await IngredientService.addIngredientToRecipe(data);
+            }
             router.push('/recipes')
         }
         else {

@@ -1,4 +1,4 @@
-const addIngredient = async (ingredient: {name: string, amountUsed: number}) => {
+const addIngredient = async (ingredient: {id: number, name: string, amountUsed: number}) => {
     const token = sessionStorage.getItem("token");
     const requestOptions = {
         method: 'POST',
@@ -11,8 +11,22 @@ const addIngredient = async (ingredient: {name: string, amountUsed: number}) => 
     return fetch(process.env.NEXT_PUBLIC_API_URL + '/ingredients/add', requestOptions)
 }
 
+const addIngredientToRecipe = async (data: {ingredientId: number, recipeId: number}) => {
+    const token = sessionStorage.getItem("token");
+    const requestOptions = {
+        method: 'POST',
+        headers: { 
+            'Content-Type': 'application/json',
+            Authorization: `Bearer ${token}`,
+        },
+        body: JSON.stringify(data)
+    }
+    return fetch(process.env.NEXT_PUBLIC_API_URL + '/ingredients/add/recipe', requestOptions)
+}
+
 const IngredientService = {
-    addIngredient
+    addIngredient,
+    addIngredientToRecipe
 }
 
 export default IngredientService

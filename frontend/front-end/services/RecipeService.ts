@@ -36,7 +36,7 @@ const deleteRecipe = async (id: number) => {
     return fetch(process.env.NEXT_PUBLIC_API_URL + `/recipes/delete/${id}`, requestOptions)
 }
 
-const addRecipe = async (recipe: {name: string, preparation: string, preparationTime: number, difficultyLevel: number, genre: string, userId: number, ingredients: Ingredient[]}) => {
+const addRecipe = async (recipe: {name: string, preparation: string, preparationTime: number, difficultyLevel: number, genre: string, userId: number, ingredientId: number}) => {
     const token = sessionStorage.getItem("token");
     const requestOptions = {
         method: 'POST',
@@ -62,12 +62,25 @@ const updateRecipe = async (recipe: {name: string, preparation: string, preparat
     return fetch(process.env.NEXT_PUBLIC_API_URL + '/recipes/update', requestOptions)
 }
 
+const getAllIngredients = async () => {
+    const token = sessionStorage.getItem("token");
+    const requestOptions = {
+        method: 'GET',
+        headers: { 
+            'Content-Type': 'application/json',
+            Authorization: `Bearer ${token}`,
+        }
+    }
+    return fetch(process.env.NEXT_PUBLIC_API_URL + '/ingredients', requestOptions)
+}
+
 const RecipeService = {
     getAllRecipes,
     getRecipe,
     deleteRecipe,
     addRecipe,
-    updateRecipe
+    updateRecipe,
+    getAllIngredients
 }
 
 export default RecipeService

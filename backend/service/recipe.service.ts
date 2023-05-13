@@ -35,7 +35,7 @@ const addRecipe = async ({ name, preparation, preparationTime, difficultyLevel, 
     }
 
     if (!ingredientId || Number.isNaN(ingredientId) || Number(ingredientId) < 0) {
-        throw new Error('The ingredient id is an invalid number.');
+        throw new Error('A recipe must have a minimum of 1 ingredient.');
     }
 
     return await recipeDb.addRecipe({

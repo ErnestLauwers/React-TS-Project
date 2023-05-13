@@ -3,11 +3,7 @@ import UserService from '@/services/UserService'
 import UserLoginForm from'@/components/user/UserLoginForm'
 
 const Login: React.FC = () => {
-
-
-
-
-
+    
     return (
         <>
             <Head>

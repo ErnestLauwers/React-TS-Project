@@ -100,11 +100,50 @@ const editIngredient = async ({
     }
 }
 
+async function addIngredientToRecipe(ingredientId: number, recipeId: number) {
+    try {
+      const ingredient = await database.ingredient.findUnique({
+        where: { id: ingredientId },
+      });
+  
+      if (!ingredient) {
+        throw new Error(`Ingredient with id ${ingredientId} not found`);
+      }
+  
+      const recipe = await database.recipe.findUnique({
+        where: { id: recipeId },
+      });
+  
+      if (!recipe) {
+        throw new Error(`Recipe with id ${recipeId} not found`);
+      }
+  
+      const result = await database.recipe.update({
+        where: { id: recipeId },
+        data: {
+          ingredients: {
+            connect: {
+              id: ingredientId,
+            },
+          },
+        },
+        include: {
+          ingredients: true,
+        },
+      });
+  
+      return result;
+    } catch (error) {
+      console.error(`Failed to add ingredient to recipe: ${error}`);
+      throw error;
+    }
+  }
 
 export default {
     getAllIngredients, 
     deleteIngredient, 
     getIngredientById,
     addIngredient,
-    editIngredient
+    editIngredient, 
+    addIngredientToRecipe
 };
