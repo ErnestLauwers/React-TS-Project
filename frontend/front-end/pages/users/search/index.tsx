@@ -14,6 +14,8 @@ const Search: React.FC = () => {
     const { currentUsername } = router.query
     const currentUsernameParsed = currentUsername as string
     const loggedInUser = sessionStorage.getItem("username")
+    const userRole = sessionStorage.getItem("userRole")
+    
 
     const [username, setUsername] = useState<string>(currentUsernameParsed)
     const [user, setUser] = useState<User>()
@@ -39,6 +41,16 @@ const Search: React.FC = () => {
             pathname: '/users/search/posts',
             query: { 
                 user: JSON.stringify(user),
+                username: username
+            }
+        })
+    }
+
+    const viewRecipes = () => {
+        router.push({
+            pathname: '/users/search/recipes',
+            query: { 
+                id: user?.id,
                 username: username
             }
         })
@@ -83,10 +95,9 @@ const Search: React.FC = () => {
                                 <th className={styles.th}>First Name</th>
                                 <th className={styles.th}>Last Name</th>
                                 <th className={styles.th}>Username</th>
-                                <th className={styles.th}>Email</th>
                                 <th className={styles.th}>Recipes</th>
                                 <th className={styles.th}>Posts</th>
-                                {loggedInUser == "admin" ? (
+                                {userRole == "admin" ? (
                                     <th className={styles.th}>Delete</th>
                                 ) : null}
                             </tr>
@@ -96,10 +107,9 @@ const Search: React.FC = () => {
                                 <td className={styles.td}>{user.firstName}</td>
                                 <td className={styles.td}>{user.lastName}</td>
                                 <td className={styles.td}>{user.username}</td>
-                                <td className={styles.td}>{user.email}</td>
-                                <td className={styles.td}>{user.recipes.length}</td>
+                                <td onClick={viewRecipes} className={styles.td}>{user.recipes.length}</td>
                                 <td onClick={viewPosts} className={styles.td}>{user.posts.length}</td>
-                                {loggedInUser == "admin" ? (
+                                {userRole == "admin" ? (
                                     <td onClick={() => handleDelete(user.id)} className={styles.td}>Delete</td>
                                 ): null}
                             </tr>

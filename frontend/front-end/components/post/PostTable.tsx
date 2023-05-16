@@ -7,10 +7,11 @@ import PostService from '@/services/PostService';
 
 
 type Props = {
-    posts: Array<Post>
+    posts: Array<Post>,
+    back: string
 }
 
-const PostTable: React.FC<Props> = ({ posts = [] }: Props) => {
+const PostTable: React.FC<Props> = ({ posts = [], back }: Props) => {
 
     const router = useRouter();
 
@@ -38,6 +39,7 @@ const PostTable: React.FC<Props> = ({ posts = [] }: Props) => {
             pathname: '/posts/edit',
             query: { 
                 post: JSON.stringify(post),
+                back: back
             }
         })
     }
@@ -50,20 +52,19 @@ const PostTable: React.FC<Props> = ({ posts = [] }: Props) => {
             pathname: '/posts/confirmation',
             query: { 
                 post: JSON.stringify(post),
-                username: username
+                username: username,
+                back: back
             }
         })
     }
 
     const loggedInUser = sessionStorage.getItem("username")
-
-    const handleCreatePost = () => {
-        router.push('/posts/add')
-    }
+    const userRole = sessionStorage.getItem("userRole")
 
     return (
         <>
-            {posts && posts.map((post) => (
+            {posts.length > 0 ? (
+            posts && posts.map((post) => (
                 <table className={styles.table}>
                     <tr>
                         <td className={styles.td}>
@@ -80,7 +81,7 @@ const PostTable: React.FC<Props> = ({ posts = [] }: Props) => {
                     <tr>
                         <td colSpan={2} className={styles.text}>{post.text}</td>
                     </tr>
-                    {loggedInUser == "admin" ? (
+                    {userRole == "admin" ? (
                     <tr>
                         <td colSpan={2} className={styles.button1} onClick={() => handleDelete(post.id)}>Delete</td>
                     </tr>
@@ -91,8 +92,10 @@ const PostTable: React.FC<Props> = ({ posts = [] }: Props) => {
                     </tr>
                     ) : null}
                 </table>
-            ))}
-            <button className={styles.add} onClick={handleCreatePost}>Create Post</button>
+            ))
+            ) : (
+                <p className={styles.error}>This user has not made any posts yet!</p>
+            )}
         </>
     )
 }

@@ -27,7 +27,7 @@ const Edit: React.FC = () => {
         const json = await response.json()
         if (response.status === 200) {
             setError(undefined)
-            router.push("/users")
+            router.push("/profile")
         } else {
             setError(json)
         }
@@ -35,7 +35,7 @@ const Edit: React.FC = () => {
 
     const handleCancel: React.MouseEventHandler<HTMLButtonElement> = (e) => {
         e.preventDefault()
-        router.push("/users")
+        router.push("/profile")
     }
 
     return (
@@ -49,6 +49,7 @@ const Edit: React.FC = () => {
                     <p className={styles.error}>{error.errorMessage}</p>
                 ) : null
                 }
+                <p className={styles.header2}>Edit</p>
                 <form className={styles.form}>
                     <div className={styles.row}>
                         <label className={styles.label}>First Name</label>
@@ -70,12 +71,7 @@ const Edit: React.FC = () => {
                     </div>
                     <div className={styles.row}>
                         <label className={styles.label}>Username</label>
-                        <input className={styles.input}
-                            type="text"
-                            placeholder='Username...'
-                            value={username}
-                            onChange={(e) => setUsername(e.target.value)}
-                        />
+                        <p>{username}</p>
                     </div>
                     <div className={styles.row}>
                         <label className={styles.label}>Email</label>
@@ -88,12 +84,7 @@ const Edit: React.FC = () => {
                     </div >
                         <div className={styles.row}>
                         <label className={styles.label}>Password</label>
-                        <input className={styles.input}
-                            type="password"
-                            placeholder='Password...'
-                            value={password}
-                            onChange={(e) => setPassword(e.target.value)}
-                        />
+                        <p className={styles.password}>{password}</p>
                     </div>
                     <div className={styles.buttons}>
                         <button onClick={handleUpdate} className={styles.button}>Edit</button>

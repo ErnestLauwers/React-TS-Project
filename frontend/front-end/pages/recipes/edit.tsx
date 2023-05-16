@@ -10,7 +10,7 @@ import { Error } from '../../types'
 const Edit: React.FC = () => {
 
     const router = useRouter()
-    const { recipe } = router.query
+    const { recipe, back } = router.query
     const recipeParsed = JSON.parse(recipe as string)
     const userId: number = recipeParsed.userId
     const recipeId: number = recipeParsed.id
@@ -30,7 +30,7 @@ const Edit: React.FC = () => {
         const json = await response.json()
         if (response.status === 200) {
             setError(undefined)
-            router.push("/recipes")
+            router.push(back as string)
         } else {
             setError(json)
         }
@@ -38,7 +38,7 @@ const Edit: React.FC = () => {
 
     const handleCancel: React.MouseEventHandler<HTMLButtonElement> = (e) => {
         e.preventDefault()
-        router.push("/recipes")
+        router.push(back as string)
     }
 
     return (

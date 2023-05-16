@@ -1,11 +1,15 @@
 import Header from "@/components/Header"
 import PostTable from "@/components/post/PostTable"
 import PostService from "@/services/PostService"
+import styles from "../../styles/post/postTable.module.css"
 import { Post } from "@/types"
 import Head from "next/head"
+import { useRouter } from "next/router"
 import { useEffect, useState } from "react"
 
 const Posts: React.FC = () => {
+
+    const router = useRouter();
 
     const [posts, setPosts] = useState<Array<Post>>([])
 
@@ -19,6 +23,10 @@ const Posts: React.FC = () => {
         getAllPosts()
     }, [])
 
+    const handleCreatePost = () => {
+        router.push('/posts/add')
+    }
+
     return (
         <>
             <Head>
@@ -26,7 +34,8 @@ const Posts: React.FC = () => {
             </Head>
             <Header/>
             <main>
-                <PostTable posts={posts}/>
+                <PostTable posts={posts} back="/posts"/>
+                <button className={styles.add} onClick={handleCreatePost}>Create Post</button>
             </main>
         </>
     )

@@ -21,6 +21,24 @@ const UsersTable: React.FC<Props> = ({ users = [] }: Props) => {
         })
     }
 
+    const viewPosts = (user: User) => {
+        router.push({
+            pathname: '/users/posts',
+            query: { 
+                id: user?.id,
+            }
+        })
+    }
+
+    const viewRecipes = (user: User) => {
+        router.push({
+            pathname: '/users/recipes',
+            query: { 
+                id: user?.id,
+            }
+        })
+    }
+
     return (
         <>
             {users && (
@@ -45,8 +63,8 @@ const UsersTable: React.FC<Props> = ({ users = [] }: Props) => {
                             <td className={styles.td}>{user.lastName}</td>
                             <td className={styles.td}>{user.username}</td>
                             <td className={styles.td}>{user.email}</td>
-                            <td className={styles.td}>{user.recipes.length}</td>
-                            <td className={styles.td}>{user.posts.length}</td>
+                            <td onClick={() => viewRecipes(user)} className={styles.td}>{user.recipes.length}</td>
+                            <td onClick={() => viewPosts(user)} className={styles.td}>{user.posts.length}</td>
                             <td onClick={() => handleDelete(user.id)} className={styles.td}>Delete</td>
                         </tr>
                     ))}

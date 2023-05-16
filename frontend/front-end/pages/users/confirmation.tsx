@@ -14,7 +14,7 @@ const Confirmation: React.FC = () => {
     const handleDelete: React.MouseEventHandler<HTMLButtonElement> = (e) => {
         e.preventDefault()
         UserService.deleteUser(id)
-        router.push("/")
+        router.push("/users")
     }
 
     const handleCancel: React.MouseEventHandler<HTMLButtonElement> = (e) => {

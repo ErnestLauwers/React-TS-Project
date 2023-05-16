@@ -38,7 +38,6 @@ const AddRecipe: React.FC = () => {
 
     const handleSubmit: React.MouseEventHandler<HTMLButtonElement> = async (e) => {
         e.preventDefault()
-        
         const addedIngredients = [];
         for (const ingredient of ingredients) {
             try {

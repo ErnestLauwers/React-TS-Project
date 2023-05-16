@@ -17,7 +17,6 @@ const Header: React.FC = () => {
                     <li><Link className={styles.link} href="/users">Users</Link></li>
                     <li><Link className={styles.link} href="/users/search">Search User</Link></li>
                     <li><Link className={styles.link} href="/profile">My Profile</Link></li>
-                    <li><Link className={styles.link} href="/logout">Logout</Link></li>
                 </ul>
                 ): userRole == "user" ?(
                     <ul className={styles.ul}>
@@ -26,7 +25,6 @@ const Header: React.FC = () => {
                     <li><Link className={styles.link} href="/posts">Posts</Link></li>
                     <li><Link className={styles.link} href="/users/search">Search User</Link></li>
                     <li><Link className={styles.link} href="/profile">My Profile</Link></li>
-                    <li><Link className={styles.link} href="/logout">Logout</Link></li>
                 </ul>
                 ) : (
                     <ul className={styles.ul}>

@@ -1,15 +1,19 @@
+import Head from "next/head"
 import Header from "@/components/Header"
 import RecipeTable from "@/components/recipe/RecipeTable"
-import RecipeService from "@/services/RecipeService"
-import styles from "../..//styles/recipeTable.module.css"
-import { Recipe } from "@/types"
-import Head from "next/head"
-import { useRouter } from "next/router"
 import { useEffect, useState } from "react"
+import { Recipe } from "@/types"
+import RecipeService from "@/services/RecipeService"
+import { useRouter } from "next/router"
+import ProfileHeader from "@/components/ProfileHeader"
+import styles from '../../styles/profile.module.css'
 
-const Recipes: React.FC = () => {
+
+const UserRecipes: React.FC = () => {
 
     const router = useRouter()
+    const { id } = router.query
+
     const [recipes, setRecipes] = useState<Array<Recipe>>([])
 
     const getAllRecipes = async () => {
@@ -22,9 +26,7 @@ const Recipes: React.FC = () => {
         getAllRecipes()
     }, [])
 
-    const handleCreateRecipe = () => {
-        router.push('/recipes/add')
-    }
+    const userRecipes = recipes.filter((recipe) => recipe.userId === Number(id))
 
     return (
         <>
@@ -33,11 +35,12 @@ const Recipes: React.FC = () => {
             </Head>
             <Header/>
             <main>
-                <RecipeTable recipes={recipes} back="/recipes"/>
-                <button className={styles.addRecipe} onClick={handleCreateRecipe}>Create Recipe</button>
+            <p className={styles.header2}>Recipes</p>
+                <ProfileHeader id={Number(id)}/>
+                <RecipeTable recipes={userRecipes} back="/profile"/>
             </main>
         </>
     )
 }
 
-export default Recipes
+export default UserRecipes

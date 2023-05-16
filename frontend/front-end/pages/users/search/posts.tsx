@@ -43,30 +43,34 @@ const Posts: React.FC = () => {
         </Head>
         <Header/>
         <main>
-            {userParsed.posts.map((post : Post) => (
-                <table className={styles.table}>
-                    <tr>
-                        <td className={styles.td}>
-                            {username}
-                        </td>
-                        <td className={styles.td}>
-                            {new Date(post.createdAt).toLocaleDateString()}{' '}
-                            {new Date(post.createdAt).toLocaleTimeString()}
-                        </td>
-                    </tr>
-                    <tr>
-                        <td colSpan={2} className={styles.title}>{post.title}</td>
-                    </tr>
-                    <tr>
-                        <td colSpan={2} className={styles.text}>{post.text}</td>
-                    </tr> 
-                    {loggedInUser == "admin" ? (
-                    <tr>
-                        <td colSpan={2} className={styles.button1} onClick={() => handleDelete(post.id)}>Delete</td>
-                    </tr>
-                    ) : null}
-                </table>
-            ))}
+            {userParsed.posts.length > 0 ? (
+                userParsed.posts.map((post : Post) => (
+                    <table className={styles.table}>
+                        <tr>
+                            <td className={styles.td}>
+                                {username}
+                            </td>
+                            <td className={styles.td}>
+                                {new Date(post.createdAt).toLocaleDateString()}{' '}
+                                {new Date(post.createdAt).toLocaleTimeString()}
+                            </td>
+                        </tr>
+                        <tr>
+                            <td colSpan={2} className={styles.title}>{post.title}</td>
+                        </tr>
+                        <tr>
+                            <td colSpan={2} className={styles.text}>{post.text}</td>
+                        </tr> 
+                        {loggedInUser == "admin" ? (
+                        <tr>
+                            <td colSpan={2} className={styles.button1} onClick={() => handleDelete(post.id)}>Delete</td>
+                        </tr>
+                        ) : null}
+                    </table>
+                ))
+            ) : (
+                <p className={styles.error}>This user has not made any posts yet!</p>
+            )}
             <button className={styles.add} onClick={handleReturn}>Return</button>
         </main>
         </>

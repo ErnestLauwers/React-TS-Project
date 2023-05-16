@@ -8,19 +8,19 @@ import PostService from '@/services/PostService'
 const Confirmation: React.FC = () => {
 
     const router = useRouter()
-    const { post, username } = router.query
+    const { post, username, back } = router.query
     const postParsed = JSON.parse(post as string)
     const id = postParsed.id
 
     const handleDelete: React.MouseEventHandler<HTMLButtonElement> = (e) => {
         e.preventDefault()
         PostService.deletePost(id)
-        router.push("/posts")
+        router.push(back as string)
     }
 
     const handleCancel: React.MouseEventHandler<HTMLButtonElement> = (e) => {
         e.preventDefault()
-        router.push("/posts")
+        router.push(back as string)
     }
 
     return (
