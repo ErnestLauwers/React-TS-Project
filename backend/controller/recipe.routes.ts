@@ -88,6 +88,8 @@ const recipeRouter = express.Router();
  *  get:
  *      summary: Get all recipes
  *      description: This API is used to get all recipes
+ *      security:
+ *          - bearerAuth: []
  *      responses:
  *          200:
  *              description: Returns recipes
@@ -113,6 +115,8 @@ recipeRouter.get('/', async (request: Request, response: Response) => {
  *  get:
  *      summary: Get a recipe by ID
  *      description: This API is used to get a recipe by ID
+ *      security:
+ *          - bearerAuth: []
  *      responses:
  *          200:
  *              description: Returns a recipe
@@ -145,6 +149,8 @@ recipeRouter.get('/:id', async (request: Request, response: Response) => {
  * /recipes/delete/{id}:
  *  delete:
  *      summary: Delete a recipe by ID
+ *      security:
+ *          - bearerAuth: []
  *      parameters:
  *          - in: path
  *            name: id
@@ -171,6 +177,8 @@ recipeRouter.delete('/delete/:id', async (request: Request, response: Response) 
  * /recipes/add:
  *   post:
  *     summary: Add a new recipe
+ *     security:
+ *          - bearerAuth: []
  *     requestBody:
  *       required: true
  *       content:
@@ -201,6 +209,8 @@ recipeRouter.post('/add', async (request: Request, response: Response) => {
  * /recipes/update:
  *   put:
  *     summary: Update an existing recipe
+ *     security:
+ *          - bearerAuth: []
  *     requestBody:
  *       required: true
  *       content:

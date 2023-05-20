@@ -73,6 +73,8 @@ const userRouter = express.Router();
  *  get:
  *      summary: Get all users
  *      description: This API is used to get all users
+ *      security:
+ *          - bearerAuth: []
  *      responses:
  *          200:
  *              description: Returns users
@@ -98,6 +100,8 @@ userRouter.get('/', async (request: Request, response: Response) => {
  *  get:
  *      summary: Get a user by ID
  *      description: This API is used to get a user by ID
+ *      security:
+ *          - bearerAuth: []
  *      responses:
  *          200:
  *              description: Returns a user
@@ -130,6 +134,8 @@ userRouter.get('/:id', async (request: Request, response: Response) => {
  * /users/delete/{id}:
  *  delete:
  *      summary: Delete a user by ID
+ *      security:
+ *          - bearerAuth: []
  *      parameters:
  *          - in: path
  *            name: id
@@ -186,6 +192,8 @@ userRouter.post('/add', async (request: Request, response: Response) => {
  * /users/update:
  *   put:
  *     summary: Update an existing user
+ *     security:
+ *          - bearerAuth: []
  *     requestBody:
  *       required: true
  *       content:
@@ -268,18 +276,11 @@ userRouter.post('/login', async (request: Request, response: Response) => {
     const loginInput = <LoginInput>request.body;
     try {
         const token = await userService.authenticate(loginInput);
+        console.log("Token: " + token);
         response.status(200).json({ message: 'Authentication successful', token});
     } catch (error) {
         response.status(401).json({ status: 'unauthorized', errorMessage: error.message })
     }
 })
-/*
-userRouter.post('/logout', async (request: Request, response: Response) => {
-    try {
-        const  = await userService.authenticate(loginInput);
-        response.status(200).json({ message: 'Authentication successful', token});
-    } catch (error) {
-        response.status(401).json({ status: 'unauthorized', errorMessage: error.message })
-    }
-})*/
+
 export default userRouter;

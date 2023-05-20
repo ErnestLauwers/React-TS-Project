@@ -29,8 +29,8 @@ const Header: React.FC = () => {
                 ) : (
                     <ul className={styles.ul}>
                       <li><Link className={styles.link} href="/">Home</Link></li>
-                      <li><Link className={styles.link} href="/login">Login</Link></li>
-                      <li><Link className={styles.link} href="/register">Register</Link></li>
+                      <li><Link className={styles.link} href="/users/login">Login</Link></li>
+                      <li><Link className={styles.link} href="/users/register">Register</Link></li>
                     </ul>
                 )}
             </nav>

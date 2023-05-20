@@ -49,6 +49,8 @@ const ingredientRouter = express.Router();
  *  get:
  *      summary: Get all ingredients
  *      description: This API is used to get all ingredients
+ *      security:
+ *          - bearerAuth: []
  *      responses:
  *          200:
  *              description: Returns ingredients
@@ -74,6 +76,8 @@ ingredientRouter.get('/', async (request: Request, response: Response) => {
  *  get:
  *      summary: Get an ingredient by ID
  *      description: This API is used to get an ingredient by ID
+ *      security:
+ *          - bearerAuth: []
  *      responses:
  *          200:
  *              description: Returns an ingredient
@@ -106,6 +110,8 @@ ingredientRouter.get('/:id', async (request: Request, response: Response) => {
  * /ingredients/delete/{id}:
  *  delete:
  *      summary: Delete an ingredient by ID
+ *      security:
+ *          - bearerAuth: []
  *      parameters:
  *          - in: path
  *            name: id
@@ -132,6 +138,8 @@ ingredientRouter.delete('/delete/:id', async (request: Request, response: Respon
  * /ingredients/update:
  *   put:
  *     summary: Update an existing Ingredient
+ *     security:
+ *          - bearerAuth: []
  *     requestBody:
  *       required: true
  *       content:
@@ -162,6 +170,8 @@ ingredientRouter.put('/update', async (request: Request, response: Response) => 
  * /ingredients/add:
  *   post:
  *     summary: Add a new ingredient
+ *     security:
+ *          - bearerAuth: []
  *     requestBody:
  *       required: true
  *       content:
@@ -192,6 +202,8 @@ ingredientRouter.post('/add', async (request: Request, response: Response) => {
  * /ingredients/add/recipe:
  *   post:
  *     summary: Add an ingredient to a recipe
+ *     security:
+ *          - bearerAuth: []
  *     requestBody:
  *       required: true
  *       content:

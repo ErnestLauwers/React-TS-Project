@@ -2,11 +2,11 @@ import Head from 'next/head'
 import Header from '@/components/Header'
 import UserService from '@/services/UserService'
 import styles from '../styles/register.module.css'
-import { Error } from '../types'
+import { Error } from '../../types'
 import { useState } from 'react'
 import { useRouter } from 'next/router'
 
-const Register: React.FC = () => {
+const UserRegisterForm: React.FC = () => {
 
     const [firstName, setFirstName] = useState<string>('')
     const [lastName, setLastName] = useState<string>('')
@@ -16,8 +16,7 @@ const Register: React.FC = () => {
     const [error, setError] = useState<Error>()
 
     const router = useRouter()
-
-
+    
     const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault()
         const user = {firstName, lastName, username, email, password}
@@ -34,12 +33,7 @@ const Register: React.FC = () => {
 
     return (
         <>
-            <Head>
-                <title>Register</title>
-            </Head>
-            <Header/>
-            <main>
-                {error ? (
+            {error ? (
                     <p className={styles.error}>{error.errorMessage}</p>
                 ) : null
                 }
@@ -94,9 +88,8 @@ const Register: React.FC = () => {
                         <button className={styles.button}>Register</button>
                     </div>
                 </form>
-            </main>
         </>
     )
 }
 
-export default Register
+export default UserRegisterForm

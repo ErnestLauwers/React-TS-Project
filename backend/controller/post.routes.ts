@@ -60,6 +60,8 @@ const postRouter = express.Router();
  *  get:
  *      summary: Get all posts
  *      description: This API is used to get all posts
+ *      security:
+ *          - bearerAuth: []
  *      responses:
  *          200:
  *              description: Returns posts
@@ -85,6 +87,8 @@ postRouter.get('/', async (request: Request, response: Response) => {
  *  get:
  *      summary: Get a post by ID
  *      description: This API is used to get a post by ID
+ *      security:
+ *          - bearerAuth: []
  *      responses:
  *          200:
  *              description: Returns a post
@@ -117,6 +121,8 @@ postRouter.get('/:id', async (request: Request, response: Response) => {
  * /posts/delete/{id}:
  *  delete:
  *      summary: Delete a post by ID
+ *      security:
+ *          - bearerAuth: []
  *      parameters:
  *          - in: path
  *            name: id
@@ -143,6 +149,8 @@ postRouter.delete('/delete/:id', async (request: Request, response: Response) =>
  * /posts/add:
  *   post:
  *     summary: Add a new post
+ *     security:
+ *          - bearerAuth: []
  *     requestBody:
  *       required: true
  *       content:
@@ -173,6 +181,8 @@ postRouter.post('/add', async (request: Request, response: Response) => {
  * /posts/update:
  *   put:
  *     summary: Update an existing post
+ *     security:
+ *          - bearerAuth: []
  *     requestBody:
  *       required: true
  *       content:

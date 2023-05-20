@@ -28,7 +28,19 @@ const swaggerOpts = {
       title: "Back-end",
       version: "1.0.0",
     },
+    components: {
+      securitySchemes: {
+        bearerAuth: {
+          type: "http",
+          scheme: "bearer",
+          bearerFormat: "JWT", 
+        },
+      },
+    },
   },
+  security: [{
+    bearerAuth: [],
+  },],
   apis: ["./controller/*.routes.ts"],
 };
 
@@ -37,7 +49,7 @@ const jwtSecret = process.env.JWT_SECRET;
 
 app.use(
   expressjwt({ secret: jwtSecret, algorithms: ['HS256'] }).unless({
-  path: [/^\/api-docs\/.*/, '/users/login', '/users/add', '/status', /^\/search\/.*/],
+  path: [/^\/api-docs(\/.*)?$/, '/users/login', '/users/add', '/status', /^\/search\/.*/],
   })
 )
 

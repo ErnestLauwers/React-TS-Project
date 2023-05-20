@@ -3,11 +3,9 @@ import Header from "@/components/Header"
 import { useEffect, useState } from "react"
 import { Post } from "@/types"
 import { useRouter } from "next/router"
-import ProfileHeader from "@/components/ProfileHeader"
 import PostTable from "@/components/post/PostTable"
 import PostService from "@/services/PostService"
 import styles from '../../styles/profile.module.css'
-
 
 const PostsUser: React.FC = () => {
 
