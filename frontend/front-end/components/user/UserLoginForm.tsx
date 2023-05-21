@@ -22,9 +22,8 @@ const Login: React.FC = () => {
         if (response.status === 200) {
             const { token } = json;
             sessionStorage.setItem("token", token);
-            const user = await UserService.getUserwithUsername(username);
-            const userJson = await user.json();
-            const { role } = userJson;
+            const userResponse = await UserService.getUserwithUsername(username);
+            const { role } = await userResponse.json();
             sessionStorage.setItem("username", username);
             sessionStorage.setItem("userRole", role);
             router.push('/');   
