@@ -57,8 +57,6 @@ const RecipeAddForm: React.FC = () => {
             const { id } = json;
             const recipeId = id; 
             for (const ingredientId of remainingIngredients) {
-                console.log(recipeId)
-                console.log(ingredientId)
                 const data = {ingredientId, recipeId};
                 await IngredientService.addIngredientToRecipe(data);
             }
