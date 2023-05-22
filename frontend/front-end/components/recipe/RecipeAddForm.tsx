@@ -3,7 +3,7 @@ import UserService from "@/services/UserService"
 import RecipeService from "@/services/RecipeService"
 import IngredientService from "@/services/IngredientService"
 import { useRouter } from 'next/router'
-import { Error } from '../../types'
+import { Error, Recipe } from '../../types'
 import styles from "../../styles/createRecipe.module.css"
 import { Ingredient } from "../../types"
 
@@ -47,18 +47,12 @@ const RecipeAddForm: React.FC = () => {
               console.error(`Failed to add ingredient: ${error}`);
             }
         }
-        const ingredientId = addedIngredients.pop(); 
-        const remainingIngredients = addedIngredients;
-
-        const recipe = {name, preparation, preparationTime, difficultyLevel, genre, userId, ingredientId}
-        const response = await RecipeService.addRecipe(recipe);
+        const response = await RecipeService.addRecipe({name, preparation, preparationTime, difficultyLevel, genre, userId, ingredientId: addedIngredients.pop()});
         const json = await response.json();
         if (response.status === 200) {
             const { id } = json;
-            const recipeId = id; 
-            for (const ingredientId of remainingIngredients) {
-                const data = {ingredientId, recipeId};
-                await IngredientService.addIngredientToRecipe(data);
+            for (const ingredientId of addedIngredients) {
+                await IngredientService.addIngredientToRecipe({ingredientId, recipeId: id});
             }
             router.push('/recipes')
         }
