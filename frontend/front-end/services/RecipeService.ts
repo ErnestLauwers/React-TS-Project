@@ -49,7 +49,7 @@ const addRecipe = async (recipe: {name: string, preparation: string, preparation
     return fetch(process.env.NEXT_PUBLIC_API_URL + '/recipes/add', requestOptions)
 }
 
-const updateRecipe = async (recipe: {name: string, preparation: string, preparationTime: number, difficultyLevel: number, genre: string, userId: number}) => {
+const updateRecipe = async (recipe: {id: number, name: string, preparation: string, preparationTime: number, difficultyLevel: number, genre: string, userId: number}) => {
     const token = sessionStorage.getItem("token");
     const requestOptions = {
         method: 'PUT',

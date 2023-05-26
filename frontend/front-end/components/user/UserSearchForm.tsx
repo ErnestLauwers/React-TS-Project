@@ -1,7 +1,7 @@
 import Head from 'next/head'
 import Header from '../Header'
 import UserService from '@/services/UserService'
-import styles from '../../../styles/user/search.module.css'
+import styles from '../../styles/user/search.module.css'
 import { useState, FormEvent } from 'react'
 import { User } from '../../types'
 import { Error } from '../../types'
