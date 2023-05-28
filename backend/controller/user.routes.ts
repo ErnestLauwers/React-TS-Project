@@ -228,6 +228,8 @@ userRouter.put('/update', async (request: Request, response: Response) => {
  * /users/search/{username}:
  *  get:
  *      summary: Get a user by username
+ *      security:
+ *          - bearerAuth: []
  *      description: This API is used to get a user by username
  *      responses:
  *          200:
