@@ -68,6 +68,15 @@ const Login: React.FC = () => {
                         <button className={styles.button}>Login</button>
                     </div>
                 </form>
+                <section className={styles.login}>
+                    <p>VOOR LECTOREN</p>
+                    <p>Users om in te loggen -- staat in init-db.ts</p>
+                    <p>Admin : username: ernestlauwers password: password</p>
+                    <p>Admin : username: igorstefanovic password: password</p>
+                    <p>User1 : username: davidwalker password: password</p>
+                    <p>User2 : username: lorrainemasson password: password</p>
+                    <p>User3 : username: jennifershelby password: password</p>
+                </section>
             </main>
         </>
     )

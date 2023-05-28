@@ -13,8 +13,7 @@ const UserSearchForm: React.FC = () => {
     const router = useRouter()
     const { currentUsername } = router.query
     const currentUsernameParsed = currentUsername as string
-    const loggedInUser = sessionStorage.getItem("username")
-    const userRole = sessionStorage.getItem("userRole")
+    const userRole = typeof sessionStorage !== "undefined" && sessionStorage.getItem("userRole")
 
     const [username, setUsername] = useState<string>(currentUsernameParsed)
     const [user, setUser] = useState<User>()

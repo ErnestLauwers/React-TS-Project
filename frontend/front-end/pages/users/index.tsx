@@ -5,6 +5,7 @@ import UsersTable from '../../components/user/UsersTable'
 import styles from "../../styles/createRecipe.module.css"
 import { User } from '../../types'
 import { useState, useEffect } from 'react'
+import Error from '../../components/Error'
 
 const Users: React.FC = () => {
     
@@ -38,7 +39,7 @@ const Users: React.FC = () => {
             <Header/>
             <main>
                 {error ? (
-                    <p className={styles.error}>An error ocurred: {error}</p>
+                    <Error error={error}/>
                 ) : 
                 <UsersTable users={users} />
                 }       

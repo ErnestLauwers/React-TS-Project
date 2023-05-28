@@ -7,7 +7,7 @@ import RecipeService from "@/services/RecipeService"
 import { useRouter } from "next/router"
 import ProfileHeader from "@/components/ProfileHeader"
 import styles from '../../styles/createRecipe.module.css'
-
+import Error from '../../components/Error'
 
 const UserRecipes: React.FC = () => {
 
@@ -46,9 +46,9 @@ const UserRecipes: React.FC = () => {
             <Header/>
             <main>
             {error ? (
-                    <p className={styles.error}>An error ocurred: {error}</p>
+                    <Error error={error}/>
                 ) :
-            <><p className={styles.header2}>Recipes</p><ProfileHeader id={Number(id)} /><RecipeTable recipes={userRecipes} back="/profile" /></>
+            <><ProfileHeader id={Number(id)} /><RecipeTable recipes={userRecipes} back="/profile" /></>
             }
             </main>
         </>

@@ -6,6 +6,7 @@ import { User } from "@/types"
 import ProfileHeader from "@/components/ProfileHeader"
 import UserProfileTable from "@/components/user/UserProfileTable"
 import styles from "../../styles/post/postTable.module.css"
+import Error from '../../components/Error'
 
 const Profile: React.FC =  () => {
 
@@ -40,7 +41,7 @@ const Profile: React.FC =  () => {
             <Header/>
             <main>
             {error ? (
-                    <p className={styles.error}>An error ocurred: {error}</p>
+                    <Error error={error}/>
                 ) :
                 <><ProfileHeader id={user?.id as number} /><UserProfileTable /></>
             }

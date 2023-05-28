@@ -41,9 +41,7 @@ const RecipesUser: React.FC = () => {
             </Head>
             <Header/>
             <main>
-            <p className={styles.header2}>Recipes</p>
                 <RecipeTable recipes={userRecipes} back="/users"/>
-                <button className={styles.return} onClick={handleReturn}>Return</button>
             </main>
         </>
     )

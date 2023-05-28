@@ -6,6 +6,7 @@ import { Post } from "@/types"
 import PostService from "@/services/PostService"
 import PostTable from "@/components/post/PostTable"
 import { useEffect, useState } from "react"
+import Error from '../../../components/Error'
 
 const Posts: React.FC = () => {
 
@@ -51,13 +52,11 @@ const Posts: React.FC = () => {
             <title>User Posts</title>
         </Head>
         <Header/>
-        <main>
         {error ? (
-                    <p className={styles.error}>An error ocurred: {error}</p>
+                    <Error error={error}/>
                 ) :
-            <><p className={styles.header2}>Posts</p><PostTable posts={userPosts} back="/users" /><button className={styles.return} onClick={handleReturn}>Return</button></>
+            <PostTable posts={userPosts} back="/users/"/>
         }
-        </main>
         </>
     )
 }

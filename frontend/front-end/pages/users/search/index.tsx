@@ -4,6 +4,7 @@ import UserSearchForm from '../../../components/user/UserSearchForm'
 import { useEffect, useState } from 'react'
 import UserService from '@/services/UserService'
 import styles from "../../../styles/createRecipe.module.css"
+import Error from '../../../components/Error'
 
 const Search: React.FC = () => {
 
@@ -34,7 +35,7 @@ const Search: React.FC = () => {
             <Header/>
             <main>
             {error ? (
-                    <p className={styles.error}>An error ocurred: {error}</p>
+                    <Error error={error}/>
                 ) :
                 <UserSearchForm/>
             }  

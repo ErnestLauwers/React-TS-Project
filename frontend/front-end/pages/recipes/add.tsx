@@ -4,6 +4,7 @@ import RecipeAddForm from "@/components/recipe/RecipeAddForm"
 import { useState, useEffect } from 'react'
 import styles from "../../styles/createRecipe.module.css"
 import UserService from "@/services/UserService"
+import Error from '../../components/Error'
 
 const AddRecipe: React.FC = () => {
 
@@ -34,7 +35,7 @@ const AddRecipe: React.FC = () => {
             <Header/>
             <main>
             {error ? (
-                    <p className={styles.error}>An error ocurred: {error}</p>
+                    <Error error={error}/>
                 ) :
                 <RecipeAddForm/>
             }

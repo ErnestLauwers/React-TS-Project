@@ -6,6 +6,7 @@ import { Recipe } from "@/types"
 import Head from "next/head"
 import { useRouter } from "next/router"
 import { useEffect, useState } from "react"
+import Error from '../../components/Error'
 
 const Recipes: React.FC = () => {
 
@@ -32,9 +33,6 @@ const Recipes: React.FC = () => {
         getAllRecipes()
     }, [])
 
-    const handleCreateRecipe = () => {
-        router.push('/recipes/add')
-    }
 
     return (
         <>
@@ -44,9 +42,9 @@ const Recipes: React.FC = () => {
             <Header/>
             <main>
                 {error ? (
-                    <p className={styles.error}>An error ocurred: {error}</p>
+                    <Error error={error}/>
                 ) : 
-                <><RecipeTable recipes={recipes} back="/recipes" /><button className={styles.addRecipe} onClick={handleCreateRecipe}>Create Recipe</button></>
+                <RecipeTable recipes={recipes} back="/recipes" />
                 }
             </main>
         </>

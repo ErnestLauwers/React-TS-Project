@@ -58,11 +58,16 @@ const PostTable: React.FC<Props> = ({ posts = [], back }: Props) => {
         })
     }
 
+    const handleCreatePost = () => {
+        router.push('/posts/add')
+    }
+
     const loggedInUser = typeof sessionStorage !== "undefined" && sessionStorage.getItem("username")
     const userRole = typeof sessionStorage !== "undefined" && sessionStorage.getItem("userRole")
 
     return (
         <>
+        <p className={styles.header2}>Posts</p>
             {posts.length > 0 ? (
             posts && posts.map((post) => (
                 <table className={styles.table}>
@@ -96,6 +101,7 @@ const PostTable: React.FC<Props> = ({ posts = [], back }: Props) => {
             ) : (
                 <p className={styles.error}>This user has not made any posts yet!</p>
             )}
+            <button className={styles.add} onClick={handleCreatePost}>Create Post</button>
         </>
     )
 }

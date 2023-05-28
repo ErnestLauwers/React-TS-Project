@@ -4,6 +4,7 @@ import PostAddForm from "@/components/post/PostAddForm"
 import { useEffect, useState } from "react"
 import UserService from "@/services/UserService"
 import styles from "../../styles/post/postTable.module.css"
+import Error from '../../components/Error'
 
 const AddPost: React.FC = () => {
 
@@ -34,7 +35,7 @@ const AddPost: React.FC = () => {
             <Header/>
             <main>
             {error ? (
-                    <p className={styles.error}>An error ocurred: {error}</p>
+                    <Error error={error}/>
                 ) :
                 <PostAddForm/>
             }

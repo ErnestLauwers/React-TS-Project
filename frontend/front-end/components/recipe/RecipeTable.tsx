@@ -58,11 +58,16 @@ const RecipeTable: React.FC<Props> = ({ recipes = [], back }: Props) => {
         })
     }
 
+    const handleCreateRecipe = () => {
+        router.push('/recipes/add')
+    }
+
     const loggedInUser = typeof sessionStorage !== "undefined" && sessionStorage.getItem("username")
     const userRole = typeof sessionStorage !== "undefined" && sessionStorage.getItem("userRole")
 
     return (
         <>
+            <p className={styles.header2}>Recipes</p>
             {recipes.length > 0 ? (
             recipes && recipes.map((recipe) => (
                 <table className={styles.table}>
@@ -100,6 +105,7 @@ const RecipeTable: React.FC<Props> = ({ recipes = [], back }: Props) => {
             ) : (
                 <p className={styles.error}>This user has not made any recipes yet!</p>
             )}
+            <button className={styles.addRecipe} onClick={handleCreateRecipe}>Create Recipe</button>
         </>
     )
 }

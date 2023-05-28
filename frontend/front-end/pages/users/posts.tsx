@@ -39,9 +39,7 @@ const PostsUser: React.FC = () => {
             </Head>
             <Header/>
             <main>
-                <p className={styles.header2}>Posts</p>
                 <PostTable posts={UserPosts} back="/users"/>
-                <button className={styles.return} onClick={handleReturn}>Return</button>
             </main>
         </>
     )

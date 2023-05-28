@@ -7,6 +7,7 @@ import ProfileHeader from "@/components/ProfileHeader"
 import PostTable from "@/components/post/PostTable"
 import PostService from "@/services/PostService"
 import styles from '../../styles/createRecipe.module.css'
+import Error from '../../components/Error'
 
 
 const UserPosts: React.FC = () => {
@@ -46,9 +47,9 @@ const UserPosts: React.FC = () => {
             <Header/>
             <main>
             {error ? (
-                    <p className={styles.error}>An error ocurred: {error}</p>
+                    <Error error={error}/>
                 ) :
-                <><p className={styles.header2}>Posts</p><ProfileHeader id={Number(id)} /><PostTable posts={UserPosts} back="/profile" /></>
+                <><ProfileHeader id={Number(id)} /><PostTable posts={UserPosts} back="/profile" /></>
             }
             </main>
         </>

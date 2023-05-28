@@ -6,6 +6,7 @@ import { Post } from "@/types"
 import Head from "next/head"
 import { useRouter } from "next/router"
 import { useEffect, useState } from "react"
+import Error from '../../components/Error'
 
 const Posts: React.FC = () => {
 
@@ -33,10 +34,6 @@ const Posts: React.FC = () => {
         getAllPosts()
     }, [])
 
-    const handleCreatePost = () => {
-        router.push('/posts/add')
-    }
-
     return (
         <>
             <Head>
@@ -45,9 +42,9 @@ const Posts: React.FC = () => {
             <Header/>
             <main>
                 {error ? (
-                    <p className={styles.error}>An error ocurred: {error}</p>
+                    <Error error={error}/>
                 ) :
-                <><PostTable posts={posts} back="/posts" /><button className={styles.add} onClick={handleCreatePost}>Create Post</button></>
+                <PostTable posts={posts} back="/posts" />
                 }
             </main>
         </>

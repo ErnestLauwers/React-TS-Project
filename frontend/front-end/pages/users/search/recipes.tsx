@@ -6,6 +6,7 @@ import { Ingredient, Recipe } from "@/types"
 import { useEffect, useState } from "react"
 import RecipeService from "@/services/RecipeService"
 import RecipeTable from "@/components/recipe/RecipeTable"
+import Error from '../../../components/Error'
 
 const Recipes: React.FC = () => {
     
@@ -50,13 +51,11 @@ const Recipes: React.FC = () => {
                 <title>User Recipes</title>
             </Head>
             <Header/>
-            <main>
             {error ? (
-                    <p className={styles.error}>An error ocurred: {error}</p>
+                    <Error error={error}/>
                 ) : 
-            <><p className={styles.header2}>Recipes</p><RecipeTable recipes={userRecipes} back="/users" /><button className={styles.return} onClick={handleReturn}>Return</button></>
+            <RecipeTable recipes={userRecipes} back="/users/search" />
             }
-            </main>
         </>
     )
 }
