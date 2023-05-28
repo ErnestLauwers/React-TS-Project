@@ -38,7 +38,7 @@ const UserSearchForm: React.FC = () => {
         router.push({
             pathname: '/users/search/posts',
             query: { 
-                user: JSON.stringify(user),
+                id: user?.id,
                 username: username
             }
         })

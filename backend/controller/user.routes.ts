@@ -146,6 +146,10 @@ userRouter.get('/:id', async (request: Request, response: Response) => {
  *      responses:
  *          '200':
  *              description: The user was successfully deleted
+ *              content:
+ *                  application/json:
+ *                      schema:
+ *                          $ref: '#/components/schemas/User'
  */
 userRouter.delete('/delete/:id', async (request: Request, response: Response) => {
     try {
