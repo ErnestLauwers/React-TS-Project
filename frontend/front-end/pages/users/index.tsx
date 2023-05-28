@@ -2,6 +2,7 @@ import Head from 'next/head'
 import Header from '../../components/Header'
 import UserService from '../../services/UserService'
 import UsersTable from '../../components/user/UsersTable'
+import styles from "../../styles/createRecipe.module.css"
 import { User } from '../../types'
 import { useState, useEffect } from 'react'
 
@@ -36,7 +37,11 @@ const Users: React.FC = () => {
             </Head>
             <Header/>
             <main>
+                {error ? (
+                    <p className={styles.error}>An error ocurred: {error}</p>
+                ) : 
                 <UsersTable users={users} />
+                }       
             </main>
         </>
     )

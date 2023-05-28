@@ -6,7 +6,7 @@ import { useRouter } from "next/router"
 import ProfileHeader from "@/components/ProfileHeader"
 import PostTable from "@/components/post/PostTable"
 import PostService from "@/services/PostService"
-import styles from '../../styles/profile.module.css'
+import styles from '../../styles/createRecipe.module.css'
 
 
 const UserPosts: React.FC = () => {
@@ -15,11 +15,21 @@ const UserPosts: React.FC = () => {
     const { id } = router.query
 
     const [posts, setPosts] = useState<Array<Post>>([])
+    const [error, setError] = useState<string>()
 
     const getAllPosts = async () => {
-        PostService.getAllPosts()
-            .then((response) => response.json())
-            .then((posts) => setPosts(posts.reverse()))
+        const response = await PostService.getAllPosts();
+        if (!response.ok) {
+            if (response.status == 401) {
+                setError(
+                    "You are not authorized to view this page. Please login first."
+                );
+            } else {
+                setError(response.statusText);
+            }
+        } else {
+            setPosts(await response.json());
+        }
     }
 
     useEffect(() =>  {
@@ -31,13 +41,15 @@ const UserPosts: React.FC = () => {
     return (
         <>
             <Head>
-                <title>Recipes</title>
+                <title>Posts</title>
             </Head>
             <Header/>
             <main>
-                <p className={styles.header2}>Posts</p>
-                <ProfileHeader id={Number(id)}/>
-                <PostTable posts={UserPosts} back="/profile"/>
+            {error ? (
+                    <p className={styles.error}>An error ocurred: {error}</p>
+                ) :
+                <><p className={styles.header2}>Posts</p><ProfileHeader id={Number(id)} /><PostTable posts={UserPosts} back="/profile" /></>
+            }
             </main>
         </>
     )

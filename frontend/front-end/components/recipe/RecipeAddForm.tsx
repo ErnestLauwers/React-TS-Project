@@ -23,7 +23,7 @@ const RecipeAddForm: React.FC = () => {
 
     const router = useRouter()
     
-    const username = sessionStorage.getItem("username")
+    const username = typeof sessionStorage !== "undefined" && sessionStorage.getItem("username")
     if (username) {
         UserService.getUserwithUsername(username).then(response => {
             if (response.ok) {
@@ -41,13 +41,8 @@ const RecipeAddForm: React.FC = () => {
             try {
               const result = await IngredientService.addIngredient(ingredient);
               const resultJson = await result.json();
-              if (result.status === 200) {
-                const { id } = resultJson;
+              const { id } = resultJson;
               addedIngredients.push(id);
-              }
-              else {
-                setError(resultJson)
-              }
             } catch (error) {
               console.error(`Failed to add ingredient: ${error}`);
             }
@@ -77,15 +72,9 @@ const RecipeAddForm: React.FC = () => {
           name: ingredientName,
           amountUsed: amount
         };
-        if (ingredient.name == null || ingredient.name == "" || ingredient.amountUsed < 1) {
-            console.log("dont add")
-        }
-        else {
-            setIngredients([...ingredients, ingredient]);
-            setIngredientName("");
-            setAmount(0);
-        }
-        
+        setIngredients([...ingredients, ingredient]);
+        setIngredientName("");
+        setAmount(0);
       }
 
     return (

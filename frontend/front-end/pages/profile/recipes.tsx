@@ -6,7 +6,7 @@ import { Recipe } from "@/types"
 import RecipeService from "@/services/RecipeService"
 import { useRouter } from "next/router"
 import ProfileHeader from "@/components/ProfileHeader"
-import styles from '../../styles/profile.module.css'
+import styles from '../../styles/createRecipe.module.css'
 
 
 const UserRecipes: React.FC = () => {
@@ -15,11 +15,21 @@ const UserRecipes: React.FC = () => {
     const { id } = router.query
 
     const [recipes, setRecipes] = useState<Array<Recipe>>([])
+    const [error, setError] = useState<string>()
 
     const getAllRecipes = async () => {
-        RecipeService.getAllRecipes()
-            .then((response) => response.json())
-            .then((recipes) => setRecipes(recipes.reverse()))
+        const response = await RecipeService.getAllRecipes();
+        if (!response.ok) {
+            if (response.status === 401) {
+                setError(
+                    "You are not authorized to view this page. Please login first."
+                );
+            } else {
+                setError(response.statusText);
+            }
+        } else {
+            setRecipes(await response.json());
+        }
     }
 
     useEffect(() =>  {
@@ -35,9 +45,11 @@ const UserRecipes: React.FC = () => {
             </Head>
             <Header/>
             <main>
-            <p className={styles.header2}>Recipes</p>
-                <ProfileHeader id={Number(id)}/>
-                <RecipeTable recipes={userRecipes} back="/profile"/>
+            {error ? (
+                    <p className={styles.error}>An error ocurred: {error}</p>
+                ) :
+            <><p className={styles.header2}>Recipes</p><ProfileHeader id={Number(id)} /><RecipeTable recipes={userRecipes} back="/profile" /></>
+            }
             </main>
         </>
     )

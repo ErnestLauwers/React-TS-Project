@@ -7,7 +7,7 @@ import { useRouter } from "next/router"
 const UserProfileTable: React.FC =  () => {
 
     const router = useRouter();
-    const username = sessionStorage.getItem("username");
+    const username = typeof sessionStorage !== "undefined" && sessionStorage.getItem("username");
     const [user, setUser] = useState<User>();
 
     useEffect(() => {

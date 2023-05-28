@@ -58,8 +58,8 @@ const RecipeTable: React.FC<Props> = ({ recipes = [], back }: Props) => {
         })
     }
 
-    const loggedInUser = sessionStorage.getItem("username")
-    const userRole = sessionStorage.getItem("userRole")
+    const loggedInUser = typeof sessionStorage !== "undefined" && sessionStorage.getItem("username")
+    const userRole = typeof sessionStorage !== "undefined" && sessionStorage.getItem("userRole")
 
     return (
         <>

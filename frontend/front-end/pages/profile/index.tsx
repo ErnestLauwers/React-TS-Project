@@ -5,21 +5,32 @@ import UserService from "@/services/UserService"
 import { User } from "@/types"
 import ProfileHeader from "@/components/ProfileHeader"
 import UserProfileTable from "@/components/user/UserProfileTable"
+import styles from "../../styles/post/postTable.module.css"
 
 const Profile: React.FC =  () => {
 
-    const username = sessionStorage.getItem("username");
+    const username = typeof sessionStorage !== "undefined" && sessionStorage.getItem("username");
     const [user, setUser] = useState<User>();
+    const [error, setError] = useState<string>();
 
-    useEffect(() => {
-        const fetchData = async () => {
+    const getUserProfile = async () => {
         const response = await UserService.getUserwithUsername(username as string);
-        const user = await response.json();
-        setUser(user);
-        };
+        if (!response.ok) {
+            if (response.status == 401) {
+                setError(
+                    "You are not authorized to view this page. Please login first."
+                );
+            } else {
+                setError(response.statusText);
+            }
+        } else {
+            setUser(await response.json());
+        }
+    };
 
-        fetchData();
-    }, [username]);
+    useEffect(() =>  {
+        getUserProfile()
+    }, [])
 
     return (
         <>
@@ -28,8 +39,11 @@ const Profile: React.FC =  () => {
             </Head>
             <Header/>
             <main>
-                <ProfileHeader id={user?.id as number}/>
-                <UserProfileTable/>
+            {error ? (
+                    <p className={styles.error}>An error ocurred: {error}</p>
+                ) :
+                <><ProfileHeader id={user?.id as number} /><UserProfileTable /></>
+            }
             </main>
         </>
     )

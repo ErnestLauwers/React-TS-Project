@@ -11,11 +11,21 @@ const Recipes: React.FC = () => {
 
     const router = useRouter()
     const [recipes, setRecipes] = useState<Array<Recipe>>([])
+    const [error, setError] = useState<string>()
 
     const getAllRecipes = async () => {
-        RecipeService.getAllRecipes()
-            .then((response) => response.json())
-            .then((recipes) => setRecipes(recipes.reverse()))
+        const response = await RecipeService.getAllRecipes();
+        if (!response.ok) {
+            if (response.status === 401) {
+                setError(
+                    "You are not authorized to view this page. Please login first."
+                );
+            } else {
+                setError(response.statusText);
+            }
+        } else {
+            setRecipes(await response.json());
+        }
     }
 
     useEffect(() =>  {
@@ -33,8 +43,11 @@ const Recipes: React.FC = () => {
             </Head>
             <Header/>
             <main>
-                <RecipeTable recipes={recipes} back="/recipes"/>
-                <button className={styles.addRecipe} onClick={handleCreateRecipe}>Create Recipe</button>
+                {error ? (
+                    <p className={styles.error}>An error ocurred: {error}</p>
+                ) : 
+                <><RecipeTable recipes={recipes} back="/recipes" /><button className={styles.addRecipe} onClick={handleCreateRecipe}>Create Recipe</button></>
+                }
             </main>
         </>
     )

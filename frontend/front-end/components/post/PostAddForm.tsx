@@ -14,7 +14,7 @@ const PostAddForm: React.FC = () => {
 
     const router = useRouter()
     
-    const username = sessionStorage.getItem("username")
+    const username = typeof sessionStorage !== "undefined" && sessionStorage.getItem("username")
     if (username) {
         UserService.getUserwithUsername(username).then(response => {
             if (response.ok) {

@@ -12,11 +12,21 @@ const Posts: React.FC = () => {
     const router = useRouter();
 
     const [posts, setPosts] = useState<Array<Post>>([])
+    const [error, setError] = useState<string>()
 
     const getAllPosts = async () => {
-        PostService.getAllPosts()
-            .then((response) => response.json())
-            .then((posts) => setPosts(posts.reverse()))
+        const response = await PostService.getAllPosts();
+        if (!response.ok) {
+            if (response.status == 401) {
+                setError(
+                    "You are not authorized to view this page. Please login first."
+                );
+            } else {
+                setError(response.statusText);
+            }
+        } else {
+            setPosts(await response.json());
+        }
     }
 
     useEffect(() =>  {
@@ -34,8 +44,11 @@ const Posts: React.FC = () => {
             </Head>
             <Header/>
             <main>
-                <PostTable posts={posts} back="/posts"/>
-                <button className={styles.add} onClick={handleCreatePost}>Create Post</button>
+                {error ? (
+                    <p className={styles.error}>An error ocurred: {error}</p>
+                ) :
+                <><PostTable posts={posts} back="/posts" /><button className={styles.add} onClick={handleCreatePost}>Create Post</button></>
+                }
             </main>
         </>
     )

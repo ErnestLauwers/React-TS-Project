@@ -13,17 +13,26 @@ const Recipes: React.FC = () => {
     const { id, username } = router.query
 
     const [recipes, setRecipes] = useState<Array<Recipe>>([])
+    const [error, setError] = useState<string>()
 
     const getAllRecipes = async () => {
-        RecipeService.getAllRecipes()
-            .then((response) => response.json())
-            .then((recipes) => setRecipes(recipes.reverse()))
+        const response = await RecipeService.getAllRecipes();
+        if (!response.ok) {
+            if (response.status === 401) {
+                setError(
+                    "You are not authorized to view this page. Please login first."
+                );
+            } else {
+                setError(response.statusText);
+            }
+        } else {
+            setRecipes(await response.json());
+        }
     }
 
     useEffect(() =>  {
         getAllRecipes()
     }, [])
-
     const userRecipes = recipes.filter((recipe) => recipe.userId === Number(id))
 
     const handleReturn = () => {
@@ -42,9 +51,11 @@ const Recipes: React.FC = () => {
             </Head>
             <Header/>
             <main>
-            <p className={styles.header2}>Recipes</p>
-                <RecipeTable recipes={userRecipes} back="/users"/>
-                <button className={styles.return} onClick={handleReturn}>Return</button>
+            {error ? (
+                    <p className={styles.error}>An error ocurred: {error}</p>
+                ) : 
+            <><p className={styles.header2}>Recipes</p><RecipeTable recipes={userRecipes} back="/users" /><button className={styles.return} onClick={handleReturn}>Return</button></>
+            }
             </main>
         </>
     )
