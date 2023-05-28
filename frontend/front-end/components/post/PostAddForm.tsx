@@ -38,7 +38,7 @@ const PostAddForm: React.FC = () => {
         }
     }
 
-    const cancel: React.MouseEventHandler<HTMLButtonElement> = async (e) => {
+    const cancel: React.MouseEventHandler<HTMLButtonElement> = (e) => {
         e.preventDefault()
         router.push('/posts')
     }

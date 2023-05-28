@@ -11,14 +11,6 @@ export default function Home() {
             </Head>
             <Header/>
             <main>
-                <p className={styles.header}>
-                    !!in init-db.ts staan er meerdere users!!
-                </p>
-                <p>Admin : username: ernestlauwers password: password</p>
-                <p>Admin : username: igorstefanovic password: password</p>
-                <p>User1 : username: davidwalker password: password</p>
-                <p>User2 : username: lorrainemasson password: password</p>
-                <p>User3 : username: jennifershelby password: password</p>
                 <Image className={styles.image1} src="/image1.webp" alt="Cooking Image" width={400} height={250}/>
                 <section className={styles.post}>
                     <Image className={styles.postImage} src="/post.png" alt="Post" width={400} height={220}/>
@@ -33,7 +25,7 @@ export default function Home() {
                 <p className={styles.header}>Welcome</p>
                 <p className={styles.welcome}>Welcome to Cookbook Companion! If you are looking for a website where you can
                     get all sorts of recipes, share your favorite recipes, give opinions on food and much more, then you're at the right spot!
-                    What you waiting for, register now or login if you already have an account!
+                    What you waiting for, let's start!
                 </p>
             </main>
         </>

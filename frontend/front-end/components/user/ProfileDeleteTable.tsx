@@ -1,6 +1,9 @@
 import styles from '../../styles/profile.module.css'
 import { useRouter } from "next/router"
 import UserService from "@/services/UserService"
+import { useState } from 'react'
+import { Error } from '../../types'
+
 
 const ProfileDeleteTable: React.FC = () => {
 
@@ -8,19 +11,32 @@ const ProfileDeleteTable: React.FC = () => {
     const { user } = router.query
     const userParsed = JSON.parse(user as string) 
     const id = userParsed.id
+    const [error, setError] = useState<Error>()
 
-    const handleDelete = () => {
-        UserService.deleteUser(id)
-        sessionStorage.clear();
-        router.push("/")
+    const handleDelete: React.MouseEventHandler<HTMLButtonElement> = async (e) => {
+        e.preventDefault()
+        const response = await UserService.deleteUser(id)
+        const json = await response.json()
+        if (response.status == 200) {
+            sessionStorage.clear();
+            router.push("/")
+        }
+        else {
+            setError(json);
+        }
     }
 
-    const handleCancel = () => {
+    const handleCancel: React.MouseEventHandler<HTMLButtonElement> = (e) => {
+        e.preventDefault()
         router.push("/profile")
     }
 
     return (
         <>
+            {error ? (
+                <p className={styles.error}>{error.errorMessage}</p>
+            ) : null
+            }
             <p className={styles.header2}>Are you sure you want to permanently delete your account?</p>
                 <table className={styles.table}>
                     <tr>

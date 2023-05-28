@@ -41,8 +41,13 @@ const RecipeAddForm: React.FC = () => {
             try {
               const result = await IngredientService.addIngredient(ingredient);
               const resultJson = await result.json();
-              const { id } = resultJson;
+              if (result.status === 200) {
+                const { id } = resultJson;
               addedIngredients.push(id);
+              }
+              else {
+                setError(resultJson)
+              }
             } catch (error) {
               console.error(`Failed to add ingredient: ${error}`);
             }
@@ -72,9 +77,15 @@ const RecipeAddForm: React.FC = () => {
           name: ingredientName,
           amountUsed: amount
         };
-        setIngredients([...ingredients, ingredient]);
-        setIngredientName("");
-        setAmount(0);
+        if (ingredient.name == null || ingredient.name == "" || ingredient.amountUsed < 1) {
+            console.log("dont add")
+        }
+        else {
+            setIngredients([...ingredients, ingredient]);
+            setIngredientName("");
+            setAmount(0);
+        }
+        
       }
 
     return (

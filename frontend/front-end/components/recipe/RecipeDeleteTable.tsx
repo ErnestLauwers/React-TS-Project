@@ -1,6 +1,8 @@
 import { useRouter } from 'next/router'
 import styles from '../../styles/recipeTable.module.css'
 import RecipeService from '@/services/RecipeService'
+import { Error } from '../../types'
+import { useState } from 'react'
 
 const RecipeDeleteTable: React.FC = () => {
 
@@ -8,18 +10,31 @@ const RecipeDeleteTable: React.FC = () => {
     const { recipe, username, back} = router.query
     const recipeParsed = JSON.parse(recipe as string)
     const id = recipeParsed.id
+    const [error, setError] = useState<Error>()
 
-    const handleDelete = () => {
-        RecipeService.deleteRecipe(id)
-        router.push(back as string)
+    const handleDelete: React.MouseEventHandler<HTMLButtonElement> = async (e) => {
+        e.preventDefault()
+        const response = await RecipeService.deleteRecipe(id)
+        const json = await response.json()
+        if (response.status == 200) {
+            router.push(back as string)
+        }
+        else {
+            setError(json);
+        }
     }
 
-    const handleCancel = () => {
+    const handleCancel: React.MouseEventHandler<HTMLButtonElement> = (e) => {
+        e.preventDefault()
         router.push(back as string)
     }
 
     return (
         <>
+        {error ? (
+                <p className={styles.error}>{error.errorMessage}</p>
+            ) : null
+            }
             <p className={styles.p}>Are you sure you want to permanently delete this recipe?</p>
                 <table className={styles.table}>
                     <tr className={styles.row}>

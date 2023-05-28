@@ -34,7 +34,7 @@ const ProfileHeader: React.FC<Props> = ({id}: Props) => {
 
     const logout = () => {
         sessionStorage.clear();
-        router.push('users/login')
+        router.push('/users/login')
     }
 
     return (

@@ -1,6 +1,8 @@
 import UserService from '@/services/UserService'
 import styles from '../../styles/user/confirmation.module.css'
 import { useRouter } from 'next/router'
+import { Error } from '../../types'
+import { useState } from 'react'
 
 const UserDeleteTable: React.FC = () => {
 
@@ -8,11 +10,18 @@ const UserDeleteTable: React.FC = () => {
     const { user } = router.query
     const userParsed = JSON.parse(user as string) 
     const id = userParsed.id
+    const [error, setError] = useState<Error>()
 
-    const handleDelete: React.MouseEventHandler<HTMLButtonElement> = (e) => {
+    const handleDelete: React.MouseEventHandler<HTMLButtonElement> = async (e) => {
         e.preventDefault()
-        UserService.deleteUser(id)
-        router.push("/users")
+        const response = await UserService.deleteUser(id)
+        const json = await response.json()
+        if (response.status == 200) {
+            router.push("/users")
+        }
+        else {
+            setError(json);
+        }
     }
 
     const handleCancel: React.MouseEventHandler<HTMLButtonElement> = (e) => {
@@ -22,6 +31,10 @@ const UserDeleteTable: React.FC = () => {
 
     return (
         <>
+        {error ? (
+                <p className={styles.error}>{error.errorMessage}</p>
+            ) : null
+            }
             <p className={styles.p}>Are you sure you want to delete this account?</p>
                 <table className={styles.table}>
                     <thead className={styles.thead}>

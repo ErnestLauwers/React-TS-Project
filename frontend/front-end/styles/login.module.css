@@ -73,3 +73,16 @@
     margin-top: 80px;
     margin-bottom: 30px;
 }
+
+
+.login {
+    background-color: #ddb892;
+    width: 30%;
+    margin: auto;
+    margin-top: 30px;
+    font-size: 15px;
+    border: 1px solid black;
+    border-radius: 5px;
+    padding: 10px;
+    text-align: center;
+}

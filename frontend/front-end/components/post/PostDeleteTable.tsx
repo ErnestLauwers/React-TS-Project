@@ -1,6 +1,8 @@
 import { useRouter } from 'next/router'
 import styles from '../../styles/post/confirmation.module.css'
 import PostService from '@/services/PostService'
+import { Error } from '../../types'
+import { useState } from 'react'
 
 
 const PostDeleteTable: React.FC = () => {
@@ -9,11 +11,18 @@ const PostDeleteTable: React.FC = () => {
     const { post, username, back } = router.query
     const postParsed = JSON.parse(post as string)
     const id = postParsed.id
+    const [error, setError] = useState<Error>()
 
-    const handleDelete: React.MouseEventHandler<HTMLButtonElement> = (e) => {
+    const handleDelete: React.MouseEventHandler<HTMLButtonElement> = async (e) => {
         e.preventDefault()
-        PostService.deletePost(id)
-        router.push(back as string)
+        const response = await PostService.deletePost(id)
+        const json = await response.json()
+        if (response.status == 200) {
+            router.push(back as string)
+        }
+        else {
+            setError(json);
+        }
     }
 
     const handleCancel: React.MouseEventHandler<HTMLButtonElement> = (e) => {
@@ -23,6 +32,10 @@ const PostDeleteTable: React.FC = () => {
 
     return (
         <>
+            {error ? (
+                <p className={styles.error}>{error.errorMessage}</p>
+            ) : null
+            }
             <p className={styles.p}>Are you sure you want to permanently delete this post?</p>
             <table className={styles.table}>
                 <tr>
