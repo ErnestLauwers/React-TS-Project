@@ -24,7 +24,20 @@ const UserRegisterForm: React.FC = () => {
         const json = await response.json()
         if (response.status === 200) {
             setError(undefined)
-            router.push("/")
+            const response2 = await UserService.loginUser(username, password);
+            const json2 = await response2.json()
+                if (response2.status === 200) {
+                    const { token } = json2;
+                        sessionStorage.setItem("token", token);
+                        const userResponse = await UserService.getUserwithUsername(username);
+                        const { role } = await userResponse.json();
+                        sessionStorage.setItem("username", username);
+                        sessionStorage.setItem("userRole", role);
+                        router.push('/');   
+                }
+                else {
+                    setError(json)
+                }
         } 
         else {
             setError(json)

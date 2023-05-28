@@ -70,7 +70,7 @@ const postRouter = express.Router();
  *                      schema:
  *                          type: array
  *                          items:
- *                              $ref: '#components/schema/Post'
+ *                              $ref: '#components/schemas/Post'
  */
 postRouter.get('/', async (request: Request, response: Response) => {
     try {
@@ -96,7 +96,7 @@ postRouter.get('/', async (request: Request, response: Response) => {
  *                  application/json:
  *                      schema:
  *                          items:
- *                              $ref: '#components/schema/Post'
+ *                              $ref: '#components/schemas/Post'
  *      parameters:
  *          - name: id
  *            in: path
@@ -133,6 +133,10 @@ postRouter.get('/:id', async (request: Request, response: Response) => {
  *      responses:
  *          '200':
  *              description: The post was successfully deleted
+ *              content:
+ *                  application/json:
+ *                      schema:
+ *                          $ref: '#/components/schemas/Post'
  */
 postRouter.delete('/delete/:id', async (request: Request, response: Response) => {
     try {

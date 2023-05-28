@@ -4,13 +4,13 @@ import { useRouter } from 'next/router'
 import styles from '../../../styles/user/searchPosts.module.css'
 import { Post } from "@/types"
 import PostService from "@/services/PostService"
-
+import PostTable from "@/components/post/PostTable"
+import { useEffect, useState } from "react"
 
 const Posts: React.FC = () => {
 
     const router = useRouter()
-    const { user, username } = router.query
-    const userParsed = JSON.parse(user as string)
+    const { id, username } = router.query
 
     const handleReturn = () => {
         router.push({
@@ -21,20 +21,19 @@ const Posts: React.FC = () => {
         })
     }
 
-    const handleDelete = async (id: number) => {
-        const response = await PostService.getPost(id)
-        const post = await response.json()
-        router.push({
-            pathname: '/posts/confirmation',
-            query: { 
-                post: JSON.stringify(post),
-                username: username
-            }
-        })
+    const [posts, setPosts] = useState<Array<Post>>([])
+
+    const getAllPosts = async () => {
+        PostService.getAllPosts()
+            .then((response) => response.json())
+            .then((posts) => setPosts(posts.reverse()))
     }
 
-    const loggedInUser = sessionStorage.getItem("username")
+    useEffect(() =>  {
+        getAllPosts()
+    }, [])
 
+    const userPosts = posts.filter((post) => post.userId === Number(id))
 
     return (
         <>
@@ -43,35 +42,9 @@ const Posts: React.FC = () => {
         </Head>
         <Header/>
         <main>
-            {userParsed.posts.length > 0 ? (
-                userParsed.posts.map((post : Post) => (
-                    <table className={styles.table}>
-                        <tr>
-                            <td className={styles.td}>
-                                {username}
-                            </td>
-                            <td className={styles.td}>
-                                {new Date(post.createdAt).toLocaleDateString()}{' '}
-                                {new Date(post.createdAt).toLocaleTimeString()}
-                            </td>
-                        </tr>
-                        <tr>
-                            <td colSpan={2} className={styles.title}>{post.title}</td>
-                        </tr>
-                        <tr>
-                            <td colSpan={2} className={styles.text}>{post.text}</td>
-                        </tr> 
-                        {loggedInUser == "admin" ? (
-                        <tr>
-                            <td colSpan={2} className={styles.button1} onClick={() => handleDelete(post.id)}>Delete</td>
-                        </tr>
-                        ) : null}
-                    </table>
-                ))
-            ) : (
-                <p className={styles.error}>This user has not made any posts yet!</p>
-            )}
-            <button className={styles.add} onClick={handleReturn}>Return</button>
+            <p className={styles.header2}>Posts</p>
+            <PostTable posts={userPosts} back="/users"/>
+            <button className={styles.return} onClick={handleReturn}>Return</button>
         </main>
         </>
     )

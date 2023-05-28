@@ -98,7 +98,7 @@ const recipeRouter = express.Router();
  *                      schema:
  *                          type: array
  *                          items:
- *                              $ref: '#components/schema/Recipe'
+ *                              $ref: '#components/schemas/Recipe'
  */
 recipeRouter.get('/', async (request: Request, response: Response) => {
     try {
@@ -124,7 +124,7 @@ recipeRouter.get('/', async (request: Request, response: Response) => {
  *                  application/json:
  *                      schema:
  *                          items:
- *                              $ref: '#components/schema/Recipe'
+ *                              $ref: '#components/schemas/Recipe'
  *      parameters:
  *          - name: id
  *            in: path
@@ -161,6 +161,10 @@ recipeRouter.get('/:id', async (request: Request, response: Response) => {
  *      responses:
  *          '200':
  *              description: The recipe was successfully deleted
+ *              content:
+ *                  application/json:
+ *                      schema:
+ *                          $ref: '#/components/schemas/Recipe'
  */
 recipeRouter.delete('/delete/:id', async (request: Request, response: Response) => {
     try {

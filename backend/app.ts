@@ -49,20 +49,9 @@ const jwtSecret = process.env.JWT_SECRET;
 
 app.use(
   expressjwt({ secret: jwtSecret, algorithms: ['HS256'] }).unless({
-  path: [/^\/api-docs(\/.*)?$/, '/users/login', '/users/add', '/status', /^\/search\/.*/],
+  path: [/^\/api-docs(\/.*)?$/, '/users/login', '/users/add', '/status'],
   })
 )
-
-/*
-app.use((error: Error, request: Request, response: Response, next: NextFunction) => {
-  if (error.name === 'UnauthorizedError') {
-    response.status(401).json({ status : 'unauthorized', message: error.message});
-  } else if (error.name === 'WhattError') {
-    response.status(400).json({ status: 'error', message: error.message});
-  } else {
-    next();
-  }
-});*/
 
 app.use('/ingredients', ingredientRouter);
 app.use('/recipes', recipeRouter);

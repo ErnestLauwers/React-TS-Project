@@ -52,14 +52,12 @@ const ingredientRouter = express.Router();
  *      security:
  *          - bearerAuth: []
  *      responses:
- *          200:
+ *          '200':
  *              description: Returns ingredients
  *              content:
  *                  application/json:
  *                      schema:
- *                          type: array
- *                          items:
- *                              $ref: '#components/schema/Ingredient'
+ *                         $ref: '#components/schemas/Ingredient'
  */
 ingredientRouter.get('/', async (request: Request, response: Response) => {
     try {
@@ -79,13 +77,12 @@ ingredientRouter.get('/', async (request: Request, response: Response) => {
  *      security:
  *          - bearerAuth: []
  *      responses:
- *          200:
+ *          '200':
  *              description: Returns an ingredient
  *              content:
  *                  application/json:
  *                      schema:
- *                          items:
- *                              $ref: '#components/schema/Ingredient'
+ *                          $ref: '#/components/schemas/Ingredient'
  *      parameters:
  *          - name: id
  *            in: path
@@ -122,6 +119,10 @@ ingredientRouter.get('/:id', async (request: Request, response: Response) => {
  *      responses:
  *          '200':
  *              description: The ingredient was successfully deleted
+ *              content:
+ *                  application/json:
+ *                      schema:
+ *                          $ref: '#/components/schemas/Ingredient'
  */
 ingredientRouter.delete('/delete/:id', async (request: Request, response: Response) => {
     try {
