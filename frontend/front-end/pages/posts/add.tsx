@@ -10,7 +10,7 @@ const AddPost: React.FC = () => {
     const [error, setError] = useState<string>() 
 
     const getUserLoggedIn = async () => {
-        const response = await UserService.getUserwithUsername("");
+        const response = await UserService.getAllUsers();
         if (!response.ok) {
             if (response.status == 401) {
                 setError(
